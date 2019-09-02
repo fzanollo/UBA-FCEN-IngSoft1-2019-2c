@@ -1,8 +1,8 @@
 # changes file
-#*.changes
+*.changes
 
 # system image
-#*.image
+*.image
 
 # Pharo Smalltalk Debug log file
 PharoDebug.log
