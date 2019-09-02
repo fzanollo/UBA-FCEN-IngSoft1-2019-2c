@@ -7835,3 +7835,2098 @@ Smalltalk removeClassNamed: #miAuto!
 
 
 Smalltalk removeClassNamed: #miAuto!
+
+----SNAPSHOT----(29 August 2019 18:00:30) CuisUniversity-3839.image priorSource: 12853486!
+
+[true] whileTrue: [1]!
+
+----STARTUP---- (29 August 2019 18:02:16) as /home/akima/Documents/ingII/cuis_linux64/CuisUniversity-3839.image!
+
+
+[true] whileTrue:[]!
+
+----SNAPSHOT----(29 August 2019 18:03:43) CuisUniversity-3839.image priorSource: 12853769!
+
+42 inspect!
+
+#(2 3) inspect!
+
+Object inspect!
+
+Object inspect!
+
+'Object' inspect!
+
+'hola mati'!
+
+ #('a' 2 #('c' 3 'a')) exploreIt !
+
+'a' exploreIt !
+
+ #('a' 2 #('c' 3 'a'))!
+
+ #('a' 2 #('c' 3 'a'))!
+
+Assert isTrue: 1 = 2!
+
+Assert isTrue: 1 = 2!
+!CloneOfAlonsoChurch class methodsFor: 'as yet unclassified' stamp: 'fz 8/29/2019 18:30:10'!
+test01AVerComoHacemosTests
+
+	Assert isTrue: 1=2! !
+
+ObjectBuilder create: #SarasaTest
+	collaboratorNames: ''
+	in: 'Workspace-Objects'
+	!
+
+!classDefinition: #SarasaTest category: #'Workspace-Objects'!
+DenotativeObject subclass: #SarasaTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Workspace-Objects'!
+
+!classDefinition: 'SarasaTest class' category: #'Workspace-Objects'!
+SarasaTest class
+	instanceVariableNames: ''!
+!SarasaTest class methodsFor: 'nil' stamp: 'fz 8/29/2019 18:33:39'!
+test01AVerComoHacemosTests
+
+	Assert isTrue: 1=2! !
+!SarasaTest class methodsFor: 'nil' stamp: 'fz 8/29/2019 18:34:30'!
+otraCosa
+	^'asd'! !
+
+SarasaTest otraCosa !
+!SarasaTest class methodsFor: 'as yet unclassified' stamp: 'fz 8/29/2019 18:35:30' prior: 50733367!
+test01AVerComoHacemosTests
+
+	Assert isTrue: 2=2! !
+!SarasaTest class methodsFor: 'as yet unclassified' stamp: 'fz 8/29/2019 18:35:43' prior: 50733376!
+test01AVerComoHacemosTests
+
+	Assert isTrue: 2=1! !
+
+CloneOfAlonsoChurch class removeSelector: #test01AVerComoHacemosTests!
+
+Assert isTrue: 1=2!
+
+Smalltalk removeClassNamed: #SarasaTest!
+
+Smalltalk removeClassNamed: #CloneOfAlonsoChurch!
+
+odds!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds!
+
+odds !
+
+#do!
+
+#do!
+
+odds2 := OrderedCollection new.!
+
+elements do: [elem | elem odd ifTrue: [odds2 add: elem]].!
+
+elements do: [:elem | elem odd ifTrue: [odds2 add: elem]].!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem odd ifTrue: [odds2 add: elem]].!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem odd ifTrue: [odds2 add: elem]].!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem odd ifTrue: [odds2 add: elem]].
+odds2.!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) odd  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem odd ifTrue: [odds2 add: elem]].
+odds2.!
+
+#(1 2 5 6 9) select: [:elem | elem odd].!
+
+#(1 2 5 6 9) select: [:elem | elem odd].!
+
+#(1 2 5 6 9) select: [:elem | elem odd].!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    ((elements at: index) *2  ) ifTrue: [odds add: (elements at: index)].
+    index := index +1.
+    ].
+odds. !
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    odds add: (elements at: index)*2.
+    index := index +1.
+    ].
+odds. !
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    odds add: (elements at: index)*2.
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem *2].
+odds2.
+!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    odds add: (elements at: index)*2.
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | elem *2].
+odds2.
+!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    odds add: (elements at: index)*2.
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | odds2 add: elem*2].
+odds2.!
+
+|    elements index |
+elements:= #(1 2 5 6 9).
+
+odds := OrderedCollection new.
+index := 1.
+
+[index <= elements size]
+whileTrue: [
+    odds add: (elements at: index)*2.
+    index := index +1.
+    ].
+odds. 
+
+odds2 := OrderedCollection new.
+elements do: [:elem | odds2 add: elem*2].
+odds2.!
+
+#(1 2 5 6 9) detect: [:elem | elem even].!
+
+#(1 2 5 6 9) detect: [:elem | elem even].!
+
+#(1 5 9) detect: [:elem | elem even].!
+
+#(1 5 9) sum !
+
+#(1 5 9) collect: [:elem| elem*2] sum!
+
+(#(1 5 9) collect: [:elem| elem*2]) sum!
+
+'abcdefguijp' vowels!
+
+'abcdefguijp' select:[:c | c vowels]!
+
+
+10 * peso +  10 * dollar  !
+
+10 * peso!
+
+ 10 * dollar !
+
+----SNAPSHOT----(29 August 2019 21:03:59) CuisUniversity-3839.image priorSource: 12854022!
+
+10 * peso +( 10 * dollar) !
+
+10 * peso +( 10 * dollar) - (2 * dollar)!
+
+10 * peso +( 10 * dollar) - (2 * dollar) - (8 * dollar)!
+
+peso!
+
+peso!
+
+10 * peso!
+
+(10 * peso) amount!
+
+(10 * peso) amount!
+
+1 amount!
+
+1 amount!
+
+1 unit!
+
+1 unit!
+
+BaseUnit!
+
+BaseUnit!
+
+BaseUnit initializeNameFomOne: 'peso' nameForMany: 'pesos' sign: '::'!
+
+diezMetros := 10 * meter.!
+
+BaseUnit!
+
+BaseUnit nameForOne: 'metro' nameForMany: 'metros'!
+
+BaseUnit nameForOne: 'metro' nameForMany: 'metros'!
+
+BaseUnit nameForOne: 'metro' nameForMany: 'metros'!
+
+10 * metro!
+
+BaseUnit nameForOne: 'metro' nameForMany: 'metros'.!
+
+10 * BaseUnit nameForOne: 'metro' nameForMany: 'metros'.!
+
+10 * (BaseUnit nameForOne: 'metro' nameForMany: 'metros').!
+
+60 * (BaseUnit nameForOne: 'inch' nameForMany: 'inches').!
+
+60*inches!
+
+60*inches!
+
+| inches |
+
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+
+60*inches!
+
+| inches |
+
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+
+60*inches!
+
+60*inches + 10*meter!
+
+60*inches + (10*meter)!
+
+60*inches + (10*metros)!
+
+| inches  metros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+
+60*inches + (10*metros)
+!
+
+| inches  metros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+
+60*inches + (10*metros)
+!
+
+diezMetros convertTo: centimetros!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+centimetros := BaseUnit nameForOne: 'centimetro' nameForMany: 'centimetros'.
+
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros
+!
+
+diezMetros convertTo: centimetros!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+centimetros := BaseUnit nameForOne: 'centimetro' nameForMany: 'centimetros'.
+
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros!
+
+metros!
+
+metros!
+
+metro!
+
+BaseUnit nameForOne: 'metro' nameForMany: 'metros'. !
+
+----SNAPSHOT----(29 August 2019 21:43:31) CuisUniversity-3839.image priorSource: 12859779!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+centimetros := BaseUnit nameForOne: 'centimetro' nameForMany: 'centimetros'.
+
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := BaseUnit nameForOne: 'inch' nameForMany: 'inches'.
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.!
+
+sesentaPulgadas := 60*inches.!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 0.0254
+	nameForOne:  'pulgada'
+	nameForMany:  'pulgadas'
+	sign: 'in'.
+	
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+sesentaPulgadas := 60*inches.
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.
+
+diezMetros + sesen
+
+
+!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 0.0254
+	nameForOne:  'pulgada'
+	nameForMany:  'pulgadas'
+	sign: 'in'.
+	
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+sesentaPulgadas := 60*inches.
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.
+
+diezMetros + sesentaPulgadas 
+
+
+!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 0.0254
+	nameForOne:  'pulgada'
+	nameForMany:  'pulgadas'
+	sign: 'in'.
+	
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+sesentaPulgadas := 60*inches.
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.
+
+diezMetros + sesentaPulgadas 
+
+
+!
+
+sesentaPulgadas convertTo: metros.!
+
+| inches  metros centimetros|
+
+metros:= BaseUnit nameForOne: 'metro' nameForMany: 'metros'. 
+inches := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 0.0254
+	nameForOne:  'pulgada'
+	nameForMany:  'pulgadas'
+	sign: 'in'.
+	
+centimetros := ProportionalDerivedUnit 
+	baseUnit: metros 
+	conversionFactor: 1/100
+	nameForOne:  'centimetro'
+	nameForMany:  'centimetros'
+	sign: 'cm'.
+
+sesentaPulgadas := 60*inches.
+60*inches + (10*metros).
+
+diezMetros := 10*metros.
+
+diezMetros convertTo: centimetros.
+
+diezMetros + sesentaPulgadas.
+
+sesentaPulgadas convertTo: metros.
+
+
+!
+
+II + II!
+
+II removeAllNext !
+
+Smalltalk removeClassNamed: #IIII!
+
+Smalltalk removeClassNamed: #III!
+
+II * II!
+
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #III category: #'Numeros de Peano'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+III class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'III class' category: #'Numeros de Peano'!
+III class
+	instanceVariableNames: 'next previous'!
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	self <= unNroPeano ifTrue: [^ I].
+	
+	^ self - unNroPeano / unNroPeano + I! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+previous
+
+	^previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIII class' category: #'Numeros de Peano'!
+IIII class
+	instanceVariableNames: 'next previous'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	self <= unNroPeano ifTrue: [^ I].
+	
+	^ self - unNroPeano / unNroPeano + I! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+previous
+
+	^previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:01:20'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+Smalltalk removeClassNamed: #PeanoTest!
+
+----End fileIn of /home/akima/Documents/ingII/12-NumerosDePeano/PeanoTest.st----!
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:02:49'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	self shouldBeImplemented.! !
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:03:22' prior: 50733935!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:05:46' prior: 50733001!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	self <= unNroPeano ifTrue: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ].
+	
+	^ self - unNroPeano / unNroPeano + I! !
+
+II removeAllNext !
+
+Smalltalk removeClassNamed: #IIII!
+
+Smalltalk removeClassNamed: #III!
+
+II + II!
+
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #III category: #'Numeros de Peano'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+III class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'III class' category: #'Numeros de Peano'!
+III class
+	instanceVariableNames: 'next previous'!
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	self <= unNroPeano ifTrue: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ].
+	
+	^ self - unNroPeano / unNroPeano + I! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+previous
+
+	^previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIII class' category: #'Numeros de Peano'!
+IIII class
+	instanceVariableNames: 'next previous'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	self <= unNroPeano ifTrue: [self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor ].
+	
+	^ self - unNroPeano / unNroPeano + I! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+previous
+
+	^previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:06:58'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+II + II!
+
+Smalltalk removeClassNamed: #PeanoTest!
+
+----End fileIn of /home/akima/Documents/ingII/12-NumerosDePeano/PeanoTest.st----!
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:14:59'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!I class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:16:05'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true] ifFalse: [^false].! !
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:27:01' prior: 50733948!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+
+II removeAllNext !
+
+Smalltalk removeClassNamed: #IIII!
+
+Smalltalk removeClassNamed: #III!
+!I class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:28:53' prior: 50733159!
+/ unNroPeano
+
+	unNroPeano  = I ifTrue: [^ self].
+	
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor .! !
+
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #III category: #'Numeros de Peano'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+III class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'III class' category: #'Numeros de Peano'!
+III class
+	instanceVariableNames: 'next previous'!
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+previous
+
+	^previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIII class' category: #'Numeros de Peano'!
+IIII class
+	instanceVariableNames: 'next previous'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+previous
+
+	^previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:05'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+Smalltalk removeClassNamed: #PeanoTest!
+
+----End fileIn of /home/akima/Documents/ingII/12-NumerosDePeano/PeanoTest.st----!
+
+DenotativeObject subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIIII class' category: #'Numeros de Peano'!
+IIIII class
+	instanceVariableNames: 'next previous'!
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+previous
+
+	^previous! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:24'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIIIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIIIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIIIII class' category: #'Numeros de Peano'!
+IIIIII class
+	instanceVariableNames: 'next previous'!
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous
+
+	^previous! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIIIIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIIIIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIIIIII class' category: #'Numeros de Peano'!
+IIIIIII class
+	instanceVariableNames: 'next previous'!
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous
+
+	^previous! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIIIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIIIIIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIIIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIIIIIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIIIIIII class' category: #'Numeros de Peano'!
+IIIIIIII class
+	instanceVariableNames: 'next previous'!
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous
+
+	^previous! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIIIIIII class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:29:25'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+ObjectBuilder create: #Robot
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'
+	!
+
+!classDefinition: #Robot category: #'ej0 To The Moon'!
+DenotativeObject subclass: #Robot
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'Robot class' category: #'ej0 To The Moon'!
+Robot class
+	instanceVariableNames: ''!
+
+ObjectBuilder create: #Brazo
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'
+	!
+
+!classDefinition: #Brazo category: #'ej0 To The Moon'!
+DenotativeObject subclass: #Brazo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'Brazo class' category: #'ej0 To The Moon'!
+Brazo class
+	instanceVariableNames: ''!
+
+ObjectBuilder create: #MoonSensor
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'
+	!
+
+!classDefinition: #MoonSensor category: #'ej0 To The Moon'!
+DenotativeObject subclass: #MoonSensor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'MoonSensor class' category: #'ej0 To The Moon'!
+MoonSensor class
+	instanceVariableNames: ''!
+
+Smalltalk removeClassNamed: #Robot!
+
+ObjectBuilder create: #Mecha
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'
+	!
+
+!classDefinition: #Mecha category: #'ej0 To The Moon'!
+DenotativeObject subclass: #Mecha
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'Mecha class' category: #'ej0 To The Moon'!
+Mecha class
+	instanceVariableNames: ''!
+!Mecha class methodsFor: 'no messages' stamp: 'fz 8/30/2019 17:51:49'!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion! !
+!Mecha class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 17:52:27' prior: 50734889!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+
+	"este sería el método que interactúa con el hardware"! !
+!Mecha class methodsFor: 'acciones' stamp: 'fz 8/30/2019 17:53:05' prior: 50734895!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"! !
+
+1/=2!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 8/30/2019 17:55:54' prior: 50734902!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionNoValida]! !
+
+!classDefinition: 'Mecha class' category: #'ej0 To The Moon'!
+Mecha class
+	instanceVariableNames: 'velocidadMaxima'!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 8/30/2019 17:57:33' prior: 50734909!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifFalse: [^self error: self descripcionErrorVelocidadInvalida].! !
+!Mecha class methodsFor: 'acciones' stamp: 'fz 8/30/2019 17:58:58' prior: 50734923!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > 1*hour]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].! !
+
+!classDefinition: 'Mecha class' category: #'ej0 To The Moon'!
+Mecha class
+	instanceVariableNames: 'velocidadMaxima duracionMaxima'!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 8/30/2019 17:59:08' prior: 50734937!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > duracionMaxima]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].! !
+!Mecha class methodsFor: 'nil' stamp: 'fz 8/30/2019 18:00:15'!
+descripcionErrorDireccionInvalida
+	^'direccion inválida'! !
+!Mecha class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 18:00:37'!
+descripcionErrorVelocidadInvalida
+	^'velocidad inválida'! !
+!Mecha class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 18:00:53'!
+descripcionErrorDuracionInvalida
+	^'duración inválida'! !
+!Brazo class methodsFor: 'nil' stamp: 'fz 8/30/2019 18:01:44'!
+cerrarPinza! !
+!Brazo class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 18:02:05' prior: 50734989!
+cerrarPinza
+	"proceso que interactúa con el hardware"! !
+!Brazo class methodsFor: 'as yet unclassified' stamp: 'fz 8/30/2019 18:02:19'!
+guardarMuestra! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 8/30/2019 18:04:18'!
+tomarMuestra! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 15:48:18'!
+terminarDeTomarMuestra
+	"esto guarda la muestra en la mochila espacial"! !
+
+Brazo class removeSelector: #guardarMuestra!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 15:52:15'!
+tomarMuestraConDureza: Dureza yPorosidad: Porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	! !
+
+Brazo class removeSelector: #tomarMuestra!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 15:53:30' prior: 50735010!
+tomarMuestraConDureza: Dureza yPorosidad: Porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 15:54:13' prior: 50735019!
+tomarMuestraConDureza: Dureza yPorosidad: Porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 15:59:54'!
+tomarMuestraDeSueloDuroYCompacto! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:00:05'!
+tomarMuestraDeSueloBlandoYPoroso! !
+
+Brazo
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'!
+
+!classDefinition: #Brazo category: #'ej0 To The Moon'!
+DenotativeObject subclass: #Brazo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'Brazo class' category: #'ej0 To The Moon'!
+Brazo class
+	instanceVariableNames: ''!
+
+Brazo
+	collaboratorNames: 'tiposDeSuelo'
+	in: 'ej0 To The Moon'!
+
+!classDefinition: #Brazo category: #'ej0 To The Moon'!
+DenotativeObject subclass: #Brazo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'Brazo class' category: #'ej0 To The Moon'!
+Brazo class
+	instanceVariableNames: 'tiposDeSuelo'!
+
+Brazo class removeSelector: #tomarMuestraDeSueloBlandoYPoroso!
+
+Brazo class removeSelector: #tomarMuestraDeSueloDuroYCompacto!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:03:25'!
+agregarTipoDeSueloConCondicion: condicion yProcesamiento: acciones! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:03:38' prior: 50735067!
+agregarTipoDeSueloConCondicion: condicion yProcesamiento: acciones
+	tiposDeSuelo! !
+!Brazo class methodsFor: 'nil' stamp: 'fz 9/2/2019 16:03:48'!
+inicializacion! !
+!Brazo class methodsFor: 'inicializacion' stamp: 'fz 9/2/2019 16:05:09' prior: 50735077!
+inicializacion
+	tiposDeSuelo := Dictionary new.! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:12:14'!
+agregarTipoDeSueloConDurezaEntre: intervaloDureza porosidadEntre: intervaloPorosidad yProcesamiento: acciones
+	|condiciones|
+	
+	condiciones := Array with: intervaloDureza with: intervaloPorosidad.
+	tiposDeSuelo at: condiciones put: acciones.! !
+
+Brazo class removeSelector: #agregarTipoDeSueloConCondicion:yProcesamiento:!
+!Brazo class methodsFor: 'inicializacion' stamp: 'fz 9/2/2019 16:12:37' prior: 50735081!
+inicializacion
+	tiposDeSuelo := Dictionary new.! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:15:56' prior: 50735026!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysDo: [:condiciones| ]
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:19:17' prior: 50735103!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [:condiciones :acciones| 
+		(((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue:[
+				acciones value.
+			]
+		]
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:19:37' prior: 50735112!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [:condiciones :acciones| 
+		(((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue:[
+				acciones value.
+			]
+		]
+	
+	! !
+
+ObjectBuilder create: #testBrazo
+	collaboratorNames: ''
+	in: 'ej0 To The Moon'
+	!
+
+!classDefinition: #testBrazo category: #'ej0 To The Moon'!
+DenotativeObject subclass: #testBrazo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ej0 To The Moon'!
+
+!classDefinition: 'testBrazo class' category: #'ej0 To The Moon'!
+testBrazo class
+	instanceVariableNames: ''!
+!testBrazo class methodsFor: 'nil' stamp: 'fz 9/2/2019 16:21:02'!
+inicializacion! !
+
+!classDefinition: 'testBrazo class' category: #'ej0 To The Moon'!
+testBrazo class
+	instanceVariableNames: 'brazo'!
+!testBrazo class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:21:11' prior: 50735150!
+inicializacion
+	brazo ! !
+!testBrazo class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:22:01' prior: 50735158!
+inicializacion
+	Brazo inicializacion.
+	Brazo! !
+
+Smalltalk removeClassNamed: #testBrazo!
+
+self inicializacion !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:24:30' prior: 50735085!
+agregarTipoDeSueloConDurezaEntre: intervaloDureza porosidadEntre: intervaloPorosidad yProcesamiento: acciones
+	"suponemos la dureza y porosidad en intervalos entre 0 y 100, considerando 
+		duro > 60, compacto >60
+		blando < 30, poroso <30
+	"
+	|condiciones|
+	
+	condiciones := Array with: intervaloDureza with: intervaloPorosidad.
+	tiposDeSuelo at: condiciones put: acciones.! !
+
+self agregarTipoDeSueloConDurezaEntre: (Interval from: 0 to:30) porosidadEntre: (Interval from: 0 to:30) yProcesamiento: [Mecha girarConDireccion: #izq velocidad: 100 duracion: 5*minute]!
+
+self inicializacion !
+
+self agregarTipoDeSueloConDurezaEntre: (Interval from: 0 to:30) porosidadEntre: (Interval from: 0 to:30) yProcesamiento: [Mecha girarConDireccion: #izq velocidad: 100 duracion: 5*minute. Brazo cerrarPinza. Mecha girarConDireccion: #der velocidad: 100 duracion: 5*minute]!
+
+self agregarTipoDeSueloConDurezaEntre: (Interval from: 60 to:100) porosidadEntre: (Interval from: 60 to:100) yProcesamiento: [Mecha girarConDireccion: #der velocidad: 150 duracion: 10*minute. Brazo cerrarPinza. Mecha girarConDireccion: #izq velocidad: 150 duracion: 10*minute]!
+
+self agregarTipoDeSueloConDurezaEntre: (Interval from: 31 to:59) porosidadEntre: (Interval from: 31 to:59) yProcesamiento: [Mecha girarConDireccion: #der velocidad: 150 duracion: 5*minute. Brazo cerrarPinza. Mecha girarConDireccion: #izq velocidad: 100 duracion: 10*minute]!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:33:17'!
+guardarMuestra
+	"esto guarda la muestra en la mochila espacial"! !
+
+Brazo class removeSelector: #terminarDeTomarMuestra!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:33:37' prior: 50735125!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [:condiciones :acciones| 
+		(((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue:[
+				acciones value.
+			]
+		]
+	
+	self guardarMuestra.
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:33:47' prior: 50735223!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [:condiciones :acciones| 
+		(((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue:[
+				acciones value.
+			]
+		].
+	
+	self guardarMuestra.
+	
+	! !
+!Mecha class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:35:16' prior: 50734958!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > duracionMaxima]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].
+	
+	Transcript show: direccion, velocidad, duracion.! !
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:36:34' prior: 50735251!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > duracionMaxima]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].
+	
+	Transcript show: direccion, velocidad printString, duracion printString.! !
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:38:00' prior: 50735272!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > duracionMaxima]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].
+	
+	Transcript show: 'direccion: ', direccion, ', velocidad: ', velocidad printString, ', duracion: ', duracion printString.! !
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+!Mecha class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:38:24' prior: 50735295!
+girarConDireccion: direccion velocidad: velocidad duracion: duracion
+	"este sería el método que interactúa con el hardware"
+	
+	(direccion = #izq or: [direccion = #der]) ifFalse: [^self error: self descripcionErrorDireccionInvalida].
+	(velocidad < 0 or: [velocidad > velocidadMaxima]) ifTrue: [^self error: self descripcionErrorVelocidadInvalida].
+	(duracion < 0 or: [duracion > duracionMaxima]) ifTrue: [^self error: self descripcionErrorDuracionInvalida].
+	
+	Transcript show: 'direccion: ', direccion, ', velocidad: ', velocidad printString, ', duracion: ', duracion printString; newLine.! !
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+
+self tomarMuestraConDureza: 25 yPorosidad: 25!
+
+self tomarMuestraConDureza: 68 yPorosidad: 68!
+
+self tomarMuestraConDureza: 68 yPorosidad: 68!
+
+II removeAllNext !
+
+Smalltalk removeClassNamed: #IIIIIIII!
+
+Smalltalk removeClassNamed: #IIIIIII!
+
+Smalltalk removeClassNamed: #IIIIII!
+
+Smalltalk removeClassNamed: #IIIII!
+
+Smalltalk removeClassNamed: #IIII!
+
+Smalltalk removeClassNamed: #III!
+
+II + II!
+
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #III category: #'Numeros de Peano'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+III class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'III class' category: #'Numeros de Peano'!
+III class
+	instanceVariableNames: 'next previous'!
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+previous
+
+	^previous! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+!classDefinition: #IIII category: #'Numeros de Peano'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numeros de Peano'!
+
+IIII class
+	instanceVariableNames: 'next previous'!
+
+!classDefinition: 'IIII class' category: #'Numeros de Peano'!
+IIII class
+	instanceVariableNames: 'next previous'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+* unNumeroDePeano
+	
+	^ self previous * unNumeroDePeano + unNumeroDePeano.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
++ unNumeroDePeano
+	
+	^ self previous + unNumeroDePeano next
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+- unNroPeano
+
+	unNroPeano=I ifTrue: [^ self previous].
+
+	^ self previous - unNroPeano previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+/ unNroPeano
+
+	unNroPeano=I ifTrue: [^self].
+	
+	self >= (unNroPeano + unNroPeano ) ifTrue: [^ I + (self - unNroPeano / unNroPeano)].
+	self >= unNroPeano ifTrue: [^ I].	
+		
+	"divisor es menor que el dividendo"
+	self error: self descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor.
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+<= unNroPeano
+	unNroPeano = I ifTrue: [^false].
+	
+	^ self previous <= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+>= unNroPeano
+	unNroPeano = I ifTrue: [^true].
+	
+	^ self previous >= unNroPeano previous.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+descripcionDeErrorDeNoSePuedeDividirPorUnNumeroMayor
+	^'No se puede dividir por un numero mayor'.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+next
+	next ifNil: [
+		next := self cloneNamed: self name , 'I'.
+		next previous: self.
+	].
+
+	^ next
+	
+	! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+previous
+
+	^previous! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+previous: unNumeroDePeano
+
+	previous := unNumeroDePeano ! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:21'!
+removeAllNext
+	next ifNotNil: [
+		next removeAllNext.
+		next removeFromSystem.	
+		next := nil.
+	]! !
+!II class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:27'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := III.
+	previous := I.! !
+!III class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:27'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := IIII.
+	previous := II.! !
+!IIII class methodsFor: 'as yet unclassified' stamp: 'fz 9/2/2019 16:39:27'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := nil.
+	previous := III.! !
+
+II class removeSelector: #initializeCollaboratorsFromFile!
+
+III class removeSelector: #initializeCollaboratorsFromFile!
+
+IIII class removeSelector: #initializeCollaboratorsFromFile!
+
+Smalltalk removeClassNamed: #SensorLunar!
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:44:31' prior: 50735237!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [ :condiciones :acciones| (((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue: [acciones value] ].
+	
+	self guardarMuestra.
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:44:48' prior: 50735548!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [ :condiciones :acciones | (((condiciones at:1) includes: dureza) and: [(condiciones at:2) includes: porosidad]) ifTrue: [acciones value] ].
+	
+	self guardarMuestra.
+	
+	! !
+!Brazo class methodsFor: 'acciones' stamp: 'fz 9/2/2019 16:45:11' prior: 50735562!
+tomarMuestraConDureza: dureza yPorosidad: porosidad
+	"segun las caracteristicas del suelo sensado, manda señales acordes a la mecha"
+	
+	tiposDeSuelo keysAndValuesDo: [ :condiciones :acciones | (((condiciones at:1) includes: dureza) 
+		and: [(condiciones at:2) includes: porosidad]) ifTrue: [acciones value] ].
+	
+	self guardarMuestra.
+	
+	! !
