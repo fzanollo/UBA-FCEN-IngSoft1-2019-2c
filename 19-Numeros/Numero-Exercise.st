@@ -330,6 +330,39 @@ isZero
 
 	self subclassResponsibility ! !
 
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:20'!
+dividirAUnEntero: aDividend
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:32'!
+dividirAUnaFraccion: aDividend
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:41'!
+multiplicarEntero: aMultiplier 
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:49'!
+multiplicarFraccion: aMultiplier 
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:35:52'!
+restarAUnEntero: aMinuend
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:21:04'!
+restarAUnaFraccion: aMinuend
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:41:00'!
+sumarEntero: anAdder 
+	self subclassResponsibility ! !
+
+!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:41:08'!
+sumarFraccion: anAdder 
+	self subclassResponsibility ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Numero class' category: #'Numero-Exercise'!
@@ -364,24 +397,14 @@ Numero subclass: #Entero
 	^anAdder sumarEntero: self.
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:18:12'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:35:52'!
 - aSubtrahend
-	
-	| newNumerator |
-	(aSubtrahend isKindOf: self class) ifTrue: [^self class with: value - aSubtrahend integerValue].
-	
-		
-	newNumerator := (self * aSubtrahend denominator) - aSubtrahend numerator.
-	^newNumerator / aSubtrahend denominator.
+	^ aSubtrahend restarAUnEntero: self.
 ! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 18:54:28'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:27:07'!
 / aDivisor
-	| newNumerator |
-	(aDivisor isKindOf: self class) ifTrue: [^Fraccion with: self over: aDivisor].
-	
-	newNumerator := self * aDivisor denominator.
-	^ Fraccion with: newNumerator over: aDivisor numerator.
+	^aDivisor dividirAUnEntero: self.
 ! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:55'!
@@ -407,35 +430,6 @@ fibonacci
 greatestCommonDivisorWith: anEntero 
 	
 	^self class with: (value gcd: anEntero integerValue)! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:18:48'!
-multiplicarEntero: aMultiplier 
-	
-	^self class with: value * aMultiplier integerValue! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:22:02'!
-multiplicarFraccion: aMultiplier 
-	
-	| numerator |
-	
-	numerator := self class with: value * aMultiplier numerator integerValue .
-	^ Fraccion with: numerator over: aMultiplier denominator. 
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:08:43'!
-sumarEntero: anAdder 
-	
-	^self class with: value + anAdder integerValue.
-	! !
-
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:10:11'!
-sumarFraccion: anAdder 
-	
-	| newNumerator |
-	
-	newNumerator := self class with: (value * anAdder denominator integerValue) + anAdder numerator integerValue.
-	^Fraccion with: newNumerator over: anAdder denominator.
-! !
 
 
 !Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 21:01'!
@@ -484,6 +478,61 @@ isZero
 	
 	^value = 0! !
 
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:51:34'!
+dividirAUnEntero: aDividend
+
+	^Fraccion with: aDividend over: self.! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:30:11'!
+dividirAUnaFraccion: aDividend
+	
+	^aDividend numerator / (aDividend denominator * self).! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:18:48'!
+multiplicarEntero: aMultiplier 
+	
+	^self class with: value * aMultiplier integerValue! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:58:21'!
+multiplicarFraccion: aMultiplier 
+	
+	| newNumerator |
+	
+	newNumerator := self * aMultiplier numerator.
+	^ Fraccion with: newNumerator over: aMultiplier denominator. 
+	! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:57:39'!
+restarAUnEntero: aMinuend
+
+	^self class with: aMinuend integerValue - value.
+	! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:19:29'!
+restarAUnaFraccion: aMinuend
+
+	| newDenominator newNumerator |
+	newNumerator := aMinuend numerator - (aMinuend denominator * self).
+	newDenominator := aMinuend denominator.
+
+	^newNumerator / newDenominator ! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:08:43'!
+sumarEntero: anAdder 
+	
+	^self class with: value + anAdder integerValue.
+	! !
+
+!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:59:31'!
+sumarFraccion: anAdder 
+	
+	| newNumerator |
+	
+	newNumerator := (self * anAdder denominator) + anAdder numerator.
+	^Fraccion with: newNumerator over: anAdder denominator.
+! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: #'Numero-Exercise'!
@@ -520,55 +569,13 @@ Numero subclass: #Fraccion
 	
 	^anAdder sumarFraccion: self.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:10:12'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 20:19:55'!
 - aSubtrahend
-	
-	| newNumerator newDenominator |
-	
-	(aSubtrahend isKindOf: self class) ifTrue: [	
-		newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-		newDenominator := denominator * aSubtrahend denominator.
-		^newNumerator / newDenominator 
-	].
-	
-	newNumerator := numerator - (denominator * aSubtrahend).
-	newDenominator := denominator.
+	^aSubtrahend restarAUnaFraccion: self.! !
 
-	^newNumerator / newDenominator ! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 18:48:43'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:30:27'!
 / aDivisor
-	| newDenominator |
-	(aDivisor isKindOf: self class) ifTrue: [^self class with: numerator * aDivisor denominator over: denominator * aDivisor numerator].
-	
-	newDenominator := denominator * aDivisor .
-	
-	^self class with: numerator over: newDenominator.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:37:46'!
-multiplicarEntero: aMultiplier 
-	
-	^aMultiplier multiplicarFraccion: self.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:38:11'!
-multiplicarFraccion: aMultiplier 
-	
-	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
-	! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:12:31'!
-sumarEntero: anAdder 
-	^anAdder sumarFraccion: self.! !
-
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:14:10'!
-sumarFraccion: anAdder 
-	
-	| newNumerator newDenominator |
-	
-	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
-	newDenominator := denominator * anAdder denominator.
-	
-	^newNumerator / newDenominator ! !
+	^aDivisor dividirAUnaFraccion: self.! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
@@ -627,6 +634,62 @@ printOn: aStream
 		print: numerator;
 		nextPut: $/;
 		print: denominator ! !
+
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:26:44'!
+dividirAUnEntero: aDividend
+	| newNumerator |
+	
+	newNumerator := aDividend * self denominator.
+	^ Fraccion with: newNumerator over: self numerator.! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:28:54'!
+dividirAUnaFraccion: aDividend
+
+	^(aDividend numerator * denominator) / (aDividend denominator * numerator).
+	! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:37:46'!
+multiplicarEntero: aMultiplier 
+	
+	^aMultiplier multiplicarFraccion: self.! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:38:11'!
+multiplicarFraccion: aMultiplier 
+	
+	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
+	! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:35:52'!
+restarAUnEntero: aMinuend
+	|newNumerator|
+				
+	newNumerator := (aMinuend * denominator) - numerator.
+	^newNumerator / denominator.
+! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:17:58'!
+restarAUnaFraccion: aMinuend
+	| newNumerator newDenominator |
+	
+	newNumerator := (aMinuend numerator * denominator) - (denominator * numerator).
+	newDenominator := aMinuend denominator * denominator.
+	
+	^newNumerator / newDenominator 	! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:12:31'!
+sumarEntero: anAdder 
+	^anAdder sumarFraccion: self.! !
+
+!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:14:10'!
+sumarFraccion: anAdder 
+	
+	| newNumerator newDenominator |
+	
+	newNumerator := (numerator * anAdder denominator) + (denominator * anAdder numerator).
+	newDenominator := denominator * anAdder denominator.
+	
+	^newNumerator / newDenominator ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
