@@ -385,6 +385,9 @@ Numero subclass: #Entero
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
+!Entero commentStamp: '<historical>' prior: 0!
+.!
+
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 16:37:10'!
 * aMultiplier 
@@ -412,18 +415,9 @@ Numero subclass: #Entero
 	
 	^self class with: value // aDivisor integerValue! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:22:35'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:13:47'!
 fibonacci
-
-	| one two |
-	
-	one := self class with: 1.
-	two := self class with: 2.
-	
-	self isNegative ifTrue: [self error: self class negativeFibonacciErrorDescription ].	
-	(self isZero or: [self isOne]) ifTrue: [^one].
-	
-	^ (self - one) fibonacci + (self - two) fibonacci
+	^self subclassResponsibility 
 		! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:00'!
@@ -463,20 +457,20 @@ printOn: aStream
 	aStream print: value ! !
 
 
-!Entero methodsFor: 'testing' stamp: 'NR 9/23/2018 22:17:55'!
+!Entero methodsFor: 'testing' stamp: 'fz 9/15/2019 16:48:17'!
 isNegative
 	
-	^value < 0! !
+	^self subclassResponsibility ! !
 
-!Entero methodsFor: 'testing' stamp: 'HernanWilkinson 5/7/2016 20:14'!
+!Entero methodsFor: 'testing' stamp: 'fz 9/15/2019 16:48:11'!
 isOne
 	
-	^value = 1! !
+	^self subclassResponsibility ! !
 
-!Entero methodsFor: 'testing' stamp: 'HernanWilkinson 5/7/2016 20:12'!
+!Entero methodsFor: 'testing' stamp: 'fz 9/15/2019 16:48:05'!
 isZero
 	
-	^value = 0! !
+	^self subclassResponsibility ! !
 
 
 !Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:51:34'!
@@ -539,17 +533,184 @@ sumarUnaFraccion: anAdder
 Entero class
 	instanceVariableNames: ''!
 
+!Entero class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:20:55'!
+checkIfItsAnInteger: aValue 
+	
+	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
+	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].! !
+
 !Entero class methodsFor: 'instance creation' stamp: 'NR 4/8/2019 02:57:57'!
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'HernanWilkinson 5/7/2016 22:53'!
+!Entero class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:36:27'!
 with: aValue 
 	
 	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
 	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
 	
-	^self new initalizeWith: aValue! !
+	aValue = 1 ifTrue: [^Uno new].
+	aValue = 0 ifTrue: [^Cero new].
+	
+	aValue <0 ifTrue: [^Negativos con: aValue].
+	aValue >1 ifTrue: [^MayoresAUno con: aValue].! !
+
+
+!classDefinition: #Cero category: #'Numero-Exercise'!
+Entero subclass: #Cero
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Cero methodsFor: 'initialization' stamp: 'fz 9/15/2019 16:58:21'!
+initialize
+
+	value := 0! !
+
+
+!Cero methodsFor: 'testing' stamp: 'fz 9/15/2019 17:07:17'!
+isNegative
+	^false.! !
+
+!Cero methodsFor: 'testing' stamp: 'fz 9/15/2019 17:07:22'!
+isOne
+	^false.! !
+
+!Cero methodsFor: 'testing' stamp: 'fz 9/15/2019 17:07:29'!
+isZero
+	^true.! !
+
+
+!Cero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:14:59'!
+fibonacci
+	^Uno new.! !
+
+
+!classDefinition: #MayoresAUno category: #'Numero-Exercise'!
+Entero subclass: #MayoresAUno
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!MayoresAUno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:07:58'!
+isNegative
+	^false.! !
+
+!MayoresAUno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:08:03'!
+isOne
+	^false.! !
+
+!MayoresAUno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:08:05'!
+isZero
+	^false.! !
+
+
+!MayoresAUno methodsFor: 'initialization' stamp: 'fz 9/15/2019 17:08:36'!
+initializeWith: aValue
+
+	value := aValue.! !
+
+
+!MayoresAUno methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:35:55'!
+fibonacci
+	| two |
+	
+	two := self class con: 2.
+	
+	^ (self - Uno new) fibonacci + (self - two) fibonacci! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MayoresAUno class' category: #'Numero-Exercise'!
+MayoresAUno class
+	instanceVariableNames: ''!
+
+!MayoresAUno class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:35:55'!
+con: aValue
+
+	self checkIfItsAnInteger: aValue.
+	aValue <= 1 ifTrue:[self error: 'el valor tiene que ser mayor a uno'].
+	
+	^ self new initializeWith: aValue.! !
+
+
+!classDefinition: #Negativos category: #'Numero-Exercise'!
+Entero subclass: #Negativos
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Negativos methodsFor: 'testing' stamp: 'fz 9/15/2019 16:55:36'!
+isNegative
+	^true.! !
+
+!Negativos methodsFor: 'testing' stamp: 'fz 9/15/2019 16:55:50'!
+isOne
+	^false.! !
+
+!Negativos methodsFor: 'testing' stamp: 'fz 9/15/2019 16:55:03'!
+isZero
+	^false.! !
+
+
+!Negativos methodsFor: 'initialization' stamp: 'fz 9/15/2019 16:54:27'!
+initializeWith: aValue
+
+	value := aValue.! !
+
+
+!Negativos methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:17:57'!
+fibonacci
+	self error: self class negativeFibonacciErrorDescription
+! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Negativos class' category: #'Numero-Exercise'!
+Negativos class
+	instanceVariableNames: ''!
+
+!Negativos class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:36:08'!
+con: aValue
+
+	self checkIfItsAnInteger: aValue.
+	aValue < 0 ifFalse: [self error: 'el valor debe ser negativo'].
+	
+	^self new initializeWith: aValue ! !
+
+
+!classDefinition: #Uno category: #'Numero-Exercise'!
+Entero subclass: #Uno
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero-Exercise'!
+
+!Uno methodsFor: 'initialization' stamp: 'fz 9/15/2019 17:03:30'!
+initialize
+	
+	value := 1.! !
+
+
+!Uno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:12:11'!
+isNegative
+	^false.! !
+
+!Uno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:37:24'!
+isOne
+	^true.! !
+
+!Uno methodsFor: 'testing' stamp: 'fz 9/15/2019 17:12:17'!
+isZero
+	^false.! !
+
+
+!Uno methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:15:23'!
+fibonacci
+	^self.! !
 
 
 !classDefinition: #Fraccion category: #'Numero-Exercise'!
