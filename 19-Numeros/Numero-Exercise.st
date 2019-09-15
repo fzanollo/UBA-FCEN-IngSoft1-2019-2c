@@ -331,36 +331,36 @@ isZero
 	self subclassResponsibility ! !
 
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:20'!
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:40:20'!
 dividirAUnEntero: aDividend
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:32'!
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:40:32'!
 dividirAUnaFraccion: aDividend
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:41'!
-multiplicarEntero: aMultiplier 
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:10'!
+multiplicarPorUnEntero: aMultiplier 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:40:49'!
-multiplicarFraccion: aMultiplier 
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:26'!
+multiplicarPorUnaFraccion: aMultiplier 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:35:52'!
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:35:52'!
 restarAUnEntero: aMinuend
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:21:04'!
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:21:04'!
 restarAUnaFraccion: aMinuend
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:41:00'!
-sumarEntero: anAdder 
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:45'!
+sumarUnEntero: anAdder 
 	self subclassResponsibility ! !
 
-!Numero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:41:08'!
-sumarFraccion: anAdder 
+!Numero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:56'!
+sumarUnaFraccion: anAdder 
 	self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -386,15 +386,15 @@ Numero subclass: #Entero
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:19:31'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 16:37:10'!
 * aMultiplier 
 	
-	^aMultiplier multiplicarEntero: self.! !
+	^aMultiplier multiplicarPorUnEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:10:55'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 16:37:45'!
 + anAdder 
 	
-	^anAdder sumarEntero: self.
+	^anAdder sumarUnEntero: self.
 ! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 19:35:52'!
@@ -479,23 +479,23 @@ isZero
 	^value = 0! !
 
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:51:34'!
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:51:34'!
 dividirAUnEntero: aDividend
 
 	^Fraccion with: aDividend over: self.! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:30:11'!
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:30:11'!
 dividirAUnaFraccion: aDividend
 	
 	^aDividend numerator / (aDividend denominator * self).! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:18:48'!
-multiplicarEntero: aMultiplier 
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:10'!
+multiplicarPorUnEntero: aMultiplier 
 	
 	^self class with: value * aMultiplier integerValue! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:58:21'!
-multiplicarFraccion: aMultiplier 
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:26'!
+multiplicarPorUnaFraccion: aMultiplier 
 	
 	| newNumerator |
 	
@@ -503,13 +503,13 @@ multiplicarFraccion: aMultiplier
 	^ Fraccion with: newNumerator over: aMultiplier denominator. 
 	! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:57:39'!
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:57:39'!
 restarAUnEntero: aMinuend
 
 	^self class with: aMinuend integerValue - value.
 	! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:19:29'!
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:19:29'!
 restarAUnaFraccion: aMinuend
 
 	| newDenominator newNumerator |
@@ -518,14 +518,14 @@ restarAUnaFraccion: aMinuend
 
 	^newNumerator / newDenominator ! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:08:43'!
-sumarEntero: anAdder 
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:45'!
+sumarUnEntero: anAdder 
 	
 	^self class with: value + anAdder integerValue.
 	! !
 
-!Entero methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:59:31'!
-sumarFraccion: anAdder 
+!Entero methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:56'!
+sumarUnaFraccion: anAdder 
 	
 	| newNumerator |
 	
@@ -559,15 +559,15 @@ Numero subclass: #Fraccion
 	poolDictionaries: ''
 	category: 'Numero-Exercise'!
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:38:31'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 16:37:26'!
 * aMultiplier 
 	
-	^aMultiplier multiplicarFraccion: self.! !
+	^aMultiplier multiplicarPorUnaFraccion: self.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/12/2019 21:15:19'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 16:37:56'!
 + anAdder 
 	
-	^anAdder sumarFraccion: self.! !
+	^anAdder sumarUnaFraccion: self.! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'fz 9/13/2019 20:19:55'!
 - aSubtrahend
@@ -636,31 +636,31 @@ printOn: aStream
 		print: denominator ! !
 
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:26:44'!
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:26:44'!
 dividirAUnEntero: aDividend
 	| newNumerator |
 	
 	newNumerator := aDividend * self denominator.
 	^ Fraccion with: newNumerator over: self numerator.! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:28:54'!
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:28:54'!
 dividirAUnaFraccion: aDividend
 
 	^(aDividend numerator * denominator) / (aDividend denominator * numerator).
 	! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:37:46'!
-multiplicarEntero: aMultiplier 
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:26'!
+multiplicarPorUnEntero: aMultiplier 
 	
-	^aMultiplier multiplicarFraccion: self.! !
+	^aMultiplier multiplicarPorUnaFraccion: self.! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:38:11'!
-multiplicarFraccion: aMultiplier 
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:26'!
+multiplicarPorUnaFraccion: aMultiplier 
 	
 	^(numerator * aMultiplier numerator) / (denominator * aMultiplier denominator)
 	! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 19:35:52'!
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 19:35:52'!
 restarAUnEntero: aMinuend
 	|newNumerator|
 				
@@ -668,7 +668,7 @@ restarAUnEntero: aMinuend
 	^newNumerator / denominator.
 ! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/13/2019 20:17:58'!
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/13/2019 20:17:58'!
 restarAUnaFraccion: aMinuend
 	| newNumerator newDenominator |
 	
@@ -677,12 +677,12 @@ restarAUnaFraccion: aMinuend
 	
 	^newNumerator / newDenominator 	! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:12:31'!
-sumarEntero: anAdder 
-	^anAdder sumarFraccion: self.! !
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:56'!
+sumarUnEntero: anAdder 
+	^anAdder sumarUnaFraccion: self.! !
 
-!Fraccion methodsFor: 'as yet unclassified' stamp: 'fz 9/12/2019 21:14:10'!
-sumarFraccion: anAdder 
+!Fraccion methodsFor: 'arithmetic typed operations' stamp: 'fz 9/15/2019 16:37:56'!
+sumarUnaFraccion: anAdder 
 	
 	| newNumerator newDenominator |
 	
