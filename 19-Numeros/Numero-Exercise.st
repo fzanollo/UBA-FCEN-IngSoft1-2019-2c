@@ -527,6 +527,19 @@ sumarUnaFraccion: anAdder
 	^Fraccion with: newNumerator over: anAdder denominator.
 ! !
 
+
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:16'!
+onNegativeEvaluate: aClosure
+! !
+
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:38'!
+onOneEvaluate: aClosure
+! !
+
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:27'!
+onZeroEvaluate: aClosure
+! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Entero class' category: #'Numero-Exercise'!
@@ -543,11 +556,12 @@ checkIfItsAnInteger: aValue
 negativeFibonacciErrorDescription
 	^ ' Fibonacci no está definido aquí para Enteros Negativos'! !
 
-!Entero class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:36:27'!
+!Entero class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 18:20:52'!
 with: aValue 
+	self checkIfItsAnInteger: aValue.
 	
-	"Esta verificacion esta puesta por si se equivocan y quieren crear un Entero pasando otra cosa que un Integer - Hernan"
-	aValue isInteger ifFalse: [  self error: 'aValue debe ser anInteger' ].
+	"Los constructores de Uno, Cero, Negativos y MayoresAUno solo deben ser llamados desde acá,
+	no deben ser creados sin usar Entero"
 	
 	aValue = 1 ifTrue: [^Uno new].
 	aValue = 0 ifTrue: [^Cero new].
@@ -585,6 +599,12 @@ isZero
 !Cero methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:14:59'!
 fibonacci
 	^Uno new.! !
+
+
+!Cero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:27'!
+onZeroEvaluate: aClosure
+
+	aClosure value! !
 
 
 !classDefinition: #MayoresAUno category: #'Numero-Exercise'!
@@ -627,12 +647,8 @@ fibonacci
 MayoresAUno class
 	instanceVariableNames: ''!
 
-!MayoresAUno class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:35:55'!
+!MayoresAUno class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 18:19:32'!
 con: aValue
-
-	self checkIfItsAnInteger: aValue.
-	aValue <= 1 ifTrue:[self error: 'el valor tiene que ser mayor a uno'].
-	
 	^ self new initializeWith: aValue.! !
 
 
@@ -667,18 +683,19 @@ fibonacci
 	self error: self class negativeFibonacciErrorDescription
 ! !
 
+
+!Negativos methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:16'!
+onNegativeEvaluate: aClosure
+	aClosure value! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Negativos class' category: #'Numero-Exercise'!
 Negativos class
 	instanceVariableNames: ''!
 
-!Negativos class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 17:36:08'!
+!Negativos class methodsFor: 'instance creation' stamp: 'fz 9/15/2019 18:19:39'!
 con: aValue
-
-	self checkIfItsAnInteger: aValue.
-	aValue < 0 ifFalse: [self error: 'el valor debe ser negativo'].
-	
 	^self new initializeWith: aValue ! !
 
 
@@ -711,6 +728,11 @@ isZero
 !Uno methodsFor: 'arithmetic operations' stamp: 'fz 9/15/2019 17:15:23'!
 fibonacci
 	^self.! !
+
+
+!Uno methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:38'!
+onOneEvaluate: aClosure
+	aClosure value! !
 
 
 !classDefinition: #Fraccion category: #'Numero-Exercise'!
@@ -761,12 +783,12 @@ numerator
 	^ numerator! !
 
 
-!Fraccion methodsFor: 'initialization' stamp: 'HernanWilkinson 5/7/2016 22:54'!
+!Fraccion methodsFor: 'initialization' stamp: 'fz 9/15/2019 18:16:58'!
 initializeWith: aNumerator over: aDenominator
 
 	"Estas precondiciones estan por si se comenten errores en la implementacion - Hernan"
-	aNumerator isZero ifTrue: [ self error: 'una fraccion no puede ser cero' ].
-	aDenominator isOne ifTrue: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
+	aNumerator onZeroEvaluate: [ self error: 'una fraccion no puede ser cero' ].
+	aDenominator onOneEvaluate: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
 	
 	numerator := aNumerator.
 	denominator := aDenominator ! !
@@ -858,21 +880,21 @@ sumarUnaFraccion: anAdder
 Fraccion class
 	instanceVariableNames: ''!
 
-!Fraccion class methodsFor: 'intance creation' stamp: 'NR 9/23/2018 23:45:19'!
+!Fraccion class methodsFor: 'intance creation' stamp: 'fz 9/15/2019 18:10:38'!
 with: aDividend over: aDivisor
 
 	| greatestCommonDivisor numerator denominator |
 	
-	aDivisor isZero ifTrue: [ self error: self canNotDivideByZeroErrorDescription ].
-	aDividend isZero ifTrue: [ ^aDividend ].
+	aDivisor onZeroEvaluate: [self error: self canNotDivideByZeroErrorDescription].
+	aDividend onZeroEvaluate: [ ^aDividend ].
 	
-	aDivisor isNegative ifTrue:[ ^aDividend negated / aDivisor negated].
+	aDivisor onNegativeEvaluate: [ ^aDividend negated / aDivisor negated].
 	
 	greatestCommonDivisor := aDividend greatestCommonDivisorWith: aDivisor. 
 	numerator := aDividend // greatestCommonDivisor.
 	denominator := aDivisor // greatestCommonDivisor.
 	
-	denominator isOne ifTrue: [ ^numerator ].
+	denominator onOneEvaluate: [ ^numerator ].
 
 	^self new initializeWith: numerator over: denominator
 	! !
