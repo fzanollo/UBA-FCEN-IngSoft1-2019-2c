@@ -528,16 +528,16 @@ sumarUnaFraccion: anAdder
 ! !
 
 
-!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:16'!
-onNegativeEvaluate: aClosure
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:20'!
+onNegativeDo: aClosure
 ! !
 
-!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:38'!
-onOneEvaluate: aClosure
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:29'!
+onOneDo: aClosure
 ! !
 
-!Entero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:27'!
-onZeroEvaluate: aClosure
+!Entero methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:37'!
+onZeroDo: aClosure
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -601,8 +601,8 @@ fibonacci
 	^Uno new.! !
 
 
-!Cero methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:27'!
-onZeroEvaluate: aClosure
+!Cero methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:37'!
+onZeroDo: aClosure
 
 	aClosure value! !
 
@@ -684,8 +684,8 @@ fibonacci
 ! !
 
 
-!Negativos methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:16'!
-onNegativeEvaluate: aClosure
+!Negativos methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:20'!
+onNegativeDo: aClosure
 	aClosure value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -730,8 +730,8 @@ fibonacci
 	^self.! !
 
 
-!Uno methodsFor: 'evaluating' stamp: 'fz 9/15/2019 18:10:38'!
-onOneEvaluate: aClosure
+!Uno methodsFor: 'evaluating' stamp: 'fz 9/16/2019 14:41:29'!
+onOneDo: aClosure
 	aClosure value! !
 
 
@@ -783,12 +783,12 @@ numerator
 	^ numerator! !
 
 
-!Fraccion methodsFor: 'initialization' stamp: 'fz 9/15/2019 18:16:58'!
+!Fraccion methodsFor: 'initialization' stamp: 'fz 9/16/2019 14:41:37'!
 initializeWith: aNumerator over: aDenominator
 
 	"Estas precondiciones estan por si se comenten errores en la implementacion - Hernan"
-	aNumerator onZeroEvaluate: [ self error: 'una fraccion no puede ser cero' ].
-	aDenominator onOneEvaluate: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
+	aNumerator onZeroDo: [ self error: 'una fraccion no puede ser cero' ].
+	aDenominator onOneDo: [ self error: 'una fraccion no puede tener denominador 1 porque sino es un entero' ].
 	
 	numerator := aNumerator.
 	denominator := aDenominator ! !
@@ -880,21 +880,21 @@ sumarUnaFraccion: anAdder
 Fraccion class
 	instanceVariableNames: ''!
 
-!Fraccion class methodsFor: 'intance creation' stamp: 'fz 9/15/2019 18:10:38'!
+!Fraccion class methodsFor: 'intance creation' stamp: 'fz 9/16/2019 14:41:37'!
 with: aDividend over: aDivisor
 
 	| greatestCommonDivisor numerator denominator |
 	
-	aDivisor onZeroEvaluate: [self error: self canNotDivideByZeroErrorDescription].
-	aDividend onZeroEvaluate: [ ^aDividend ].
+	aDivisor onZeroDo: [self error: self canNotDivideByZeroErrorDescription].
+	aDividend onZeroDo: [ ^aDividend ].
 	
-	aDivisor onNegativeEvaluate: [ ^aDividend negated / aDivisor negated].
+	aDivisor onNegativeDo: [ ^aDividend negated / aDivisor negated].
 	
 	greatestCommonDivisor := aDividend greatestCommonDivisorWith: aDivisor. 
 	numerator := aDividend // greatestCommonDivisor.
 	denominator := aDivisor // greatestCommonDivisor.
 	
-	denominator onOneEvaluate: [ ^numerator ].
+	denominator onOneDo: [ ^numerator ].
 
 	^self new initializeWith: numerator over: denominator
 	! !
