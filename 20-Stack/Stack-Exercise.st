@@ -385,21 +385,18 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'searching' stamp: 'fz 9/19/2019 16:25:04'!
+!SentenceFinderByPrefix methodsFor: 'searching' stamp: 'fz 9/19/2019 16:56:54'!
 find: aPrefix
-	|collectionOfFoundSentences myBreakableStack|
+	|collectionOfFoundSentences|
 	
 	self isValid: aPrefix.
+	
 	collectionOfFoundSentences := Bag new.
 	
-	myBreakableStack := collectionToSearch copy.
-	
-	[myBreakableStack isEmpty] whileFalse: [
-		(myBreakableStack top beginsWith: aPrefix) ifTrue: [
-			collectionOfFoundSentences add: myBreakableStack top.
-		]. 
-		myBreakableStack pop.
-	].
+	self forEachElementOnCollectionDo: [:element |
+		(element beginsWith: aPrefix) ifTrue: [
+			collectionOfFoundSentences add: element.
+		]].
 	
 	^ collectionOfFoundSentences .! !
 
@@ -420,6 +417,17 @@ initializeWith: aCollectionToSearch
 !SentenceFinderByPrefix methodsFor: 'for testing only' stamp: 'fz 9/19/2019 16:11:25'!
 stack
 	^collectionToSearch ! !
+
+
+!SentenceFinderByPrefix methodsFor: 'iterating' stamp: 'fz 9/19/2019 16:56:48'!
+forEachElementOnCollectionDo: aClosureToRun
+	| myBreakableStack |
+	myBreakableStack := collectionToSearch copy.
+	
+	[myBreakableStack isEmpty] whileFalse: [
+		aClosureToRun value: myBreakableStack top.
+		myBreakableStack pop.
+	].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
