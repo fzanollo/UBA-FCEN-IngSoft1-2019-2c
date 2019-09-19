@@ -139,43 +139,103 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'nonMatchingSentence stackWithOneSentence stackWithMultipleSentences finderEmpty finderOneSentence finderMultipleSentences matchingPrefix nonMatchingPrefixBecauseUppercase nonMatchingPrefixBecauseDifferentLetters aMatchingSentence anotherMatchingSentence'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:37:18'!
-test01FinderWithoutSentenceShouldReturnEmptyOnFind
-	| emptyFinder |
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:20:34'!
+test01FinderWithoutSentenceShouldNotReturnMatching
 	
-	emptyFinder := SentenceFinderByPrefix with: OOStack new.
-	
-	self assert: (emptyFinder find: 'something') isEmpty! !
+	self assert: (finderEmpty find: matchingPrefix) isEmpty! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 20:49:36'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:02:46'!
 test02FinderWithOneSentenceShouldFindPrefixOfIt
-	| Finder aSentence stackWithSentence sentencesFound|
-	aSentence := 'something To Find'.
-	stackWithSentence := OOStack new.
-	stackWithSentence push: aSentence.
-	
-	Finder := SentenceFinderByPrefix with: stackWithSentence.
-	sentencesFound := Finder find: 'som'.
+	|sentencesFound|
+	sentencesFound := finderOneSentence find: matchingPrefix.
 	
 	self assert: sentencesFound size = 1.
-	self assert: sentencesFound first = aSentence.! !
+	self assert: sentencesFound includes: aMatchingSentence.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 20:46:54'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 15:58:38'!
 test03FinderShouldReturnEmptyIfPrefixIsNotPresent
-	| Finder aSentence stackWithSentence|
+
+	self assert: (finderOneSentence find: nonMatchingPrefixBecauseDifferentLetters) isEmpty! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:01:17'!
+test04FinderWithMultipleMatchingSentencesShouldReturnAllMatchings
+
+	| sentencesFound |
+
+	sentencesFound := finderMultipleSentences find: matchingPrefix.
 	
-	aSentence := 'something To Find'.
-	stackWithSentence := OOStack new.
-	stackWithSentence push: aSentence.
+	self assert: sentencesFound size = 2.
+	self assert: sentencesFound includes: anotherMatchingSentence.
+	self assert: sentencesFound includes: aMatchingSentence.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:06:50'!
+test05FinderWithMatchingSentencesShouldNotReturnNonMatchingSentence
+
+	| sentencesFound |
+
+	sentencesFound := finderMultipleSentences find: matchingPrefix.
 	
-	Finder := SentenceFinderByPrefix with: stackWithSentence .
+	self deny: sentencesFound isEmpty.
+	self deny: (sentencesFound includes: nonMatchingSentence).! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:19:02'!
+test06InternalStackIsNotModifiedAfterFind
+	| previousStack newStack |
 	
-	self assert: (Finder find: 'SOME') isEmpty! !
+	previousStack := finderMultipleSentences stack copy.
+	finderMultipleSentences find: matchingPrefix.
+	newStack := finderMultipleSentences stack.
+	
+	self assert: previousStack size = newStack size.
+	[previousStack isEmpty] whileFalse: [
+		self assert: previousStack top = newStack top.
+		previousStack pop.
+		newStack pop.
+	].! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:27:47'!
+test07FindWithEmptyPrefixShouldFail
+
+	self 
+		should: [finderMultipleSentences find: '']
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix emptyPrefixNotAllowed ].! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:31:22'!
+test08FindWithPrefixWithSpacesShouldFail
+
+	self 
+		should: [finderMultipleSentences find: matchingPrefix, ' ']
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix spacesNotAllowedInPrefix ].! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'set up' stamp: 'fz 9/19/2019 16:01:17'!
+setUp
+	aMatchingSentence := 'something To Find'.
+	anotherMatchingSentence := 'something else'.
+	nonMatchingSentence := 'this will not match'.
+	
+	stackWithOneSentence := OOStack new.
+	stackWithOneSentence push: aMatchingSentence.
+	
+	stackWithMultipleSentences := OOStack new.
+	stackWithMultipleSentences push: aMatchingSentence.
+	stackWithMultipleSentences push: anotherMatchingSentence.
+	stackWithMultipleSentences push: nonMatchingSentence.
+	
+	finderEmpty := SentenceFinderByPrefix with: OOStack new.
+	finderOneSentence := SentenceFinderByPrefix with: stackWithOneSentence.
+	finderMultipleSentences := SentenceFinderByPrefix with: stackWithMultipleSentences.
+	
+	matchingPrefix := 'some'.
+	nonMatchingPrefixBecauseUppercase := 'Some'.
+	nonMatchingPrefixBecauseDifferentLetters := 'same'.! !
 
 
 !classDefinition: #Cell category: #'Stack-Exercise'!
@@ -185,16 +245,17 @@ Object subclass: #Cell
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!Cell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:09:22'!
+!Cell methodsFor: 'accesing' stamp: 'fz 9/16/2019 20:09:22'!
 element
 	^self subclassResponsibility ! !
 
-!Cell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:30:17'!
-isEmpty
+!Cell methodsFor: 'accesing' stamp: 'fz 9/16/2019 20:09:37'!
+previous
 	^self subclassResponsibility ! !
 
-!Cell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:09:37'!
-previous
+
+!Cell methodsFor: 'testing' stamp: 'fz 9/16/2019 20:30:17'!
+isEmpty
 	^self subclassResponsibility ! !
 
 
@@ -205,17 +266,18 @@ Cell subclass: #EmptyCell
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!EmptyCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:22:21'!
+!EmptyCell methodsFor: 'accesing' stamp: 'fz 9/16/2019 21:22:21'!
 element
 	^self error: OOStack stackEmptyErrorDescription ! !
 
-!EmptyCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:30:33'!
-isEmpty
-	^true! !
-
-!EmptyCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:22:30'!
+!EmptyCell methodsFor: 'accesing' stamp: 'fz 9/16/2019 21:22:30'!
 previous
 	^self error: OOStack stackEmptyErrorDescription ! !
+
+
+!EmptyCell methodsFor: 'testing' stamp: 'fz 9/16/2019 20:30:33'!
+isEmpty
+	^true! !
 
 
 !classDefinition: #FullCell category: #'Stack-Exercise'!
@@ -225,22 +287,24 @@ Cell subclass: #FullCell
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!FullCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:07:25'!
+!FullCell methodsFor: 'accesing' stamp: 'fz 9/16/2019 20:07:25'!
 element
 	^element! !
 
-!FullCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:07:41'!
+!FullCell methodsFor: 'accesing' stamp: 'fz 9/16/2019 20:07:55'!
+previous
+	^previous! !
+
+
+!FullCell methodsFor: 'initialization' stamp: 'fz 9/16/2019 20:07:41'!
 initializeWith: aString over: anUndefinedObject 
 	element := aString.
 	previous := anUndefinedObject.! !
 
-!FullCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:30:41'!
+
+!FullCell methodsFor: 'testing' stamp: 'fz 9/16/2019 20:30:41'!
 isEmpty
 	^false! !
-
-!FullCell methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:07:55'!
-previous
-	^previous! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -248,7 +312,7 @@ previous
 FullCell class
 	instanceVariableNames: ''!
 
-!FullCell class methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:08:27'!
+!FullCell class methodsFor: 'initialization' stamp: 'fz 9/16/2019 20:08:27'!
 with: aString over: elElementoDeAbajo
 	^self new initializeWith: aString over: elElementoDeAbajo.! !
 
@@ -260,37 +324,42 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:20:19'!
+!OOStack methodsFor: 'accesing' stamp: 'fz 9/16/2019 19:45:33'!
+top
+	^top element ! !
+
+
+!OOStack methodsFor: 'initialization' stamp: 'fz 9/16/2019 20:20:19'!
 initialize
 	size := 0. 
 	top := EmptyCell new.! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:29:38'!
+
+!OOStack methodsFor: 'testing' stamp: 'fz 9/16/2019 20:29:38'!
 isEmpty
 	^ top isEmpty! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 19:43:42'!
+!OOStack methodsFor: 'testing' stamp: 'fz 9/16/2019 19:47:08'!
+size
+	^size ! !
+
+
+!OOStack methodsFor: 'adding' stamp: 'fz 9/16/2019 20:21:23'!
+push: aString 
+	top := FullCell with: aString over: top.
+	size := size+1! !
+
+
+!OOStack methodsFor: 'removing' stamp: 'fz 9/19/2019 15:15:55'!
 pop
 	| valueOfCurrentTop |
 	
 	valueOfCurrentTop := top element.
 	top := top previous.
+	size := size -1.
 	
 	^valueOfCurrentTop 
 ! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 20:21:23'!
-push: aString 
-	top := FullCell with: aString over: top.
-	size := size+1! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 19:47:08'!
-size
-	^size ! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 19:45:33'!
-top
-	^top element ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -311,27 +380,41 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 21:13:31'!
+!SentenceFinderByPrefix methodsFor: 'searching' stamp: 'fz 9/19/2019 16:25:04'!
 find: aPrefix
 	|collectionOfFoundSentences myBreakableStack|
-	collectionOfFoundSentences := OrderedCollection new.
 	
-	myBreakableStack := collectionToSearch deepCopy .
+	self isValid: aPrefix.
+	collectionOfFoundSentences := Bag new.
 	
-	(myBreakableStack isEmpty) whileFalse: [
-		(myBreakableStack top match: 'aPrefix*') ifTrue: [
+	myBreakableStack := collectionToSearch copy.
+	
+	[myBreakableStack isEmpty] whileFalse: [
+		(myBreakableStack top beginsWith: aPrefix) ifTrue: [
 			collectionOfFoundSentences add: myBreakableStack top.
 		]. 
 		myBreakableStack pop.
-	]
+	].
 	
 	^ collectionOfFoundSentences .! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:26:37'!
+!SentenceFinderByPrefix methodsFor: 'searching' stamp: 'fz 9/19/2019 16:29:39'!
+isValid: aPrefix
+	(aPrefix isEmpty) ifTrue: [^self error: self class emptyPrefixNotAllowed].
+	
+	(aPrefix includes: $ ) ifTrue: [^self error: self class spacesNotAllowedInPrefix].! !
+
+
+!SentenceFinderByPrefix methodsFor: 'initializing' stamp: 'fz 9/16/2019 21:26:37'!
 initializeWith: aStack
 
 	collectionToSearch := aStack
 ! !
+
+
+!SentenceFinderByPrefix methodsFor: 'for testing only' stamp: 'fz 9/19/2019 16:11:25'!
+stack
+	^collectionToSearch ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -339,6 +422,15 @@ initializeWith: aStack
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:28:04'!
+!SentenceFinderByPrefix class methodsFor: 'initialization' stamp: 'fz 9/16/2019 21:28:04'!
 with: aStack
 	^self new initializeWith: aStack.! !
+
+
+!SentenceFinderByPrefix class methodsFor: 'error descriptions' stamp: 'fz 9/19/2019 16:28:19'!
+emptyPrefixNotAllowed
+	^'empty prefix not allowed on find'! !
+
+!SentenceFinderByPrefix class methodsFor: 'error descriptions' stamp: 'fz 9/19/2019 16:32:01'!
+spacesNotAllowedInPrefix
+	^'spaces not allowed on prefix to find'.! !
