@@ -152,21 +152,30 @@ test01FinderWithoutSentenceShouldReturnEmptyOnFind
 	
 	self assert: (emptyFinder find: 'something') isEmpty! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:36:52'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 20:49:36'!
 test02FinderWithOneSentenceShouldFindPrefixOfIt
-	| emptyFinder |
+	| Finder aSentence stackWithSentence sentencesFound|
+	aSentence := 'something To Find'.
+	stackWithSentence := OOStack new.
+	stackWithSentence push: aSentence.
 	
-	emptyFinder := SentenceFinderByPrefix with: OOStack new.
+	Finder := SentenceFinderByPrefix with: stackWithSentence.
+	sentencesFound := Finder find: 'som'.
 	
-	self assert: (emptyFinder find: 'something') isEmpty! !
+	self assert: sentencesFound size = 1.
+	self assert: sentencesFound first = aSentence.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:40:07'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 20:46:54'!
 test03FinderShouldReturnEmptyIfPrefixIsNotPresent
-	| emptyFinder |
+	| Finder aSentence stackWithSentence|
 	
-	emptyFinder := SentenceFinderByPrefix with: OOStack new.
+	aSentence := 'something To Find'.
+	stackWithSentence := OOStack new.
+	stackWithSentence push: aSentence.
 	
-	self assert: (emptyFinder find: 'something') isEmpty! !
+	Finder := SentenceFinderByPrefix with: stackWithSentence .
+	
+	self assert: (Finder find: 'SOME') isEmpty! !
 
 
 !classDefinition: #Cell category: #'Stack-Exercise'!
@@ -302,9 +311,21 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:34:19'!
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MD 9/18/2019 21:13:31'!
 find: aPrefix
-	^OrderedCollection new.! !
+	|collectionOfFoundSentences myBreakableStack|
+	collectionOfFoundSentences := OrderedCollection new.
+	
+	myBreakableStack := collectionToSearch deepCopy .
+	
+	(myBreakableStack isEmpty) whileFalse: [
+		(myBreakableStack top match: 'aPrefix*') ifTrue: [
+			collectionOfFoundSentences add: myBreakableStack top.
+		]. 
+		myBreakableStack pop.
+	]
+	
+	^ collectionOfFoundSentences .! !
 
 !SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'fz 9/16/2019 21:26:37'!
 initializeWith: aStack
