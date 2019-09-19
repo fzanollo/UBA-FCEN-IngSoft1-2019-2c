@@ -214,6 +214,11 @@ test08FindWithPrefixWithSpacesShouldFail
 		raise: Error
 		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix spacesNotAllowedInPrefix ].! !
 
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'fz 9/19/2019 16:39:41'!
+test09FinderShouldReturnEmptyIfPrefixIsNotPresentBecauseOfUppercaseDifference
+
+	self assert: (finderOneSentence find: nonMatchingPrefixBecauseUppercase) isEmpty! !
+
 
 !SentenceFinderByPrefixTest methodsFor: 'set up' stamp: 'fz 9/19/2019 16:01:17'!
 setUp
