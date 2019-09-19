@@ -301,10 +301,10 @@ previous
 	^previous! !
 
 
-!FullCell methodsFor: 'initialization' stamp: 'fz 9/16/2019 20:07:41'!
-initializeWith: aString over: anUndefinedObject 
-	element := aString.
-	previous := anUndefinedObject.! !
+!FullCell methodsFor: 'initialization' stamp: 'fz 9/19/2019 16:48:26'!
+initializeWith: anElement over: thePreviousCell 
+	element := anElement.
+	previous := thePreviousCell.! !
 
 
 !FullCell methodsFor: 'testing' stamp: 'fz 9/16/2019 20:30:41'!
@@ -317,9 +317,9 @@ isEmpty
 FullCell class
 	instanceVariableNames: ''!
 
-!FullCell class methodsFor: 'initialization' stamp: 'fz 9/16/2019 20:08:27'!
-with: aString over: elElementoDeAbajo
-	^self new initializeWith: aString over: elElementoDeAbajo.! !
+!FullCell class methodsFor: 'initialization' stamp: 'fz 9/19/2019 16:48:17'!
+with: anElement over: thePreviousCell
+	^self new initializeWith: anElement over: thePreviousCell.! !
 
 
 !classDefinition: #OOStack category: #'Stack-Exercise'!
@@ -349,9 +349,9 @@ size
 	^size ! !
 
 
-!OOStack methodsFor: 'adding' stamp: 'fz 9/16/2019 20:21:23'!
-push: aString 
-	top := FullCell with: aString over: top.
+!OOStack methodsFor: 'adding' stamp: 'fz 9/19/2019 16:48:41'!
+push: anElementToStore 
+	top := FullCell with: anElementToStore over: top.
 	size := size+1! !
 
 
@@ -410,10 +410,10 @@ isValid: aPrefix
 	(aPrefix includes: $ ) ifTrue: [^self error: self class spacesNotAllowedInPrefix].! !
 
 
-!SentenceFinderByPrefix methodsFor: 'initializing' stamp: 'fz 9/16/2019 21:26:37'!
-initializeWith: aStack
+!SentenceFinderByPrefix methodsFor: 'initializing' stamp: 'fz 9/19/2019 16:49:22'!
+initializeWith: aCollectionToSearch
 
-	collectionToSearch := aStack
+	collectionToSearch := aCollectionToSearch
 ! !
 
 
@@ -427,9 +427,9 @@ stack
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'initialization' stamp: 'fz 9/16/2019 21:28:04'!
-with: aStack
-	^self new initializeWith: aStack.! !
+!SentenceFinderByPrefix class methodsFor: 'initialization' stamp: 'fz 9/19/2019 16:49:30'!
+with: aCollectionToSearch
+	^self new initializeWith: aCollectionToSearch.! !
 
 
 !SentenceFinderByPrefix class methodsFor: 'error descriptions' stamp: 'fz 9/19/2019 16:28:19'!
