@@ -66,6 +66,16 @@ test06WithNFsMovesForwardNTimes
 	
 	self assert: myRobot hasPosition: 2@4 andDirection: 'N'.! !
 
+!MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 16:08:36'!
+test07CanMoveBackwardsFacingEast
+	
+	| myRobot |
+	myRobot := MarsRover startingAt: 3@2 facing: 'E'.
+	
+	myRobot do: 'bbb'.
+	
+	self assert: myRobot hasPosition: 0@2 andDirection: 'E'.! !
+
 
 !MarsRoverTest methodsFor: 'assertions' stamp: 'fz 10/3/2019 21:24:17'!
 assert: myRobot hasPosition: aPosition andDirection: aDirection	
@@ -87,12 +97,16 @@ initializeStartingAt: aPosition facing: aDirection
 	direction := aDirection.! !
 
 
-!MarsRover methodsFor: 'instructions' stamp: 'fz 10/3/2019 21:27:25'!
+!MarsRover methodsFor: 'instructions' stamp: 'fz 10/8/2019 16:29:13'!
 do: anInstructions
-	anInstructions = 'f' ifTrue: [position := position + (0@1)].
-	anInstructions = 'b' ifTrue: [position := position + (0@-1)].
-	anInstructions = 'r' ifTrue: [direction := 'E'].
-	anInstructions = 'l' ifTrue: [direction := 'W']! !
+
+	anInstructions do:[:instruction | 
+		(instruction = $f or: [instruction = $b]) ifTrue: [
+			self move: instruction.
+		].
+		instruction = $r ifTrue: [direction := 'E'].
+		instruction = $l ifTrue: [direction := 'W']
+	].! !
 
 
 !MarsRover methodsFor: 'testing' stamp: 'fz 10/3/2019 21:13:18'!
@@ -102,6 +116,19 @@ direction
 !MarsRover methodsFor: 'testing' stamp: 'fz 10/3/2019 21:04:26'!
 position
 	^position! !
+
+
+!MarsRover methodsFor: 'private' stamp: 'fz 10/8/2019 16:30:26'!
+move: forwardOrBackward
+	|multiplier|
+	
+	(forwardOrBackward = $f) ifTrue:[multiplier := 1].
+	(forwardOrBackward = $b) ifTrue:[multiplier := -1].
+	
+	(direction = 'N') ifTrue: [position := position + (0@1*multiplier)].
+	(direction = 'S') ifTrue: [position := position + (0@-1*multiplier)].
+	(direction = 'W') ifTrue: [position := position + (-1@0*multiplier)].
+	(direction = 'E') ifTrue: [position := position + (1@0*multiplier)].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
