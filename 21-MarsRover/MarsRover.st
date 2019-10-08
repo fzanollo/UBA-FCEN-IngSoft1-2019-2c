@@ -76,6 +76,16 @@ test07CanMoveBackwardsFacingEast
 	
 	self assert: myRobot hasPosition: 0@2 andDirection: 'E'.! !
 
+!MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 16:34:30'!
+test08CanRotateMultipleTimes
+	
+	| myRobot |
+	myRobot := MarsRover startingAt: 3@2 facing: 'N'.
+	
+	myRobot do: 'rrr'.
+	
+	self assert: myRobot hasPosition: 3@2 andDirection: 'W'.! !
+
 
 !MarsRoverTest methodsFor: 'assertions' stamp: 'fz 10/3/2019 21:24:17'!
 assert: myRobot hasPosition: aPosition andDirection: aDirection	
@@ -97,15 +107,24 @@ initializeStartingAt: aPosition facing: aDirection
 	direction := aDirection.! !
 
 
-!MarsRover methodsFor: 'instructions' stamp: 'fz 10/8/2019 16:29:13'!
+!MarsRover methodsFor: 'instructions' stamp: 'fz 10/8/2019 16:39:34'!
 do: anInstructions
 
 	anInstructions do:[:instruction | 
 		(instruction = $f or: [instruction = $b]) ifTrue: [
 			self move: instruction.
 		].
-		instruction = $r ifTrue: [direction := 'E'].
-		instruction = $l ifTrue: [direction := 'W']
+		instruction = $r ifTrue: [
+			(direction = 'N') ifTrue: [direction := 'E'].
+			(direction = 'E') ifTrue: [direction := 'S'].
+			(direction = 'S') ifTrue: [direction := 'W'].
+			(direction = 'W') ifTrue: [direction := 'N'].
+		].
+		instruction = $l ifTrue: [
+			(direction = 'N') ifTrue: [direction := 'W'].
+			(direction = 'W') ifTrue: [direction := 'S'].
+			(direction = 'S') ifTrue: [direction := 'E'].
+			(direction = 'E') ifTrue: [direction := 'N'].]
 	].! !
 
 
