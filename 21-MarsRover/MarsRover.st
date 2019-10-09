@@ -26,26 +26,20 @@ test03WithBMovesBackward
 	
 	self assert: defaultRover hasPosition: defaultStartingPoint  + (0@-1) andDirection: defaultFacingDirection. ! !
 
-!MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 17:23:15'!
+!MarsRoverTest methodsFor: 'tests' stamp: 'MD 10/9/2019 19:20:54'!
 test04WithRRotatesRightward
 	
-	| myRobot |
-	myRobot := MarsRover startingAt: 0@0 facing: north.
+	defaultRover do: 'r'.
 	
-	myRobot do: 'r'.
-	
-	self assert: myRobot hasPosition: 0@0 andDirection: east.
+	self assert: defaultRover hasPosition: defaultStartingPoint andDirection: east.
 	! !
 
-!MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 17:23:26'!
+!MarsRoverTest methodsFor: 'tests' stamp: 'MD 10/9/2019 19:21:14'!
 test05WithLRotatesLeftward
 	
-	| myRobot |
-	myRobot := MarsRover startingAt: 0@0 facing: north.
+	defaultRover do: 'l'.
 	
-	myRobot do: 'l'.
-	
-	self assert: myRobot hasPosition: 0@0 andDirection: west.! !
+	self assert: defaultRover hasPosition: defaultStartingPoint andDirection: west.! !
 
 !MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 17:23:34'!
 test06WithNFsMovesForwardNTimes
