@@ -263,33 +263,29 @@ new
 
 !classDefinition: #MarsRover category: #MarsRover!
 Object subclass: #MarsRover
-	instanceVariableNames: 'position direction'
+	instanceVariableNames: 'position direction validInstructions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'initialization' stamp: 'fz 10/3/2019 21:01:18'!
+!MarsRover methodsFor: 'initialization' stamp: 'MD 10/9/2019 18:44:34'!
 initializeStartingAt: aPosition facing: aDirection
 
 	position := aPosition.
-	direction := aDirection.! !
-
-
-!MarsRover methodsFor: 'instructions' stamp: 'fz 10/8/2019 19:17:35'!
-do: anInstructions
-
-	|validInstructions|
+	direction := aDirection.
 	
-	validInstructions := Set with: $f with: $b with: $r with: $l.
+	validInstructions := Dictionary new.
+	validInstructions add: $f-> [self move: $f.]; add: $b-> [self move: $b.];
+					 add: $r-> [direction := direction right]; add: $l -> [direction := direction left].
+	! !
+
+
+!MarsRover methodsFor: 'instructions' stamp: 'MD 10/9/2019 18:52:37'!
+do: anInstructions
 	
 	anInstructions do:[:instruction | 
-		(instruction = $f or: [instruction = $b]) ifTrue: [
-			self move: instruction.
-		].
-		instruction = $r ifTrue: [ direction := direction right].
-		instruction = $l ifTrue: [direction := direction left ].
-		(validInstructions includes: instruction) ifFalse:[self error: (self class wrongInstructionErrorMessageWith: instruction)].
-		
+		(validInstructions includesKey: instruction) ifFalse:[self error: (self class wrongInstructionErrorMessageWith: instruction)].
+		(validInstructions at: instruction) value.
 ]! !
 
 
