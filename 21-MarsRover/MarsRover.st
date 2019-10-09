@@ -88,6 +88,18 @@ test09WrongInstructionFails
 		raise: Error 
 		withExceptionDo: [:anError | self assert: anError messageText equals: (MarsRover wrongInstructionErrorMessageWith: invalidInstruction)].! !
 
+!MarsRoverTest methodsFor: 'tests' stamp: 'MD 10/9/2019 19:18:22'!
+test10ComplexInstructionsExample
+
+	"este test paso de una, pero nos parece una buena idea despues de haber testeado todos los casos chicos hacer al menos un test mas complejo como para  mezclar todas las cosas"
+	
+	| myRobot |
+	myRobot := MarsRover startingAt: -1@-2 facing: west.
+	
+	myRobot do: 'rfffllflbblf'.
+	
+	self assert: myRobot hasPosition: -3@1 andDirection: north.! !
+
 
 !MarsRoverTest methodsFor: 'assertions' stamp: 'fz 10/3/2019 21:24:17'!
 assert: myRobot hasPosition: aPosition andDirection: aDirection	
@@ -95,170 +107,17 @@ assert: myRobot hasPosition: aPosition andDirection: aDirection
 	self assert: myRobot direction equals: aDirection. ! !
 
 
-!MarsRoverTest methodsFor: 'setUp' stamp: 'fz 10/8/2019 17:19:52'!
+!MarsRoverTest methodsFor: 'setUp' stamp: 'MD 10/9/2019 19:08:02'!
 setUp
-	north := North new.
-	south := South new.
-	west := West new.
-	east := East new.
+	north := MarsRoverNorth new.
+	south := MarsRoverSouth new.
+	west := MarsRoverWest new.
+	east := MarsRoverEast new.
 	
 	defaultStartingPoint := 0@0.
 	defaultFacingDirection := north.
 	defaultRover := MarsRover startingAt: defaultStartingPoint facing: defaultFacingDirection.
 	! !
-
-
-!classDefinition: #CardinalDirection category: #MarsRover!
-Object subclass: #CardinalDirection
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover'!
-
-!CardinalDirection methodsFor: 'directions' stamp: 'fz 10/8/2019 18:54:39'!
-left
-
-	^ self subclassResponsibility.! !
-
-!CardinalDirection methodsFor: 'directions' stamp: 'fz 10/8/2019 18:54:46'!
-right
-
-	^ self subclassResponsibility.! !
-
-
-!classDefinition: #East category: #MarsRover!
-CardinalDirection subclass: #East
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover'!
-
-!East methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:39'!
-left
-
-	^ North new.! !
-
-!East methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:46'!
-right
-
-	^ South new.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'East class' category: #MarsRover!
-East class
-	instanceVariableNames: 'uniqueInstance'!
-
-!East class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:48'!
-initialize
-
-	uniqueInstance := self basicNew ! !
-
-!East class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:41'!
-new
-	^ uniqueInstance! !
-
-
-!classDefinition: #North category: #MarsRover!
-CardinalDirection subclass: #North
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover'!
-
-!North methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:39'!
-left
-
-	^ West new.! !
-
-!North methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:46'!
-right
-
-	^ East new.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'North class' category: #MarsRover!
-North class
-	instanceVariableNames: 'uniqueInstance'!
-
-!North class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:52'!
-initialize
-
-	uniqueInstance := self basicNew ! !
-
-!North class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:16'!
-new
-	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
-	^ uniqueInstance! !
-
-
-!classDefinition: #South category: #MarsRover!
-CardinalDirection subclass: #South
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover'!
-
-!South methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:39'!
-left
-
-	^ East new.! !
-
-!South methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:46'!
-right
-
-	^ West new.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'South class' category: #MarsRover!
-South class
-	instanceVariableNames: 'uniqueInstance'!
-
-!South class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:57'!
-initialize
-
-	uniqueInstance := self basicNew ! !
-
-!South class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:22'!
-new
-	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
-	^ uniqueInstance! !
-
-
-!classDefinition: #West category: #MarsRover!
-CardinalDirection subclass: #West
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover'!
-
-!West methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:39'!
-left
-
-	^ South new.! !
-
-!West methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:54:46'!
-right
-
-	^ North new.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'West class' category: #MarsRover!
-West class
-	instanceVariableNames: 'uniqueInstance'!
-
-!West class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:52:00'!
-initialize
-
-	uniqueInstance := self basicNew ! !
-
-!West class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:29'!
-new
-	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
-	^ uniqueInstance! !
 
 
 !classDefinition: #MarsRover category: #MarsRover!
@@ -268,14 +127,14 @@ Object subclass: #MarsRover
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'initialization' stamp: 'MD 10/9/2019 18:44:34'!
+!MarsRover methodsFor: 'initialization' stamp: 'MD 10/9/2019 19:15:48'!
 initializeStartingAt: aPosition facing: aDirection
 
 	position := aPosition.
 	direction := aDirection.
 	
 	validInstructions := Dictionary new.
-	validInstructions add: $f-> [self move: $f.]; add: $b-> [self move: $b.];
+	validInstructions add: $f-> [position := position+direction forwardsDisplacement.]; add: $b-> [position := position+direction backwardsDisplacement.];
 					 add: $r-> [direction := direction right]; add: $l -> [direction := direction left].
 	! !
 
@@ -297,19 +156,6 @@ direction
 position
 	^position! !
 
-
-!MarsRover methodsFor: 'private' stamp: 'fz 10/8/2019 17:25:51'!
-move: forwardOrBackward
-	|multiplier|
-	
-	(forwardOrBackward = $f) ifTrue:[multiplier := 1].
-	(forwardOrBackward = $b) ifTrue:[multiplier := -1].
-	
-	(direction = North new) ifTrue: [position := position + (0@1*multiplier)].
-	(direction = South new) ifTrue: [position := position + (0@-1*multiplier)].
-	(direction = West new) ifTrue: [position := position + (-1@0*multiplier)].
-	(direction = East new) ifTrue: [position := position + (1@0*multiplier)].! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'MarsRover class' category: #MarsRover!
@@ -325,7 +171,214 @@ startingAt: aPosition facing: aDirection
 wrongInstructionErrorMessageWith: anInvalidInstruction
 	^ anInvalidInstruction asString, ' is not a valid instruction'! !
 
-East initialize!
-North initialize!
-South initialize!
-West initialize!
+
+!classDefinition: #MarsRoverCardinalDirection category: #MarsRover!
+Object subclass: #MarsRoverCardinalDirection
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!MarsRoverCardinalDirection methodsFor: 'directions' stamp: 'fz 10/8/2019 18:54:39'!
+left
+
+	^ self subclassResponsibility.! !
+
+!MarsRoverCardinalDirection methodsFor: 'directions' stamp: 'fz 10/8/2019 18:54:46'!
+right
+
+	^ self subclassResponsibility.! !
+
+
+!MarsRoverCardinalDirection methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:09:24'!
+backwardsDisplacement
+
+	^self subclassResponsibility.! !
+
+!MarsRoverCardinalDirection methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:09:20'!
+forwardsDisplacement
+
+	^self subclassResponsibility.! !
+
+
+!classDefinition: #MarsRoverEast category: #MarsRover!
+MarsRoverCardinalDirection subclass: #MarsRoverEast
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!MarsRoverEast methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:52'!
+left
+
+	^ MarsRoverNorth new.! !
+
+!MarsRoverEast methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:57'!
+right
+
+	^ MarsRoverSouth new.! !
+
+
+!MarsRoverEast methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:37'!
+backwardsDisplacement
+
+	^-1@0! !
+
+!MarsRoverEast methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:29'!
+forwardsDisplacement
+
+	^1@0! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverEast class' category: #MarsRover!
+MarsRoverEast class
+	instanceVariableNames: 'uniqueInstance'!
+
+!MarsRoverEast class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:48'!
+initialize
+
+	uniqueInstance := self basicNew ! !
+
+!MarsRoverEast class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:41'!
+new
+	^ uniqueInstance! !
+
+
+!classDefinition: #MarsRoverNorth category: #MarsRover!
+MarsRoverCardinalDirection subclass: #MarsRoverNorth
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!MarsRoverNorth methodsFor: 'directions' stamp: 'MD 10/9/2019 19:08:02'!
+left
+
+	^ MarsRoverWest new.! !
+
+!MarsRoverNorth methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:32'!
+right
+
+	^ MarsRoverEast new.! !
+
+
+!MarsRoverNorth methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:00'!
+backwardsDisplacement
+	^0@-1! !
+
+!MarsRoverNorth methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:11:54'!
+forwardsDisplacement
+
+	^0@1! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverNorth class' category: #MarsRover!
+MarsRoverNorth class
+	instanceVariableNames: 'uniqueInstance'!
+
+!MarsRoverNorth class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:52'!
+initialize
+
+	uniqueInstance := self basicNew ! !
+
+!MarsRoverNorth class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:16'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+
+!classDefinition: #MarsRoverSouth category: #MarsRover!
+MarsRoverCardinalDirection subclass: #MarsRoverSouth
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!MarsRoverSouth methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:32'!
+left
+
+	^ MarsRoverEast new.! !
+
+!MarsRoverSouth methodsFor: 'directions' stamp: 'MD 10/9/2019 19:08:02'!
+right
+
+	^ MarsRoverWest new.! !
+
+
+!MarsRoverSouth methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:19'!
+backwardsDisplacement
+
+	^0@1! !
+
+!MarsRoverSouth methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:15'!
+forwardsDisplacement
+
+	^0@-1! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverSouth class' category: #MarsRover!
+MarsRoverSouth class
+	instanceVariableNames: 'uniqueInstance'!
+
+!MarsRoverSouth class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:51:57'!
+initialize
+
+	uniqueInstance := self basicNew ! !
+
+!MarsRoverSouth class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:22'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+
+!classDefinition: #MarsRoverWest category: #MarsRover!
+MarsRoverCardinalDirection subclass: #MarsRoverWest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!MarsRoverWest methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:57'!
+left
+
+	^ MarsRoverSouth new.! !
+
+!MarsRoverWest methodsFor: 'directions' stamp: 'MD 10/9/2019 19:07:52'!
+right
+
+	^ MarsRoverNorth new.! !
+
+
+!MarsRoverWest methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:50'!
+backwardsDisplacement
+
+	^1@0! !
+
+!MarsRoverWest methodsFor: 'displacements' stamp: 'MD 10/9/2019 19:12:46'!
+forwardsDisplacement
+
+	^-1@0! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverWest class' category: #MarsRover!
+MarsRoverWest class
+	instanceVariableNames: 'uniqueInstance'!
+
+!MarsRoverWest class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:52:00'!
+initialize
+
+	uniqueInstance := self basicNew ! !
+
+!MarsRoverWest class methodsFor: 'as yet unclassified' stamp: 'fz 10/8/2019 18:43:29'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+MarsRoverEast initialize!
+MarsRoverNorth initialize!
+MarsRoverSouth initialize!
+MarsRoverWest initialize!
