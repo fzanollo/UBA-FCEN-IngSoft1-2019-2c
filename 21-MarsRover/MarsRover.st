@@ -51,8 +51,10 @@ test06WithNFsMovesForwardNTimes
 	
 	self assert: myRobot hasPosition: 2@4 andDirection: north.! !
 
-!MarsRoverTest methodsFor: 'tests' stamp: 'fz 10/8/2019 17:23:42'!
+!MarsRoverTest methodsFor: 'tests' stamp: 'MD 10/10/2019 13:09:57'!
 test07CanMoveBackwardsFacingEast
+	
+	"este test nos ayudó a ver que hay que tener en cuenta la dirección del mars rover al moverse. Ahora, una vez notado esto, generalizamos a todas las direcciones, ya que nos pareció que el caso a testear es el de mirar en otra dirección, en cambio cada dirección en particular es el 'dato'  "
 	
 	| myRobot |
 	myRobot := MarsRover startingAt: 3@2 facing: east.
@@ -121,15 +123,17 @@ Object subclass: #MarsRover
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'initialization' stamp: 'MD 10/9/2019 19:15:48'!
+!MarsRover methodsFor: 'initialization' stamp: 'MD 10/10/2019 13:10:53'!
 initializeStartingAt: aPosition facing: aDirection
 
 	position := aPosition.
 	direction := aDirection.
 	
 	validInstructions := Dictionary new.
-	validInstructions add: $f-> [position := position+direction forwardsDisplacement.]; add: $b-> [position := position+direction backwardsDisplacement.];
-					 add: $r-> [direction := direction right]; add: $l -> [direction := direction left].
+	validInstructions add: $f-> [position := position+direction forwardsDisplacement.]; 
+					add: $b-> [position := position+direction backwardsDisplacement.];
+					add: $r-> [direction := direction right]; 
+					add: $l -> [direction := direction left].
 	! !
 
 
