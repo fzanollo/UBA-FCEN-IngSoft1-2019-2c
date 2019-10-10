@@ -5,19 +5,19 @@ TestCase subclass: #TerniLapilliTest
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 18:50:23'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:14:19'!
 test04SePuedePonerUnaFichaDentroDelTablero
 
 	juegoNuevo putXAt: 0@0.
 	
 	self assert: juegoNuevo isPlayingO.
-	self assert: (juegoNuevo pieceAt: 0@0) equals: $X.
+	self assert: (juegoNuevo isXAt: 0@0).
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 18:39:14'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 19:38:01'!
 test05NoPuedoPonerFichaFueraDelTablero
 
-	self should: [juegoNuevo putXAt: -1@0. self fail]
+	self should: [juegoNuevo putXAt: -1@0]
 		raise: Error 
 		withExceptionDo: [:anError | self assert: anError messageText equals: (TerniLapilli cannotPutPieceOutsideBoardErrorMessageWith: -1@0)].
 	
@@ -25,30 +25,33 @@ test05NoPuedoPonerFichaFueraDelTablero
 	
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 18:39:05'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 19:41:42'!
 test06NoPuedePonerFichaQuienNoJuega
 	
-	self should: [juegoNuevo putOAt: 0@0. self fail]
+	self should: [juegoNuevo putOAt: 0@0.]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlayOutOfTurnErrorMessage].
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlayOutOfTurnErrorMessage.
+							self deny: (juegoNuevo isOAt: 0@0)].
 	
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 18:48:32'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:15:46'!
 test07SePuedenPonerHasta6Fichas
 			
-	self should: [juegoCon6Fichas putXAt: 2@1. self fail]
+	self should: [juegoCon6Fichas putXAt: 2@1]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutMoreThan6PiecesOnBoardErrorMessage].! !
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutMoreThan6PiecesOnBoardErrorMessage.
+							self deny: (juegoCon6Fichas isXAt: 2@1)].! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 18:52:25'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:16:38'!
 test08NoSePuedePonerFichaEnPosicionOcupada
 	
 	juegoNuevo putXAt: 0@0.
 	
-	self should: [juegoNuevo putOAt: 0@0. self fail]
+	self should: [juegoNuevo putOAt: 0@0]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutAPieceOnAnOccupiedPositionErrorMessage].! !
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutAPieceOnAnOccupiedPositionErrorMessage.
+							self deny: (juegoNuevo isOAt: 0@0)].! !
 
 
 !TerniLapilliTest methodsFor: 'setUp' stamp: 'MD 10/10/2019 18:48:54'!
@@ -81,13 +84,13 @@ test02DespuesDeXJuegaO
 	self assert: juegoNuevo  isPlayingO.
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - cambios de turno' stamp: 'MD 10/10/2019 17:29:17'!
+!TerniLapilliTest methodsFor: 'tests - cambios de turno' stamp: 'MD 10/10/2019 19:55:55'!
 test03DespuesDeOJuegaX
 
 	juegoNuevo  pasaTurno.
 	juegoNuevo  pasaTurno.
 	
-	self assert: juegoNuevo  isPlayingX.
+	self assert: juegoNuevo isPlayingX.
 	! !
 
 
@@ -105,6 +108,11 @@ initialize
 	tablero := Dictionary new.! !
 
 
+!TerniLapilli methodsFor: 'testing' stamp: 'MD 10/10/2019 19:51:49'!
+isOAt: aPosition
+	^self pieceAt: aPosition equals: $O
+	! !
+
 !TerniLapilli methodsFor: 'testing' stamp: 'MD 10/10/2019 17:25:13'!
 isPlayingO
 
@@ -115,10 +123,10 @@ isPlayingX
 
 	^ aQuienLeToca = $X .! !
 
-!TerniLapilli methodsFor: 'testing' stamp: 'MD 10/10/2019 17:35:02'!
-pieceAt: aPosition
-
-	^ tablero at: aPosition.! !
+!TerniLapilli methodsFor: 'testing' stamp: 'MD 10/10/2019 19:51:56'!
+isXAt: aPosition
+	^self pieceAt: aPosition equals: $X
+	! !
 
 
 !TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 17:25:36'!
@@ -146,6 +154,12 @@ putOAt: aPosition
 putXAt: aPosition
 
 	self playAs: $X at: aPosition onTurn: self isPlayingX ! !
+
+
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
+pieceAt: aPosition equals: aPlayer
+
+	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
