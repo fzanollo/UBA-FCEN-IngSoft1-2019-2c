@@ -93,6 +93,20 @@ test03DespuesDeOJuegaX
 	self assert: juegoNuevo isPlayingX.
 	! !
 
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/10/2019 20:36:20'!
+test09DespuesDe6FichasXPuedeMoverUnaSuya
+	
+	juegoCon6Fichas moveXFrom: 1@1 To: 2@1.
+	
+	self deny: (juegoCon6Fichas isXAt: 1@1).
+	self assert: (juegoCon6Fichas isXAt: 2@1).
+	
+	"10 no se puede mover ficha de otro jugador"
+	"11 no se puede mover ficha si previous no es ficha existente"
+	"12 no se puede mover a una posicion ocupada (funcionaria bien porque usamos putXto ?? que ya chequea eso), no irme de tablero" "se podria abstraer checkIfLegalPlace en vez de reutilizar putX"
+	"en vez de generalizar de una, hacer varios tests que rompan el move y copiar de uno a uno los chequeos del put"! !
+
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
@@ -134,14 +148,14 @@ pasaTurno
 
 	self isPlayingX ifTrue: [aQuienLeToca := $O] ifFalse: [aQuienLeToca := $X].! !
 
-!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 18:55:35'!
+!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 20:30:13'!
 playAs: aPlayer at: aPosition onTurn: isOnTurn
 
 	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPutPieceOutsideBoardErrorMessageWith: aPosition)].
-	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
-	tablero size >= 6 ifTrue: [self error: self class cannotPutMoreThan6PiecesOnBoardErrorMessage].
-	
 	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPutAPieceOnAnOccupiedPositionErrorMessage ].
+	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
+	
+	tablero size >= 6 ifTrue: [self error: self class cannotPutMoreThan6PiecesOnBoardErrorMessage].
 	tablero at: aPosition put: aPlayer.
 	self pasaTurno.! !
 
@@ -160,6 +174,13 @@ putXAt: aPosition
 pieceAt: aPosition equals: aPlayer
 
 	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
+
+
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'MD 10/10/2019 20:35:03'!
+moveXFrom: previousPosition To: newPosition
+	tablero removeKey: previousPosition.
+	tablero at: newPosition put: $X.
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
