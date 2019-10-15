@@ -14,12 +14,12 @@ test04SePuedePonerUnaFichaDentroDelTablero
 	self assert: (juegoNuevo isXAt: 0@0).
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 19:38:01'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:35:48'!
 test05NoPuedoPonerFichaFueraDelTablero
 
 	self should: [juegoNuevo putXAt: -1@0]
 		raise: Error 
-		withExceptionDo: [:anError | self assert: anError messageText equals: (TerniLapilli cannotPutPieceOutsideBoardErrorMessageWith: -1@0)].
+		withExceptionDo: [:anError | self assert: anError messageText equals: (TerniLapilli cannotPlacePieceOutsideBoardErrorMessageWith: -1@0)].
 	
 	
 	
@@ -35,22 +35,22 @@ test06NoPuedePonerFichaQuienNoJuega
 	
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:15:46'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:36:02'!
 test07SePuedenPonerHasta6Fichas
 			
 	self should: [juegoCon6Fichas putXAt: 2@1]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutMoreThan6PiecesOnBoardErrorMessage.
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlaceMoreThan6PiecesOnBoardErrorMessage.
 							self deny: (juegoCon6Fichas isXAt: 2@1)].! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:16:38'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:36:09'!
 test08NoSePuedePonerFichaEnPosicionOcupada
 	
 	juegoNuevo putXAt: 0@0.
 	
 	self should: [juegoNuevo putOAt: 0@0]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPutAPieceOnAnOccupiedPositionErrorMessage.
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.
 							self deny: (juegoNuevo isOAt: 0@0)].! !
 
 
@@ -94,18 +94,68 @@ test03DespuesDeOJuegaX
 	! !
 
 
-!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/10/2019 20:36:20'!
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:47'!
 test09DespuesDe6FichasXPuedeMoverUnaSuya
 	
-	juegoCon6Fichas moveXFrom: 1@1 To: 2@1.
+	juegoCon6Fichas moveXFrom: 2@2 to: 2@1.
 	
-	self deny: (juegoCon6Fichas isXAt: 1@1).
+	self deny: (juegoCon6Fichas isXAt: 2@2).
 	self assert: (juegoCon6Fichas isXAt: 2@1).
+	! !
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:47'!
+test10NoSePuedeMoverFichasDeOtroJugador
 	
-	"10 no se puede mover ficha de otro jugador"
-	"11 no se puede mover ficha si previous no es ficha existente"
-	"12 no se puede mover a una posicion ocupada (funcionaria bien porque usamos putXto ?? que ya chequea eso), no irme de tablero" "se podria abstraer checkIfLegalPlace en vez de reutilizar putX"
-	"en vez de generalizar de una, hacer varios tests que rompan el move y copiar de uno a uno los chequeos del put"! !
+	self should: [juegoCon6Fichas moveXFrom: 0@2 to: 1@2.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotMoveTheOtherPlayersPiecesErrorMessage.
+							self deny: (juegoCon6Fichas isXAt: 1@2).
+							self deny: (juegoCon6Fichas isOAt: 1@2).
+							self assert: (juegoCon6Fichas isOAt: 0@2)].! !
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:47'!
+test11NoSePuedeMoverUnaFichaQueNoExiste
+	
+	self should: [juegoCon6Fichas moveXFrom: 2@1 to: 2@0.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotMoveNonExistingPieceErrorMessage.
+							self deny: (juegoCon6Fichas isXAt: 2@0).
+							self deny: (juegoCon6Fichas isXAt: 2@1)].
+						
+						
+	! !
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:47'!
+test12NoSePuedeMoverUnaFichaAfueraDelTablero
+	
+	self should: [juegoCon6Fichas moveXFrom: 2@2 to: 3@2.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: (TerniLapilli cannotPlacePieceOutsideBoardErrorMessageWith: 3@2).
+							self assert: (juegoCon6Fichas isXAt: 2@2)].
+						
+	! !
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:47'!
+test13NoSePuedeMoverUnaFichaAUnLugarOcupado
+	
+	self should: [juegoCon6Fichas moveXFrom: 1@0 to: 1@1.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.
+							self assert: (juegoCon6Fichas isXAt: 1@0).
+							self assert: (juegoCon6Fichas isOAt: 1@1)].
+				
+	! !
+
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'MD 10/15/2019 17:43:37'!
+test14NoSePuedeMoverUnaFichaFueraDeTurno
+	
+	self should: [juegoCon6Fichas moveOFrom: 1@1 to: 1@2.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlayOutOfTurnErrorMessage.
+							self deny: (juegoCon6Fichas isOAt: 1@2).
+							self assert: (juegoCon6Fichas isOAt: 1@1)].
+				
+	! !
 
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
@@ -143,28 +193,22 @@ isXAt: aPosition
 	! !
 
 
-!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 17:25:36'!
-pasaTurno
-
-	self isPlayingX ifTrue: [aQuienLeToca := $O] ifFalse: [aQuienLeToca := $X].! !
-
-!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 20:30:13'!
+!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/15/2019 17:37:35'!
 playAs: aPlayer at: aPosition onTurn: isOnTurn
 
-	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPutPieceOutsideBoardErrorMessageWith: aPosition)].
-	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPutAPieceOnAnOccupiedPositionErrorMessage ].
+	self checkIfLegalPlace: aPosition .
 	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
 	
-	tablero size >= 6 ifTrue: [self error: self class cannotPutMoreThan6PiecesOnBoardErrorMessage].
+	tablero size >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].
 	tablero at: aPosition put: aPlayer.
 	self pasaTurno.! !
 
-!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 18:34:00'!
+!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/10/2019 18:34:00'!
 putOAt: aPosition 
 
 	self playAs: $O at: aPosition onTurn: self isPlayingO.! !
 
-!TerniLapilli methodsFor: 'turnTaking' stamp: 'MD 10/10/2019 18:35:22'!
+!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/10/2019 18:35:22'!
 putXAt: aPosition
 
 	self playAs: $X at: aPosition onTurn: self isPlayingX ! !
@@ -176,11 +220,45 @@ pieceAt: aPosition equals: aPlayer
 	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
 
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'MD 10/10/2019 20:35:03'!
-moveXFrom: previousPosition To: newPosition
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:43:24'!
+move: aPiece from: previousPosition to: newPosition onTurn: isOnTurn
+
+	| pieza |
+	self checkIfLegalPlace: newPosition.
+	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
+
+	pieza := tablero at: previousPosition ifAbsent: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
+	pieza = aPiece ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].
+
 	tablero removeKey: previousPosition.
-	tablero at: newPosition put: $X.
+	tablero at: newPosition put: aPiece.
 	! !
+
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:44:12'!
+moveOFrom: previousPosition to: newPosition
+
+	self move: $O from: previousPosition to: newPosition onTurn: self isPlayingO.
+	! !
+
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:44:22'!
+moveXFrom: previousPosition to: newPosition
+
+	self move: $X from: previousPosition to: newPosition onTurn: self isPlayingX .
+	! !
+
+
+!TerniLapilli methodsFor: 'turn taking' stamp: 'MD 10/10/2019 17:25:36'!
+pasaTurno
+
+	self isPlayingX ifTrue: [aQuienLeToca := $O] ifFalse: [aQuienLeToca := $X].! !
+
+
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/15/2019 17:37:35'!
+checkIfLegalPlace: aPosition
+
+	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPlacePieceOutsideBoardErrorMessageWith: aPosition)].
+	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPlaceAPieceOnAnOccupiedPositionErrorMessage ].
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -188,20 +266,29 @@ moveXFrom: previousPosition To: newPosition
 TerniLapilli class
 	instanceVariableNames: ''!
 
-!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:24:34'!
-cannotPlayOutOfTurnErrorMessage
-	^ 'no puede jugar el jugador que no le toca'! !
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 14:41:08'!
+cannotMoveNonExistingPieceErrorMessage
+	^ 'solo se pueden mover las 3 fichas desde las posiciones en las que estan'! !
 
-!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:53:13'!
-cannotPutAPieceOnAnOccupiedPositionErrorMessage
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 14:22:13'!
+cannotMoveTheOtherPlayersPiecesErrorMessage
+
+	^ 'solo se pueden mover las fichas del jugador al que le toca el turno actual'.! !
+
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 17:36:09'!
+cannotPlaceAPieceOnAnOccupiedPositionErrorMessage
 
 	^'no se pueden poner piezas en posiciones ocupadas'! !
 
-!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:46:58'!
-cannotPutMoreThan6PiecesOnBoardErrorMessage
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 17:36:02'!
+cannotPlaceMoreThan6PiecesOnBoardErrorMessage
 	^ 'no se pueden poner mas de 6 fichas en el tablero'! !
 
-!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 17:45:50'!
-cannotPutPieceOutsideBoardErrorMessageWith: aPosition
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 17:35:48'!
+cannotPlacePieceOutsideBoardErrorMessageWith: aPosition
 
 	^'no se pueden poner piezas fuera del rango 0@0 -- 2@2. ', aPosition asString , 'cae fuera del tablero'! !
+
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:24:34'!
+cannotPlayOutOfTurnErrorMessage
+	^ 'no puede jugar el jugador que no le toca'! !
