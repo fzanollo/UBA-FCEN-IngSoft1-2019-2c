@@ -157,15 +157,29 @@ test14NoSePuedeMoverUnaFichaFueraDeTurno
 				
 	! !
 
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'fz 10/15/2019 21:01:02'!
+test15NoSePuedeMoverUnaFichaAntesDeColocar6Fichas
+	
+	juegoNuevo putXAt: 0@0.
+	juegoNuevo putOAt: 2@0.	
+	
+	self should: [juegoNuevo moveXFrom: 0@0 to: 0@1.]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotMovePiecesBeforeSixArePlacedErrorMessage.
+							self deny: (juegoNuevo isXAt: 0@1).
+							self assert: (juegoNuevo isXAt: 0@0)].
+				
+	! !
+
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
-	instanceVariableNames: 'aQuienLeToca tablero'
+	instanceVariableNames: 'aQuienLeToca tablero state'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilli methodsFor: 'initialization' stamp: 'MD 10/10/2019 17:34:34'!
+!TerniLapilli methodsFor: 'initialization' stamp: 'fz 10/15/2019 21:16:28'!
 initialize
 
 	aQuienLeToca := $X.
@@ -220,12 +234,14 @@ pieceAt: aPosition equals: aPlayer
 	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
 
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:43:24'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 21:02:59'!
 move: aPiece from: previousPosition to: newPosition onTurn: isOnTurn
 
 	| pieza |
 	self checkIfLegalPlace: newPosition.
 	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
+	
+	tablero size < 6 ifTrue: [self error: self class cannotMovePiecesBeforeSixArePlacedErrorMessage].
 
 	pieza := tablero at: previousPosition ifAbsent: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
 	pieza = aPiece ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].
@@ -270,6 +286,10 @@ TerniLapilli class
 cannotMoveNonExistingPieceErrorMessage
 	^ 'solo se pueden mover las 3 fichas desde las posiciones en las que estan'! !
 
+!TerniLapilli class methodsFor: 'errorMessages' stamp: 'fz 10/15/2019 20:59:09'!
+cannotMovePiecesBeforeSixArePlacedErrorMessage
+	^'No se pueden mover las piezas antes de que se hayan colocado todas'! !
+
 !TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/15/2019 14:22:13'!
 cannotMoveTheOtherPlayersPiecesErrorMessage
 
@@ -292,3 +312,19 @@ cannotPlacePieceOutsideBoardErrorMessageWith: aPosition
 !TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:24:34'!
 cannotPlayOutOfTurnErrorMessage
 	^ 'no puede jugar el jugador que no le toca'! !
+
+
+!classDefinition: #TerniLapilliState category: #TerniLapilli!
+Object subclass: #TerniLapilliState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+
+!classDefinition: #PlacingPieces category: #TerniLapilli!
+TerniLapilliState subclass: #PlacingPieces
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
