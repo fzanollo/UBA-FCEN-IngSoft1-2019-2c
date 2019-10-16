@@ -212,7 +212,7 @@ initialize
 	tablero := Dictionary new.! !
 
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:18:31'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:25:53'!
 moveOFrom: previousPosition to: newPosition
 
 	turn checkIfOIsPlaying.
@@ -220,10 +220,9 @@ moveOFrom: previousPosition to: newPosition
 	self checkIfLegalMovingPieceAt: previousPosition for: $O.
 	
 	self movePieceFrom: previousPosition to: newPosition.
-	self turn: TerniLapilliXTurn new.
 	! !
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:18:44'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:25:50'!
 moveXFrom: previousPosition to: newPosition
 	
 	turn checkIfXIsPlaying.
@@ -231,26 +230,23 @@ moveXFrom: previousPosition to: newPosition
 	self checkIfLegalMovingPieceAt: previousPosition for: $X.
 	
 	self movePieceFrom: previousPosition to: newPosition.
-	self turn: TerniLapilliOTurn new.
 	
 	! !
 
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:15:57'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:26:13'!
 placeOAt: aPosition 
 	
 	turn checkIfOIsPlaying.
 	
-	self at: aPosition place: $O.
-	self turn: TerniLapilliXTurn new.! !
+	self at: aPosition place: $O.! !
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:16:24'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:26:15'!
 placeXAt: aPosition
 
 	turn checkIfXIsPlaying.
 	
-	self at: aPosition place: $X.
-	self turn: TerniLapilliOTurn new.! !
+	self at: aPosition place: $X.! !
 
 
 !TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/10/2019 19:51:49'!
@@ -264,11 +260,6 @@ isXAt: aPosition
 	! !
 
 
-!TerniLapilli methodsFor: 'turn taking' stamp: 'fz 10/15/2019 21:57:06'!
-turn: aTerniLapilliTurn
-	turn := aTerniLapilliTurn.! !
-
-
 !TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/15/2019 21:36:39'!
 isPlayingO
 
@@ -280,14 +271,15 @@ isPlayingX
 	^ turn isPlayingX.! !
 
 
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:16:04'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:25:59'!
 at: aPosition place: aPiece
 	self checkIfLegalPlace: aPosition.
 	self checkIfOnPlacingPhase.
 
-	tablero at: aPosition put: aPiece.! !
+	tablero at: aPosition put: aPiece.
+	turn := turn nextTurn.! !
 
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:18:06'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:26:06'!
 movePieceFrom: previousPosition to: newPosition
 	|piece|
 	
@@ -298,13 +290,15 @@ movePieceFrom: previousPosition to: newPosition
 	
 	tablero removeKey: previousPosition.
 	
-	tablero at: newPosition put: piece.! !
+	tablero at: newPosition put: piece.
+	
+	turn := turn nextTurn.! !
 
-!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:27:56'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:34:28'!
 pasaTurno
 	"este mensaje es solo para testear, no debe ser llamado fuera de dicha situación"
-	
-	self isPlayingX ifTrue: [turn := TerniLapilliOTurn new] ifFalse: [turn := TerniLapilliXTurn new].! !
+
+	turn := turn nextTurn.! !
 
 !TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
 pieceAt: aPosition equals: aPlayer
@@ -373,6 +367,11 @@ isPlayingX
 	^false! !
 
 
+!TerniLapilliOTurn methodsFor: 'turn taking' stamp: 'MD 10/16/2019 18:26:45'!
+nextTurn
+	^TerniLapilliXTurn new.! !
+
+
 !TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:14:32'!
 checkIfOIsPlaying! !
 
@@ -421,6 +420,11 @@ checkIfOIsPlaying
 !TerniLapilliXTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:15:12'!
 checkIfXIsPlaying
 ! !
+
+
+!TerniLapilliXTurn methodsFor: 'turn taking' stamp: 'MD 10/16/2019 18:26:52'!
+nextTurn
+	^TerniLapilliOTurn new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
