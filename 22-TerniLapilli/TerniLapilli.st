@@ -171,6 +171,7 @@ test15NoSePuedeMoverUnaFichaAntesDeColocar6Fichas
 				
 	! !
 
+
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
@@ -178,16 +179,6 @@ Object subclass: #TerniLapilli
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
-
-!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:27:42'!
-checkIfLegalMovingPieceAt: previousPosition for: aPlayer
-	|pieza|
-	
-	pieza := tablero at: previousPosition.
-	
-	(pieza isEmpty) ifTrue: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
-	
-	pieza = aPlayer ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].! !
 
 !TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfLegalPlace: aPosition
@@ -225,22 +216,22 @@ initialize
 			! !
 
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 19:08:01'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/16/2019 20:10:50'!
 moveOFrom: previousPosition to: newPosition
 
 	turn checkIfOIsPlaying.
 	
-	self checkIfLegalMovingPieceAt: previousPosition for: TerniLapilliPositionO new.
+	(tablero at: previousPosition) checkLegalMovingPieceForO.
 	
 	self movePieceFrom: previousPosition to: newPosition.
 	! !
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 19:08:10'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/16/2019 20:11:04'!
 moveXFrom: previousPosition to: newPosition
 	
 	turn checkIfXIsPlaying.
 	
-	self checkIfLegalMovingPieceAt: previousPosition for: TerniLapilliPositionX new.
+	(tablero at: previousPosition) checkLegalMovingPieceForX.
 	
 	self movePieceFrom: previousPosition to: newPosition.
 	
@@ -314,11 +305,6 @@ pasaTurno
 
 	turn := turn nextTurn.! !
 
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
-pieceAt: aPosition equals: aPlayer
-
-	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'TerniLapilli class' category: #TerniLapilli!
@@ -383,6 +369,14 @@ TerniLapilliPosition subclass: #TerniLapilliPositionEmpty
 !TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfCanPlacePieceHere! !
 
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:40'!
+checkLegalMovingPieceForO
+	self error: TerniLapilli cannotMoveNonExistingPieceErrorMessage ! !
+
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:12:45'!
+checkLegalMovingPieceForX
+	self error: TerniLapilli cannotMoveNonExistingPieceErrorMessage ! !
+
 !TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:26:59'!
 isEmpty
 	^true! !
@@ -422,6 +416,13 @@ TerniLapilliPosition subclass: #TerniLapilliPositionO
 checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
 
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:35'!
+checkLegalMovingPieceForO! !
+
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:12:17'!
+checkLegalMovingPieceForX
+	self error: TerniLapilli cannotMoveTheOtherPlayersPiecesErrorMessage! !
+
 !TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:12'!
 isEmpty
 	^false! !
@@ -460,6 +461,14 @@ TerniLapilliPosition subclass: #TerniLapilliPositionX
 !TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:24'!
+checkLegalMovingPieceForO
+	self error: TerniLapilli cannotMoveTheOtherPlayersPiecesErrorMessage! !
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:11:40'!
+checkLegalMovingPieceForX
+	! !
 
 !TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:07'!
 isEmpty
@@ -504,6 +513,15 @@ TerniLapilliTurn subclass: #TerniLapilliOTurn
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
+!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:14:32'!
+checkIfOIsPlaying! !
+
+!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:17:02'!
+checkIfXIsPlaying
+
+	self error: TerniLapilli cannotPlayOutOfTurnErrorMessage! !
+
+
 !TerniLapilliOTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:04:33'!
 isPlayingO
 	^true! !
@@ -516,15 +534,6 @@ isPlayingX
 !TerniLapilliOTurn methodsFor: 'turn taking' stamp: 'MD 10/16/2019 18:26:45'!
 nextTurn
 	^TerniLapilliXTurn new.! !
-
-
-!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:14:32'!
-checkIfOIsPlaying! !
-
-!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:17:02'!
-checkIfXIsPlaying
-
-	self error: TerniLapilli cannotPlayOutOfTurnErrorMessage! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -549,15 +558,6 @@ TerniLapilliTurn subclass: #TerniLapilliXTurn
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:12:46'!
-isPlayingO
-	^false! !
-
-!TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:05:35'!
-isPlayingX
-	^true! !
-
-
 !TerniLapilliXTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:17:10'!
 checkIfOIsPlaying
 
@@ -566,6 +566,15 @@ checkIfOIsPlaying
 !TerniLapilliXTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:15:12'!
 checkIfXIsPlaying
 ! !
+
+
+!TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:12:46'!
+isPlayingO
+	^false! !
+
+!TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:05:35'!
+isPlayingX
+	^true! !
 
 
 !TerniLapilliXTurn methodsFor: 'turn taking' stamp: 'MD 10/16/2019 18:26:52'!
