@@ -54,7 +54,7 @@ test08NoSePuedePonerFichaEnPosicionOcupada
 							self deny: (juegoNuevo isOAt: 0@0)].! !
 
 
-!TerniLapilliTest methodsFor: 'setUp' stamp: 'fz 10/15/2019 22:06:46'!
+!TerniLapilliTest methodsFor: 'setUp' stamp: 'MD 10/16/2019 19:06:39'!
 setUp
 
 	juegoNuevo := TerniLapilli new.
@@ -174,7 +174,7 @@ test15NoSePuedeMoverUnaFichaAntesDeColocar6Fichas
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
-	instanceVariableNames: 'tablero turn'
+	instanceVariableNames: 'tablero turn piezasEnJuego'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
@@ -187,76 +187,87 @@ checkIfLegalMovingPieceAt: previousPosition for: aPlayer
 	
 	pieza = aPlayer ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].! !
 
-!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:28:09'!
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:59:14'!
 checkIfLegalPlace: aPosition
 
 	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPlacePieceOutsideBoardErrorMessageWith: aPosition)].
 	
-	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPlaceAPieceOnAnOccupiedPositionErrorMessage ].
+	(tablero at: aPosition) checkIfEmpty.
 ! !
 
-!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:34:11'!
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:03:02'!
 checkIfOnMovingPhase
 	
-	tablero size < 6 ifTrue: [self error: self class cannotMovePiecesBeforeSixArePlacedErrorMessage].! !
+	piezasEnJuego  < 6 ifTrue: [self error: self class cannotMovePiecesBeforeSixArePlacedErrorMessage].! !
 
-!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 21:50:31'!
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:03:08'!
 checkIfOnPlacingPhase
-	tablero size >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].! !
+	piezasEnJuego >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].! !
 
 
-!TerniLapilli methodsFor: 'initialization' stamp: 'fz 10/15/2019 21:36:39'!
+!TerniLapilli methodsFor: 'initialization' stamp: 'MD 10/16/2019 19:02:52'!
 initialize
 
 	turn := TerniLapilliXTurn new.
-	tablero := Dictionary new.! !
+	piezasEnJuego := 0.
+	tablero := Dictionary new.
+	tablero add: 0@0 -> TerniLapilliPositionEmpty new; 
+			add: 0@1 -> TerniLapilliPositionEmpty new;
+			add: 0@2 -> TerniLapilliPositionEmpty new;
+			add: 1@0 -> TerniLapilliPositionEmpty new;
+			add: 1@1 -> TerniLapilliPositionEmpty new;
+			add: 1@2 -> TerniLapilliPositionEmpty new;
+			add: 2@0 -> TerniLapilliPositionEmpty new;
+			add: 2@1 -> TerniLapilliPositionEmpty new;
+			add: 2@2 -> TerniLapilliPositionEmpty new.
+			! !
 
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:25:53'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 19:08:01'!
 moveOFrom: previousPosition to: newPosition
 
 	turn checkIfOIsPlaying.
 	
-	self checkIfLegalMovingPieceAt: previousPosition for: $O.
+	self checkIfLegalMovingPieceAt: previousPosition for: TerniLapilliPositionO new.
 	
 	self movePieceFrom: previousPosition to: newPosition.
 	! !
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:25:50'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 19:08:10'!
 moveXFrom: previousPosition to: newPosition
 	
 	turn checkIfXIsPlaying.
 	
-	self checkIfLegalMovingPieceAt: previousPosition for: $X.
+	self checkIfLegalMovingPieceAt: previousPosition for: TerniLapilliPositionX new.
 	
 	self movePieceFrom: previousPosition to: newPosition.
 	
 	! !
 
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:26:13'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 19:05:30'!
 placeOAt: aPosition 
 	
 	turn checkIfOIsPlaying.
 	
-	self at: aPosition place: $O.! !
+	self at: aPosition place: TerniLapilliPositionO new.! !
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:26:15'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 19:05:34'!
 placeXAt: aPosition
 
 	turn checkIfXIsPlaying.
 	
-	self at: aPosition place: $X.! !
+	self at: aPosition place: TerniLapilliPositionX new.! !
 
 
-!TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/10/2019 19:51:49'!
+!TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/16/2019 18:54:52'!
 isOAt: aPosition
-	^self pieceAt: aPosition equals: $O
+	^(tablero at: aPosition) isO.
 	! !
 
-!TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/10/2019 19:51:56'!
+!TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/16/2019 18:55:08'!
 isXAt: aPosition
-	^self pieceAt: aPosition equals: $X
+	^(tablero at: aPosition) isX.
 	! !
 
 
@@ -271,15 +282,16 @@ isPlayingX
 	^ turn isPlayingX.! !
 
 
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:25:59'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 19:02:42'!
 at: aPosition place: aPiece
 	self checkIfLegalPlace: aPosition.
 	self checkIfOnPlacingPhase.
 
 	tablero at: aPosition put: aPiece.
+	piezasEnJuego := piezasEnJuego +1.
 	turn := turn nextTurn.! !
 
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:26:06'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 19:16:07'!
 movePieceFrom: previousPosition to: newPosition
 	|piece|
 	
@@ -288,7 +300,7 @@ movePieceFrom: previousPosition to: newPosition
 	
 	piece := tablero at: previousPosition.
 	
-	tablero removeKey: previousPosition.
+	tablero at: previousPosition put: TerniLapilliPositionEmpty new.
 	
 	tablero at: newPosition put: piece.
 	
@@ -341,6 +353,118 @@ cannotPlacePieceOutsideBoardErrorMessageWith: aPosition
 !TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:24:34'!
 cannotPlayOutOfTurnErrorMessage
 	^ 'no puede jugar el jugador que no le toca'! !
+
+
+!classDefinition: #TerniLapilliPosition category: #TerniLapilli!
+Object subclass: #TerniLapilliPosition
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+
+!classDefinition: #TerniLapilliPositionEmpty category: #TerniLapilli!
+TerniLapilliPosition subclass: #TerniLapilliPositionEmpty
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:59:26'!
+checkIfEmpty! !
+
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:19'!
+isO
+	^false.! !
+
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:23'!
+isX
+	^false.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPositionEmpty class' category: #TerniLapilli!
+TerniLapilliPositionEmpty class
+	instanceVariableNames: 'uniqueInstance'!
+
+!TerniLapilliPositionEmpty class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:52'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!TerniLapilliPositionEmpty class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:22'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+
+!classDefinition: #TerniLapilliPositionO category: #TerniLapilli!
+TerniLapilliPosition subclass: #TerniLapilliPositionO
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:59:58'!
+checkIfEmpty
+	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
+
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:31'!
+isO
+	^true! !
+
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:35'!
+isX
+	^false! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPositionO class' category: #TerniLapilli!
+TerniLapilliPositionO class
+	instanceVariableNames: 'uniqueInstance'!
+
+!TerniLapilliPositionO class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:56'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!TerniLapilliPositionO class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:28'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+
+!classDefinition: #TerniLapilliPositionX category: #TerniLapilli!
+TerniLapilliPosition subclass: #TerniLapilliPositionX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TerniLapilli'!
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:00:05'!
+checkIfEmpty
+	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:47'!
+isO
+	^false! !
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:43'!
+isX
+	^true! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPositionX class' category: #TerniLapilli!
+TerniLapilliPositionX class
+	instanceVariableNames: 'uniqueInstance'!
+
+!TerniLapilliPositionX class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:59'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!TerniLapilliPositionX class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:31'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
 
 
 !classDefinition: #TerniLapilliTurn category: #TerniLapilli!
@@ -441,5 +565,8 @@ new
 	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
 	^ uniqueInstance! !
 
+TerniLapilliPositionEmpty initialize!
+TerniLapilliPositionO initialize!
+TerniLapilliPositionX initialize!
 TerniLapilliOTurn initialize!
 TerniLapilliXTurn initialize!
