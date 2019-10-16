@@ -179,6 +179,32 @@ Object subclass: #TerniLapilli
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
+!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:45:30'!
+checkIfLegalMovingPieceAt: previousPosition for: aPlayer
+	|pieza|
+	
+	pieza := tablero at: previousPosition ifAbsent: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
+	
+	pieza = aPlayer ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].! !
+
+!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:28:09'!
+checkIfLegalPlace: aPosition
+
+	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPlacePieceOutsideBoardErrorMessageWith: aPosition)].
+	
+	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPlaceAPieceOnAnOccupiedPositionErrorMessage ].
+! !
+
+!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:34:11'!
+checkIfOnMovingPhase
+	
+	tablero size < 6 ifTrue: [self error: self class cannotMovePiecesBeforeSixArePlacedErrorMessage].! !
+
+!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 21:50:31'!
+checkIfOnPlacingPhase
+	tablero size >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].! !
+
+
 !TerniLapilli methodsFor: 'initialization' stamp: 'fz 10/15/2019 21:36:39'!
 initialize
 
@@ -186,26 +212,19 @@ initialize
 	tablero := Dictionary new.! !
 
 
-!TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/15/2019 21:36:39'!
-isPlayingO
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:40:34'!
+moveOFrom: previousPosition to: newPosition
 
-	^ turn isPlayingO.! !
+	turn moveOFrom: previousPosition to: newPosition ofGame: self.
+	! !
 
-!TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/15/2019 21:36:39'!
-isPlayingX
-
-	^ turn isPlayingX.! !
-
-
-!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 21:20:52'!
-placeAPieceOf: aPlayer at: aPosition onTurn: isOnTurn
-
-	self checkIfLegalPlace: aPosition .
-	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:31:05'!
+moveXFrom: previousPosition to: newPosition
 	
-	tablero size >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].
-	tablero at: aPosition put: aPlayer.
-	self pasaTurno.! !
+	turn moveXFrom: previousPosition to: newPosition ofGame: self.
+	
+	! !
+
 
 !TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 22:07:38'!
 placeOAt: aPosition 
@@ -216,62 +235,6 @@ placeOAt: aPosition
 placeXAt: aPosition
 
 	turn placeXAt: aPosition ofGame: self! !
-
-
-!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:03:52'!
-at: aPosition put: aPiece
-	tablero at: aPosition put: aPiece.! !
-
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
-pieceAt: aPosition equals: aPlayer
-
-	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
-
-
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 21:02:59'!
-move: aPiece from: previousPosition to: newPosition onTurn: isOnTurn
-
-	| pieza |
-	self checkIfLegalPlace: newPosition.
-	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
-	
-	tablero size < 6 ifTrue: [self error: self class cannotMovePiecesBeforeSixArePlacedErrorMessage].
-
-	pieza := tablero at: previousPosition ifAbsent: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
-	pieza = aPiece ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].
-
-	tablero removeKey: previousPosition.
-	tablero at: newPosition put: aPiece.
-	! !
-
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:44:12'!
-moveOFrom: previousPosition to: newPosition
-
-	self move: $O from: previousPosition to: newPosition onTurn: self isPlayingO.
-	! !
-
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/15/2019 17:44:22'!
-moveXFrom: previousPosition to: newPosition
-
-	self move: $X from: previousPosition to: newPosition onTurn: self isPlayingX .
-	! !
-
-
-!TerniLapilli methodsFor: 'turn taking' stamp: 'fz 10/15/2019 21:57:06'!
-turn: aTerniLapilliTurn
-	turn := aTerniLapilliTurn.! !
-
-
-!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/15/2019 17:37:35'!
-checkIfLegalPlace: aPosition
-
-	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPlacePieceOutsideBoardErrorMessageWith: aPosition)].
-	(tablero includesKey: aPosition) ifTrue: [self error: self class cannotPlaceAPieceOnAnOccupiedPositionErrorMessage ].
-! !
-
-!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 21:50:31'!
-checkIfOnPlacingPhase
-	tablero size >= 6 ifTrue: [self error: self class cannotPlaceMoreThan6PiecesOnBoardErrorMessage].! !
 
 
 !TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/10/2019 19:51:49'!
@@ -285,10 +248,46 @@ isXAt: aPosition
 	! !
 
 
-!TerniLapilli methodsFor: 'for testing only' stamp: 'fz 10/15/2019 22:10:43'!
-pasaTurno
+!TerniLapilli methodsFor: 'turn taking' stamp: 'fz 10/15/2019 21:57:06'!
+turn: aTerniLapilliTurn
+	turn := aTerniLapilliTurn.! !
 
+
+!TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/15/2019 21:36:39'!
+isPlayingO
+
+	^ turn isPlayingO.! !
+
+!TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/15/2019 21:36:39'!
+isPlayingX
+
+	^ turn isPlayingX.! !
+
+
+!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:19:22'!
+at: aPosition place: aPiece
+	tablero at: aPosition put: aPiece.! !
+
+!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:39:01'!
+movePieceFrom: previousPosition to: newPosition
+	|piece|
+	
+	piece := tablero at: previousPosition.
+	
+	tablero removeKey: previousPosition.
+	
+	tablero at: newPosition put: piece.! !
+
+!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:27:56'!
+pasaTurno
+	"este mensaje es solo para testear, no debe ser llamado fuera de dicha situación"
+	
 	self isPlayingX ifTrue: [turn := TerniLapilliOTurn new] ifFalse: [turn := TerniLapilliXTurn new].! !
+
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
+pieceAt: aPosition equals: aPlayer
+
+	^ (tablero includesKey: aPosition) and: [(tablero at: aPosition) = aPlayer].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -343,13 +342,13 @@ TerniLapilliTurn subclass: #TerniLapilliOTurn
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliOTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:09:14'!
+!TerniLapilliOTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:19:40'!
 placeOAt: aPosition ofGame: aTerniLapilliGame 
 
 	aTerniLapilliGame checkIfLegalPlace: aPosition.
 	aTerniLapilliGame checkIfOnPlacingPhase.
 	
-	aTerniLapilliGame at: aPosition put: $O.
+	aTerniLapilliGame at: aPosition place: $O.
 	aTerniLapilliGame turn: TerniLapilliXTurn new.! !
 
 !TerniLapilliOTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:12:11'!
@@ -364,6 +363,11 @@ isPlayingO
 !TerniLapilliOTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:04:47'!
 isPlayingX
 	^false! !
+
+
+!TerniLapilliOTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:42:12'!
+moveXFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
+	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -383,13 +387,13 @@ TerniLapilliTurn subclass: #TerniLapilliXTurn
 placeOAt: aPosition ofGame: aTerniLapilliGame 
 	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
 
-!TerniLapilliXTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 21:56:59'!
+!TerniLapilliXTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:19:35'!
 placeXAt: aPosition ofGame: aTerniLapilliGame
 	
 	aTerniLapilliGame checkIfLegalPlace: aPosition.
 	aTerniLapilliGame checkIfOnPlacingPhase.
 	
-	aTerniLapilliGame at: aPosition put: $X.
+	aTerniLapilliGame at: aPosition place: $X.
 	aTerniLapilliGame turn: TerniLapilliOTurn new.! !
 
 
@@ -400,6 +404,22 @@ isPlayingO
 !TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:05:35'!
 isPlayingX
 	^true! !
+
+
+!TerniLapilliXTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:41:23'!
+moveOFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
+	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
+
+!TerniLapilliXTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:43:36'!
+moveXFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
+
+	aTerniLapilliGame checkIfLegalPlace: newPosition.
+	aTerniLapilliGame checkIfOnMovingPhase.
+	
+	aTerniLapilliGame checkIfLegalMovingPieceAt: previousPosition for: $X.
+	
+	aTerniLapilliGame movePieceFrom: previousPosition to: newPosition.
+	aTerniLapilliGame turn: TerniLapilliOTurn new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
