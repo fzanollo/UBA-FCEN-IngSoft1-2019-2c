@@ -179,20 +179,22 @@ Object subclass: #TerniLapilli
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilli methodsFor: 'error checking' stamp: 'fz 10/15/2019 22:45:30'!
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:27:42'!
 checkIfLegalMovingPieceAt: previousPosition for: aPlayer
 	|pieza|
 	
-	pieza := tablero at: previousPosition ifAbsent: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
+	pieza := tablero at: previousPosition.
+	
+	(pieza isEmpty) ifTrue: [self error: self class cannotMoveNonExistingPieceErrorMessage ].
 	
 	pieza = aPlayer ifFalse: [self error: self class cannotMoveTheOtherPlayersPiecesErrorMessage ].! !
 
-!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:59:14'!
+!TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfLegalPlace: aPosition
 
 	((aPosition x between: 0 and: 2) and: [aPosition y between: 0 and: 2]) ifFalse: [self error: (self class cannotPlacePieceOutsideBoardErrorMessageWith: aPosition)].
 	
-	(tablero at: aPosition) checkIfEmpty.
+	(tablero at: aPosition) checkIfCanPlacePieceHere.
 ! !
 
 !TerniLapilli methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:03:02'!
@@ -362,6 +364,14 @@ Object subclass: #TerniLapilliPosition
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
+!TerniLapilliPosition methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+checkIfCanPlacePieceHere
+	^ self subclassResponsibility.! !
+
+!TerniLapilliPosition methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:26:45'!
+isEmpty
+	^self subclassResponsibility.! !
+
 
 !classDefinition: #TerniLapilliPositionEmpty category: #TerniLapilli!
 TerniLapilliPosition subclass: #TerniLapilliPositionEmpty
@@ -370,8 +380,12 @@ TerniLapilliPosition subclass: #TerniLapilliPositionEmpty
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:59:26'!
-checkIfEmpty! !
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+checkIfCanPlacePieceHere! !
+
+!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:26:59'!
+isEmpty
+	^true! !
 
 !TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:19'!
 isO
@@ -404,9 +418,13 @@ TerniLapilliPosition subclass: #TerniLapilliPositionO
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:59:58'!
-checkIfEmpty
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
+
+!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:12'!
+isEmpty
+	^false! !
 
 !TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:31'!
 isO
@@ -439,9 +457,13 @@ TerniLapilliPosition subclass: #TerniLapilliPositionX
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:00:05'!
-checkIfEmpty
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
+
+!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:07'!
+isEmpty
+	^false! !
 
 !TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:47'!
 isO
