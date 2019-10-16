@@ -5,19 +5,19 @@ TestCase subclass: #TerniLapilliTest
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 20:14:19'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'fz 10/15/2019 21:20:20'!
 test04SePuedePonerUnaFichaDentroDelTablero
 
-	juegoNuevo putXAt: 0@0.
+	juegoNuevo placeXAt: 0@0.
 	
 	self assert: juegoNuevo isPlayingO.
 	self assert: (juegoNuevo isXAt: 0@0).
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:35:48'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'fz 10/15/2019 21:20:20'!
 test05NoPuedoPonerFichaFueraDelTablero
 
-	self should: [juegoNuevo putXAt: -1@0]
+	self should: [juegoNuevo placeXAt: -1@0]
 		raise: Error 
 		withExceptionDo: [:anError | self assert: anError messageText equals: (TerniLapilli cannotPlacePieceOutsideBoardErrorMessageWith: -1@0)].
 	
@@ -25,47 +25,47 @@ test05NoPuedoPonerFichaFueraDelTablero
 	
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/10/2019 19:41:42'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'fz 10/15/2019 21:19:53'!
 test06NoPuedePonerFichaQuienNoJuega
 	
-	self should: [juegoNuevo putOAt: 0@0.]
+	self should: [juegoNuevo placeOAt: 0@0.]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlayOutOfTurnErrorMessage.
 							self deny: (juegoNuevo isOAt: 0@0)].
 	
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:36:02'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'fz 10/15/2019 21:20:20'!
 test07SePuedenPonerHasta6Fichas
 			
-	self should: [juegoCon6Fichas putXAt: 2@1]
+	self should: [juegoCon6Fichas placeXAt: 2@1]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlaceMoreThan6PiecesOnBoardErrorMessage.
 							self deny: (juegoCon6Fichas isXAt: 2@1)].! !
 
-!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'MD 10/15/2019 17:36:09'!
+!TerniLapilliTest methodsFor: 'tests - puesta de fichas' stamp: 'fz 10/15/2019 21:20:20'!
 test08NoSePuedePonerFichaEnPosicionOcupada
 	
-	juegoNuevo putXAt: 0@0.
+	juegoNuevo placeXAt: 0@0.
 	
-	self should: [juegoNuevo putOAt: 0@0]
+	self should: [juegoNuevo placeOAt: 0@0]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.
 							self deny: (juegoNuevo isOAt: 0@0)].! !
 
 
-!TerniLapilliTest methodsFor: 'setUp' stamp: 'MD 10/10/2019 18:48:54'!
+!TerniLapilliTest methodsFor: 'setUp' stamp: 'fz 10/15/2019 21:20:20'!
 setUp
 
 	juegoNuevo := TerniLapilli new.
 	
 	juegoCon6Fichas := TerniLapilli new.
-	juegoCon6Fichas putXAt: 0@0.
-	juegoCon6Fichas putOAt: 0@1.
-	juegoCon6Fichas putXAt: 1@0.
-	juegoCon6Fichas putOAt: 1@1.
-	juegoCon6Fichas putXAt: 2@2.
-	juegoCon6Fichas putOAt: 0@2.! !
+	juegoCon6Fichas placeXAt: 0@0.
+	juegoCon6Fichas placeOAt: 0@1.
+	juegoCon6Fichas placeXAt: 1@0.
+	juegoCon6Fichas placeOAt: 1@1.
+	juegoCon6Fichas placeXAt: 2@2.
+	juegoCon6Fichas placeOAt: 0@2.! !
 
 
 !TerniLapilliTest methodsFor: 'tests - cambios de turno' stamp: 'MD 10/10/2019 17:31:46'!
@@ -157,11 +157,11 @@ test14NoSePuedeMoverUnaFichaFueraDeTurno
 				
 	! !
 
-!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'fz 10/15/2019 21:01:02'!
+!TerniLapilliTest methodsFor: 'tests - movida de fichas' stamp: 'fz 10/15/2019 21:20:20'!
 test15NoSePuedeMoverUnaFichaAntesDeColocar6Fichas
 	
-	juegoNuevo putXAt: 0@0.
-	juegoNuevo putOAt: 2@0.	
+	juegoNuevo placeXAt: 0@0.
+	juegoNuevo placeOAt: 2@0.	
 	
 	self should: [juegoNuevo moveXFrom: 0@0 to: 0@1.]
 		raise: Error - MessageNotUnderstood 
@@ -174,12 +174,12 @@ test15NoSePuedeMoverUnaFichaAntesDeColocar6Fichas
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
-	instanceVariableNames: 'aQuienLeToca tablero state'
+	instanceVariableNames: 'aQuienLeToca tablero'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilli methodsFor: 'initialization' stamp: 'fz 10/15/2019 21:16:28'!
+!TerniLapilli methodsFor: 'initialization' stamp: 'fz 10/15/2019 21:22:42'!
 initialize
 
 	aQuienLeToca := $X.
@@ -207,8 +207,8 @@ isXAt: aPosition
 	! !
 
 
-!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/15/2019 17:37:35'!
-playAs: aPlayer at: aPosition onTurn: isOnTurn
+!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 21:20:52'!
+placeAPieceOf: aPlayer at: aPosition onTurn: isOnTurn
 
 	self checkIfLegalPlace: aPosition .
 	isOnTurn ifFalse: [self error: self class cannotPlayOutOfTurnErrorMessage].
@@ -217,15 +217,15 @@ playAs: aPlayer at: aPosition onTurn: isOnTurn
 	tablero at: aPosition put: aPlayer.
 	self pasaTurno.! !
 
-!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/10/2019 18:34:00'!
-putOAt: aPosition 
+!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 21:20:52'!
+placeOAt: aPosition 
 
-	self playAs: $O at: aPosition onTurn: self isPlayingO.! !
+	self placeAPieceOf: $O at: aPosition onTurn: self isPlayingO.! !
 
-!TerniLapilli methodsFor: 'putting new pieces' stamp: 'MD 10/10/2019 18:35:22'!
-putXAt: aPosition
+!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 21:20:52'!
+placeXAt: aPosition
 
-	self playAs: $X at: aPosition onTurn: self isPlayingX ! !
+	self placeAPieceOf: $X at: aPosition onTurn: self isPlayingX ! !
 
 
 !TerniLapilli methodsFor: 'private' stamp: 'MD 10/10/2019 20:13:24'!
@@ -312,19 +312,3 @@ cannotPlacePieceOutsideBoardErrorMessageWith: aPosition
 !TerniLapilli class methodsFor: 'errorMessages' stamp: 'MD 10/10/2019 18:24:34'!
 cannotPlayOutOfTurnErrorMessage
 	^ 'no puede jugar el jugador que no le toca'! !
-
-
-!classDefinition: #TerniLapilliState category: #TerniLapilli!
-Object subclass: #TerniLapilliState
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TerniLapilli'!
-
-
-!classDefinition: #PlacingPieces category: #TerniLapilli!
-TerniLapilliState subclass: #PlacingPieces
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TerniLapilli'!
