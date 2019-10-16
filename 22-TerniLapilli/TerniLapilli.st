@@ -212,29 +212,45 @@ initialize
 	tablero := Dictionary new.! !
 
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:40:34'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:18:31'!
 moveOFrom: previousPosition to: newPosition
 
-	turn moveOFrom: previousPosition to: newPosition ofGame: self.
+	turn checkIfOIsPlaying.
+	
+	self checkIfLegalMovingPieceAt: previousPosition for: $O.
+	
+	self movePieceFrom: previousPosition to: newPosition.
+	self turn: TerniLapilliXTurn new.
 	! !
 
-!TerniLapilli methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:31:05'!
+!TerniLapilli methodsFor: 'moving pieces' stamp: 'MD 10/16/2019 18:18:44'!
 moveXFrom: previousPosition to: newPosition
 	
-	turn moveXFrom: previousPosition to: newPosition ofGame: self.
+	turn checkIfXIsPlaying.
+	
+	self checkIfLegalMovingPieceAt: previousPosition for: $X.
+	
+	self movePieceFrom: previousPosition to: newPosition.
+	self turn: TerniLapilliOTurn new.
 	
 	! !
 
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 22:07:38'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:15:57'!
 placeOAt: aPosition 
 	
-	turn placeOAt: aPosition ofGame: self.! !
+	turn checkIfOIsPlaying.
+	
+	self at: aPosition place: $O.
+	self turn: TerniLapilliXTurn new.! !
 
-!TerniLapilli methodsFor: 'place pieces' stamp: 'fz 10/15/2019 21:41:15'!
+!TerniLapilli methodsFor: 'place pieces' stamp: 'MD 10/16/2019 18:16:24'!
 placeXAt: aPosition
 
-	turn placeXAt: aPosition ofGame: self! !
+	turn checkIfXIsPlaying.
+	
+	self at: aPosition place: $X.
+	self turn: TerniLapilliOTurn new.! !
 
 
 !TerniLapilli methodsFor: 'position testing' stamp: 'MD 10/10/2019 19:51:49'!
@@ -264,13 +280,19 @@ isPlayingX
 	^ turn isPlayingX.! !
 
 
-!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:19:22'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:16:04'!
 at: aPosition place: aPiece
+	self checkIfLegalPlace: aPosition.
+	self checkIfOnPlacingPhase.
+
 	tablero at: aPosition put: aPiece.! !
 
-!TerniLapilli methodsFor: 'private' stamp: 'fz 10/15/2019 22:39:01'!
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/16/2019 18:18:06'!
 movePieceFrom: previousPosition to: newPosition
 	|piece|
+	
+	self checkIfLegalPlace: newPosition.
+	self checkIfOnMovingPhase.
 	
 	piece := tablero at: previousPosition.
 	
@@ -342,20 +364,6 @@ TerniLapilliTurn subclass: #TerniLapilliOTurn
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliOTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:19:40'!
-placeOAt: aPosition ofGame: aTerniLapilliGame 
-
-	aTerniLapilliGame checkIfLegalPlace: aPosition.
-	aTerniLapilliGame checkIfOnPlacingPhase.
-	
-	aTerniLapilliGame at: aPosition place: $O.
-	aTerniLapilliGame turn: TerniLapilliXTurn new.! !
-
-!TerniLapilliOTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:12:11'!
-placeXAt: aPosition ofGame: aTerniLapilliGame 
-	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
-
-
 !TerniLapilliOTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:04:33'!
 isPlayingO
 	^true! !
@@ -365,15 +373,28 @@ isPlayingX
 	^false! !
 
 
-!TerniLapilliOTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:42:12'!
-moveXFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
-	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
+!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:14:32'!
+checkIfOIsPlaying! !
+
+!TerniLapilliOTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:17:02'!
+checkIfXIsPlaying
+
+	self error: TerniLapilli cannotPlayOutOfTurnErrorMessage! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'TerniLapilliOTurn class' category: #TerniLapilli!
 TerniLapilliOTurn class
 	instanceVariableNames: 'uniqueInstance'!
+
+!TerniLapilliOTurn class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:19:36'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!TerniLapilliOTurn class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:19:22'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
 
 
 !classDefinition: #TerniLapilliXTurn category: #TerniLapilli!
@@ -382,20 +403,6 @@ TerniLapilliTurn subclass: #TerniLapilliXTurn
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
-
-!TerniLapilliXTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:12:25'!
-placeOAt: aPosition ofGame: aTerniLapilliGame 
-	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
-
-!TerniLapilliXTurn methodsFor: 'placing pieces' stamp: 'fz 10/15/2019 22:19:35'!
-placeXAt: aPosition ofGame: aTerniLapilliGame
-	
-	aTerniLapilliGame checkIfLegalPlace: aPosition.
-	aTerniLapilliGame checkIfOnPlacingPhase.
-	
-	aTerniLapilliGame at: aPosition place: $X.
-	aTerniLapilliGame turn: TerniLapilliOTurn new.! !
-
 
 !TerniLapilliXTurn methodsFor: 'testing' stamp: 'fz 10/15/2019 22:12:46'!
 isPlayingO
@@ -406,23 +413,29 @@ isPlayingX
 	^true! !
 
 
-!TerniLapilliXTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:41:23'!
-moveOFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
-	self error: aTerniLapilliGame class cannotPlayOutOfTurnErrorMessage! !
+!TerniLapilliXTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:17:10'!
+checkIfOIsPlaying
 
-!TerniLapilliXTurn methodsFor: 'moving pieces' stamp: 'fz 10/15/2019 22:43:36'!
-moveXFrom: previousPosition to: newPosition ofGame: aTerniLapilliGame
+	self error: TerniLapilli cannotPlayOutOfTurnErrorMessage! !
 
-	aTerniLapilliGame checkIfLegalPlace: newPosition.
-	aTerniLapilliGame checkIfOnMovingPhase.
-	
-	aTerniLapilliGame checkIfLegalMovingPieceAt: previousPosition for: $X.
-	
-	aTerniLapilliGame movePieceFrom: previousPosition to: newPosition.
-	aTerniLapilliGame turn: TerniLapilliOTurn new.! !
+!TerniLapilliXTurn methodsFor: 'error checking' stamp: 'MD 10/16/2019 18:15:12'!
+checkIfXIsPlaying
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'TerniLapilliXTurn class' category: #TerniLapilli!
 TerniLapilliXTurn class
 	instanceVariableNames: 'uniqueInstance'!
+
+!TerniLapilliXTurn class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:19:47'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!TerniLapilliXTurn class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:19:41'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
+TerniLapilliOTurn initialize!
+TerniLapilliXTurn initialize!
