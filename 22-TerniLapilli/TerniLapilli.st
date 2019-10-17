@@ -193,12 +193,12 @@ test17SePuedeMoverUnaFichaPorUnaDiagonalExistente
 				
 	! !
 
-!TerniLapilliTest methodsFor: 'tests 4- topologia del tablero' stamp: 'MD 10/17/2019 13:41:06'!
+!TerniLapilliTest methodsFor: 'tests 4- topologia del tablero' stamp: 'MD 10/17/2019 15:23:37'!
 test18NoSePuedeMoverUnaFichaPorUnaDiagonalInexistente
 	
 	self should: [juegoCon6Fichas moveXFrom: 1@0 to: 2@1.]
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotMoveOverInvalidDIagonalErrorMessage.
+		withExceptionDo: [:anError | self assert: anError messageText equals: TerniLapilli cannotMoveOutsideOfNeighboursErrorMessage.
 							self deny: (juegoCon6Fichas isXAt: 2@1).
 							self assert: (juegoCon6Fichas isXAt: 1@0)].
 				
@@ -384,6 +384,16 @@ isXAt: aPosition
 	! !
 
 
+!TerniLapilli methodsFor: 'testing' stamp: 'fz 10/16/2019 22:25:35'!
+pieceAt: aPosition
+	^tablero at: aPosition 
+	! !
+
+!TerniLapilli methodsFor: 'testing' stamp: 'fz 10/16/2019 22:24:13'!
+piecesPlaced
+	^piezasEnJuego ! !
+
+
 !TerniLapilli methodsFor: 'turn testing' stamp: 'fz 10/16/2019 22:04:18'!
 isPlayingO
 
@@ -393,51 +403,6 @@ isPlayingO
 isPlayingX
 
 	^ state isPlayingX.! !
-
-
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/17/2019 14:34:45'!
-at: aPosition place: aPiece
-	self checkForLegalPlace: aPosition.
-
-	tablero at: aPosition put: aPiece.
-	piezasEnJuego := piezasEnJuego +1.
-	
-	self checkForWinnerOn: aPosition.
-	
-	state := state nextStateFor: self.! !
-
-!TerniLapilli methodsFor: 'private' stamp: 'MD 10/17/2019 14:50:23'!
-movePieceFrom: previousPosition to: newPosition
-	|piece|
-	
-	self checkForLegalPlace: newPosition.
-	(previousPosition dist: newPosition) >= 2 ifTrue:[self error: self class cannotMoveOutsideOfNeighboursErrorMessage].
-	((movimientosValidos at: previousPosition) includes: newPosition) ifFalse: [self error: self class cannotMoveOverInvalidDIagonalErrorMessage ].
-	
-	piece := tablero at: previousPosition.
-	
-	tablero at: previousPosition put: TerniLapilliPositionEmpty new.
-	tablero at: newPosition put: piece.
-	
-	self checkForWinnerOn: newPosition.
-	
-	state := state nextStateFor: self.! !
-
-!TerniLapilli methodsFor: 'private' stamp: 'fz 10/16/2019 22:06:02'!
-pasaTurno
-	"este mensaje es solo para testear, no debe ser llamado fuera de dicha situación"
-
-	state := state nextStateFor: self.! !
-
-
-!TerniLapilli methodsFor: 'testing' stamp: 'fz 10/16/2019 22:25:35'!
-pieceAt: aPosition
-	^tablero at: aPosition 
-	! !
-
-!TerniLapilli methodsFor: 'testing' stamp: 'fz 10/16/2019 22:24:13'!
-piecesPlaced
-	^piezasEnJuego ! !
 
 
 !TerniLapilli methodsFor: 'win conditions private' stamp: 'MD 10/17/2019 15:02:08'!
@@ -467,6 +432,40 @@ hasWinner
 !TerniLapilli methodsFor: 'win testing' stamp: 'MD 10/17/2019 14:59:38'!
 winner
 	^ state winner! !
+
+
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/17/2019 14:34:45'!
+at: aPosition place: aPiece
+	self checkForLegalPlace: aPosition.
+
+	tablero at: aPosition put: aPiece.
+	piezasEnJuego := piezasEnJuego +1.
+	
+	self checkForWinnerOn: aPosition.
+	
+	state := state nextStateFor: self.! !
+
+!TerniLapilli methodsFor: 'private' stamp: 'MD 10/17/2019 15:23:57'!
+movePieceFrom: previousPosition to: newPosition
+	|piece|
+	
+	self checkForLegalPlace: newPosition.
+	((movimientosValidos at: previousPosition) includes: newPosition) ifFalse: [self error: self class cannotMoveOutsideOfNeighboursErrorMessage ].
+	
+	piece := tablero at: previousPosition.
+	
+	tablero at: previousPosition put: TerniLapilliPositionEmpty new.
+	tablero at: newPosition put: piece.
+	
+	self checkForWinnerOn: newPosition.
+	
+	state := state nextStateFor: self.! !
+
+!TerniLapilli methodsFor: 'private' stamp: 'fz 10/16/2019 22:06:02'!
+pasaTurno
+	"este mensaje es solo para testear, no debe ser llamado fuera de dicha situación"
+
+	state := state nextStateFor: self.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -549,26 +548,27 @@ TerniLapilliPosition subclass: #TerniLapilliPositionEmpty
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+!TerniLapilliPositionEmpty methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfCanPlacePieceHere! !
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:40'!
+!TerniLapilliPositionEmpty methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:13:40'!
 checkLegalMovingPieceForO
 	self error: TerniLapilli cannotMoveNonExistingPieceErrorMessage ! !
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:12:45'!
+!TerniLapilliPositionEmpty methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:12:45'!
 checkLegalMovingPieceForX
 	self error: TerniLapilli cannotMoveNonExistingPieceErrorMessage ! !
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:26:59'!
+
+!TerniLapilliPositionEmpty methodsFor: 'testing' stamp: 'MD 10/16/2019 19:26:59'!
 isEmpty
 	^true! !
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:19'!
+!TerniLapilliPositionEmpty methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:19'!
 isO
 	^false.! !
 
-!TerniLapilliPositionEmpty methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:23'!
+!TerniLapilliPositionEmpty methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:23'!
 isX
 	^false.! !
 
@@ -578,11 +578,11 @@ isX
 TerniLapilliPositionEmpty class
 	instanceVariableNames: 'uniqueInstance'!
 
-!TerniLapilliPositionEmpty class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:52'!
+!TerniLapilliPositionEmpty class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:52'!
 initialize
 	uniqueInstance := self basicNew.! !
 
-!TerniLapilliPositionEmpty class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:22'!
+!TerniLapilliPositionEmpty class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:22'!
 new
 	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
 	^ uniqueInstance! !
@@ -595,26 +595,27 @@ TerniLapilliPosition subclass: #TerniLapilliPositionO
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+!TerniLapilliPositionO methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:35'!
+!TerniLapilliPositionO methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:13:35'!
 checkLegalMovingPieceForO! !
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:12:17'!
+!TerniLapilliPositionO methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:12:17'!
 checkLegalMovingPieceForX
 	self error: TerniLapilli cannotMoveTheOtherPlayersPiecesErrorMessage! !
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:12'!
+
+!TerniLapilliPositionO methodsFor: 'testing' stamp: 'MD 10/16/2019 19:27:12'!
 isEmpty
 	^false! !
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:31'!
+!TerniLapilliPositionO methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:31'!
 isO
 	^true! !
 
-!TerniLapilliPositionO methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:35'!
+!TerniLapilliPositionO methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:35'!
 isX
 	^false! !
 
@@ -624,11 +625,11 @@ isX
 TerniLapilliPositionO class
 	instanceVariableNames: 'uniqueInstance'!
 
-!TerniLapilliPositionO class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:56'!
+!TerniLapilliPositionO class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:56'!
 initialize
 	uniqueInstance := self basicNew.! !
 
-!TerniLapilliPositionO class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:28'!
+!TerniLapilliPositionO class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:28'!
 new
 	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
 	^ uniqueInstance! !
@@ -641,27 +642,28 @@ TerniLapilliPosition subclass: #TerniLapilliPositionX
 	poolDictionaries: ''
 	category: 'TerniLapilli'!
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:23:58'!
+!TerniLapilliPositionX methodsFor: 'error checking' stamp: 'MD 10/16/2019 19:23:58'!
 checkIfCanPlacePieceHere
 	^ self error: TerniLapilli cannotPlaceAPieceOnAnOccupiedPositionErrorMessage.! !
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:13:24'!
+!TerniLapilliPositionX methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:13:24'!
 checkLegalMovingPieceForO
 	self error: TerniLapilli cannotMoveTheOtherPlayersPiecesErrorMessage! !
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'fz 10/16/2019 20:11:40'!
+!TerniLapilliPositionX methodsFor: 'error checking' stamp: 'fz 10/16/2019 20:11:40'!
 checkLegalMovingPieceForX
 	! !
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:27:07'!
+
+!TerniLapilliPositionX methodsFor: 'testing' stamp: 'MD 10/16/2019 19:27:07'!
 isEmpty
 	^false! !
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:47'!
+!TerniLapilliPositionX methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:47'!
 isO
 	^false! !
 
-!TerniLapilliPositionX methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 18:55:43'!
+!TerniLapilliPositionX methodsFor: 'testing' stamp: 'MD 10/16/2019 18:55:43'!
 isX
 	^true! !
 
@@ -671,11 +673,11 @@ isX
 TerniLapilliPositionX class
 	instanceVariableNames: 'uniqueInstance'!
 
-!TerniLapilliPositionX class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:59'!
+!TerniLapilliPositionX class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:59'!
 initialize
 	uniqueInstance := self basicNew.! !
 
-!TerniLapilliPositionX class methodsFor: 'as yet unclassified' stamp: 'MD 10/16/2019 19:08:31'!
+!TerniLapilliPositionX class methodsFor: 'instance creation' stamp: 'MD 10/16/2019 19:08:31'!
 new
 	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
 	^ uniqueInstance! !
@@ -735,6 +737,21 @@ moveOFrom: previousPosition to: newPosition on: aTerniLapilli
 moveXFrom: previousPosition to: newPosition on: aTerniLapilli
 	self error: TerniLapilli cannotMovePiecesWhenTheGameIsOverErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'GameOverOWon class' category: #TerniLapilli!
+GameOverOWon class
+	instanceVariableNames: 'uniqueInstance'!
+
+!GameOverOWon class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:25:21'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!GameOverOWon class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:25:49'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
 
 !classDefinition: #GameOverXWon category: #TerniLapilli!
 GameOver subclass: #GameOverXWon
@@ -774,6 +791,21 @@ moveOFrom: previousPosition to: newPosition on: aTerniLapilli
 moveXFrom: previousPosition to: newPosition on: aTerniLapilli
 	self error: TerniLapilli cannotMovePiecesWhenTheGameIsOverErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'GameOverXWon class' category: #TerniLapilli!
+GameOverXWon class
+	instanceVariableNames: 'uniqueInstance'!
+
+!GameOverXWon class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:03'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!GameOverXWon class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:25:57'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
 
 !classDefinition: #MovingPhase category: #TerniLapilli!
 TerniLapilliState subclass: #MovingPhase
@@ -803,6 +835,11 @@ moveXFrom: previousPosition to: newPosition on: aTerniLapilli
 	self error: TerniLapilli cannotPlayOutOfTurnErrorMessage ! !
 
 
+!MovingPhaseO methodsFor: 'next' stamp: 'MD 10/17/2019 13:42:42'!
+nextStateFor: aTerniLapilli 
+	^MovingPhaseX new.! !
+
+
 !MovingPhaseO methodsFor: 'placing' stamp: 'fz 10/16/2019 22:30:19'!
 placeOAt: aPosition on: aTerniLapilli 
 	self error: TerniLapilli cannotPlaceMoreThan6PiecesOnBoardErrorMessage ! !
@@ -812,9 +849,13 @@ placeXAt: aPosition on: aTerniLapilli
 	self error: TerniLapilli cannotPlaceMoreThan6PiecesOnBoardErrorMessage ! !
 
 
-!MovingPhaseO methodsFor: 'next' stamp: 'MD 10/17/2019 13:42:42'!
-nextStateFor: aTerniLapilli 
-	^MovingPhaseX new.! !
+!MovingPhaseO methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:11:53'!
+isPlayingO
+	^true! !
+
+!MovingPhaseO methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:11:58'!
+isPlayingX
+	^false! !
 
 
 !MovingPhaseO methodsFor: 'win' stamp: 'MD 10/17/2019 15:05:21'!
@@ -829,14 +870,20 @@ thereWasAWinner
 winner
 	self error: TerniLapilli theresNoWinnerWhenAGameHasntEndedErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!MovingPhaseO methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:11:53'!
-isPlayingO
-	^true! !
+!classDefinition: 'MovingPhaseO class' category: #TerniLapilli!
+MovingPhaseO class
+	instanceVariableNames: 'uniqueInstance'!
 
-!MovingPhaseO methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:11:58'!
-isPlayingX
-	^false! !
+!MovingPhaseO class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:11'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!MovingPhaseO class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:18'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
 
 
 !classDefinition: #MovingPhaseX category: #TerniLapilli!
@@ -874,6 +921,15 @@ placeXAt: aPosition on: aTerniLapilli
 	self error: TerniLapilli cannotPlaceMoreThan6PiecesOnBoardErrorMessage ! !
 
 
+!MovingPhaseX methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:12:16'!
+isPlayingO
+	^false! !
+
+!MovingPhaseX methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:12:12'!
+isPlayingX
+	^true! !
+
+
 !MovingPhaseX methodsFor: 'win' stamp: 'MD 10/17/2019 15:00:22'!
 isGameOver
 	^false! !
@@ -886,14 +942,20 @@ thereWasAWinner
 winner
 	self error: TerniLapilli theresNoWinnerWhenAGameHasntEndedErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!MovingPhaseX methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:12:16'!
-isPlayingO
-	^false! !
+!classDefinition: 'MovingPhaseX class' category: #TerniLapilli!
+MovingPhaseX class
+	instanceVariableNames: 'uniqueInstance'!
 
-!MovingPhaseX methodsFor: 'turn testing' stamp: 'MD 10/17/2019 15:12:12'!
-isPlayingX
-	^true! !
+!MovingPhaseX class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:28'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!MovingPhaseX class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:22'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
 
 
 !classDefinition: #PlacingPhase category: #TerniLapilli!
@@ -956,6 +1018,21 @@ thereWasAWinner
 winner
 	self error: TerniLapilli theresNoWinnerWhenAGameHasntEndedErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PlacingPhaseO class' category: #TerniLapilli!
+PlacingPhaseO class
+	instanceVariableNames: 'uniqueInstance'!
+
+!PlacingPhaseO class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:33'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!PlacingPhaseO class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:40'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
 
 !classDefinition: #PlacingPhaseX category: #TerniLapilli!
 PlacingPhase subclass: #PlacingPhaseX
@@ -1009,6 +1086,27 @@ thereWasAWinner
 winner
 	self error: TerniLapilli theresNoWinnerWhenAGameHasntEndedErrorMessage! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PlacingPhaseX class' category: #TerniLapilli!
+PlacingPhaseX class
+	instanceVariableNames: 'uniqueInstance'!
+
+!PlacingPhaseX class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:50'!
+initialize
+	uniqueInstance := self basicNew.! !
+
+!PlacingPhaseX class methodsFor: 'instance creation' stamp: 'MD 10/17/2019 15:26:44'!
+new
+	uniqueInstance isNil ifTrue: [uniqueInstance := super new].
+	^ uniqueInstance! !
+
 TerniLapilliPositionEmpty initialize!
 TerniLapilliPositionO initialize!
 TerniLapilliPositionX initialize!
+GameOverOWon initialize!
+GameOverXWon initialize!
+MovingPhaseO initialize!
+MovingPhaseX initialize!
+PlacingPhaseO initialize!
+PlacingPhaseX initialize!
