@@ -359,17 +359,22 @@ Object subclass: #FinancialRecord
 accounts
 	^self subclassResponsibility.! !
 
-!FinancialRecord methodsFor: 'testing' stamp: 'fz 10/20/2019 19:10:24'!
-registers: aTransaction
+!FinancialRecord methodsFor: 'testing' stamp: 'fz 10/20/2019 20:53:08'!
+manages: aFinancialRecord 
 	^self subclassResponsibility.! !
 
-!FinancialRecord methodsFor: 'testing' stamp: 'jy 10/17/2019 20:19:59'!
-transactions
+!FinancialRecord methodsFor: 'testing' stamp: 'fz 10/20/2019 19:10:24'!
+registers: aTransaction
 	^self subclassResponsibility.! !
 
 
 !FinancialRecord methodsFor: 'balance' stamp: 'jy 10/17/2019 20:19:33'!
 balance
+	^self subclassResponsibility.! !
+
+
+!FinancialRecord methodsFor: 'transactions' stamp: 'jy 10/17/2019 20:19:59'!
+transactions
 	^self subclassResponsibility.! !
 
 
