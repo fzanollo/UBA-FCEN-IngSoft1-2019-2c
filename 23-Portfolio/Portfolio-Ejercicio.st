@@ -1,55 +1,32 @@
 !classDefinition: #PortfolioTest category: #'Portfolio-Ejercicio'!
 TestCase subclass: #PortfolioTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'aPortfolio aManagedSubPortfolio anAccountManagedBySubPortfolio anEmptyPortfolio notManagedAccount aManagedAccount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 18:58:22'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:23:15'!
 test01PortfolioHasZeroAsBalanceWhenCreated 
 
-	| portfolio |
-	
-	portfolio := Portfolio new.
+	self assert: 0 equals: anEmptyPortfolio balance.! !
 
-	self assert: 0 equals: portfolio balance.! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 19:00:10'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:23:28'!
 test02PortfolioHasNoTransactionWhenCreated 
 
-	| portfolio |
-	
-	portfolio := Portfolio new.
+	self assert: anEmptyPortfolio transactions isEmpty.! !
 
-	self assert: portfolio transactions isEmpty.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:32:54'!
+test03AnAddedAccountIsManagedByThePortfolio
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
-test03AnAddedAccountIsOnPortfolio
+	self assert: (aPortfolio manages: aManagedAccount ).! !
 
-	| portfolio account|
-	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
-	
-	portfolio addFinancialRecord: account.
-
-	self assert: (portfolio hasAccount: account).! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:25:12'!
 test04notAddedAccountIsNotOnPortfolio
 
-	| portfolio addedAccount notAddedAccount|
-	
-	portfolio := Portfolio new.
-	addedAccount := ReceptiveAccount new.
-	notAddedAccount := ReceptiveAccount new.	
-	
-	portfolio addFinancialRecord: addedAccount.
+	self deny: (aPortfolio manages: notManagedAccount).! !
 
-	self deny: (portfolio hasAccount: notAddedAccount).! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
-test05PortfolioBalanceReflectsAddedAccountInitialBalance
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:27:22'!
+test05PortfolioBalanceReflectsAccountTransactionsFromBefore
 
 	| portfolio account|
 	
@@ -76,156 +53,107 @@ test06PortfolioBalanceReflectsAddedAccountUpdatedBalance
 	
 	self assert: portfolio balance equals: 200.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:34:43'!
 test07portfolioKnowsTransactionsOfAddedAccounts
 
-	| portfolio account deposit|
+	|deposit|
 	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
-	deposit := Deposit register: 100 on: account.
+	deposit := Deposit register: 100 on: aManagedAccount .
 	
-	portfolio addFinancialRecord: account.
-		
-	self assert: portfolio transactions includes: deposit.
-	self assert: portfolio transactions size equals: 1.! !
+	self assert: aPortfolio transactions includes: deposit.
+	self assert: aPortfolio transactions size equals: 1.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:35:29'!
 test08transactionsNotInPortfolioAccountsAreNotRegistered
 
-	| portfolio addedAccount notAddedAccount noRegisteredDeposit |
+	| noRegisteredDeposit |
 	
-	portfolio := Portfolio new.
+	noRegisteredDeposit := Deposit register: 50 on: notManagedAccount.
 	
-	addedAccount := ReceptiveAccount new.
-	Deposit register: 100 on: addedAccount.
-	
-	notAddedAccount := ReceptiveAccount new.
-	noRegisteredDeposit := Deposit register: 50 on: notAddedAccount.
-	
-	portfolio addFinancialRecord: addedAccount.
-	
-	self deny: (portfolio hasRegistered: noRegisteredDeposit).! !
+	self deny: (aPortfolio registers: noRegisteredDeposit).! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:36:11'!
 test09transactionsInPortfolioAccountsAreRegistered
 
-	| portfolio addedAccount notAddedAccount noRegisteredDeposit |
+	| deposit |
 	
-	portfolio := Portfolio new.
+	deposit := Deposit register: 100 on: aManagedAccount.
 	
-	addedAccount := ReceptiveAccount new.
-	Deposit register: 100 on: addedAccount.
-	
-	notAddedAccount := ReceptiveAccount new.
-	noRegisteredDeposit := Deposit register: 50 on: notAddedAccount.
-	
-	portfolio addFinancialRecord: addedAccount.
-	
-	self deny: (portfolio hasRegistered: noRegisteredDeposit).! !
+	self assert: (aPortfolio registers: deposit).! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
-test10transactionsInPortfolioAccountsAreRegistered
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:37:15'!
+test10CannotAddDuplicateAccountsInPortfolio
 
-	| portfolio account deposit |
-	
-	portfolio := Portfolio new.
-	
-	account := ReceptiveAccount new.
-	deposit := Deposit register: 100 on: account.
-	
-	portfolio addFinancialRecord: account.
-	
-	self assert: (portfolio hasRegistered: deposit).! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:17'!
-test11CannotAddDuplicateAccountsInPortfolio
-
-	| portfolio account |
-	
-	portfolio := Portfolio new.
-	
-	account := ReceptiveAccount new.
-	
-	portfolio addFinancialRecord: account.
-	
-	self should: [portfolio addFinancialRecord: account] 
+	self should: [aPortfolio addFinancialRecord: aManagedAccount] 
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio accountAlreadyAddedErrorMessage.
-				self assert: (portfolio hasAccount: account)]! !
+				self assert: (aPortfolio manages: aManagedAccount)]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:17:32'!
-test12CanAddAPortfolio
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:38:27'!
+test11CanAddAPortfolio
 
-	| rootPortfolio addedPortfolio account |
+	| subPortfolio accountOfSubPortfolio |
 	
-	rootPortfolio := Portfolio new.
-	addedPortfolio := Portfolio new.
+	subPortfolio := Portfolio new.
+	accountOfSubPortfolio := ReceptiveAccount new.
 	
-	account := ReceptiveAccount new.
+	subPortfolio addFinancialRecord: accountOfSubPortfolio.
 	
-	addedPortfolio addFinancialRecord: account.
-	
-	rootPortfolio addFinancialRecord: addedPortfolio.
-	self assert: (rootPortfolio hasAccount: account).! !
+	aPortfolio addFinancialRecord: subPortfolio.
+	self assert: (aPortfolio manages: accountOfSubPortfolio).! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:23:55'!
-test13PortfolioBalanceReflectsAddedPortfolios
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:39:30'!
+test12PortfolioBalanceReflectsAddedPortfolios
 
-	| rootPortfolio addedPortfolio account |
+	Deposit register: 100 on: anAccountManagedBySubPortfolio. 
 	
-	rootPortfolio := Portfolio new.
-	addedPortfolio := Portfolio new.
-	
-	account := ReceptiveAccount new.
-	Deposit register: 100 on: account. 
-	
-	addedPortfolio addFinancialRecord: account.
-	
-	rootPortfolio addFinancialRecord: addedPortfolio.
-	self assert: rootPortfolio balance equals: 100.! !
+	self assert: aPortfolio balance equals: 100.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:26:18'!
-test14CannotAddAPortfolioWithAccountsAlreadyRegisteredInThisPortfolio
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:43:13'!
+test13CannotAddAPortfolioWithDuplicatedAccounts
 
-	| rootPortfolio addedPortfolio account |
+	| portfolioWithRepitedAccount |
+
+	portfolioWithRepitedAccount  := Portfolio new.
 	
-	rootPortfolio := Portfolio new.
-	addedPortfolio  := Portfolio new.
+	portfolioWithRepitedAccount addFinancialRecord: aManagedAccount.
 	
-	account := ReceptiveAccount new.
-	
-	rootPortfolio addFinancialRecord: account.
-	addedPortfolio addFinancialRecord: account.
-	
-	self should: [rootPortfolio addFinancialRecord: addedPortfolio] 
+	self should: [aPortfolio addFinancialRecord: portfolioWithRepitedAccount] 
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio accountAlreadyAddedErrorMessage.
-				self assert: (rootPortfolio hasAccount: account)]! !
+				self assert: (aPortfolio manages: aManagedAccount).
+				self deny: (aPortfolio manages: portfolioWithRepitedAccount)]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:36:20'!
-test15CannotAddAnEmptyPortfolioIfItsAlreadyInThisPortfolio
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:44:10'!
+test14CannotAddADuplicatedPortfolio
 
-	| rootPortfolio addedPortfolio |
-	
-	rootPortfolio := Portfolio new.
-	addedPortfolio  := Portfolio new.
-	rootPortfolio addFinancialRecord: addedPortfolio.
-	
-	self should: [rootPortfolio addFinancialRecord: addedPortfolio] 
+	self should: [aPortfolio addFinancialRecord: aManagedSubPortfolio] 
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio portfolioAlreadyAddedErrorMessage.]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'jy 10/17/2019 20:44:34'!
-test16PortfolioCannotAddItself
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:44:26'!
+test15PortfolioCannotAddItself
 
-	| rootPortfolio  |
-	
-	rootPortfolio := Portfolio new.
-	
-	self should: [rootPortfolio addFinancialRecord: rootPortfolio ] 
+	self should: [aPortfolio addFinancialRecord: aPortfolio] 
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio portfolioAlreadyAddedErrorMessage.]! !
+
+
+!PortfolioTest methodsFor: 'setup' stamp: 'fz 10/20/2019 19:33:03'!
+setUp
+	anEmptyPortfolio := Portfolio new.
+	
+	aPortfolio := Portfolio new.	
+	aManagedSubPortfolio  := Portfolio new.
+	aManagedAccount := ReceptiveAccount new.
+	
+	anAccountManagedBySubPortfolio := ReceptiveAccount new.
+	aManagedSubPortfolio addFinancialRecord: anAccountManagedBySubPortfolio.
+	
+	aPortfolio addFinancialRecord: aManagedAccount.
+	aPortfolio addFinancialRecord: aManagedSubPortfolio.
+	
+	notManagedAccount := ReceptiveAccount new.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
@@ -279,7 +207,7 @@ test04WithdrawValueMustBePositive
 	self assert: withdrawValue equals: (Withdraw register: withdrawValue on: account) value
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:46'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:10:24'!
 test05ReceptiveAccountKnowsRegisteredTransactions 
 
 	| account deposit withdraw |
@@ -288,11 +216,11 @@ test05ReceptiveAccountKnowsRegisteredTransactions
 	deposit := Deposit register: 100 on: account.
 	withdraw := Withdraw register: 50 on: account.
 		
-	self assert: (account hasRegistered: deposit).
-	self assert: (account hasRegistered: withdraw).
+	self assert: (account registers: deposit).
+	self assert: (account registers: withdraw).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:54'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:10:24'!
 test06ReceptiveAccountDoNotKnowNotRegisteredTransactions
 
 	| account deposit withdraw |
@@ -301,8 +229,8 @@ test06ReceptiveAccountDoNotKnowNotRegisteredTransactions
 	deposit :=  Deposit for: 100.
 	withdraw := Withdraw for: 50.
 		
-	self deny: (account hasRegistered: deposit).
-	self deny: (account hasRegistered:withdraw).
+	self deny: (account registers: deposit).
+	self deny: (account registers:withdraw).
 ! !
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:21:24'!
@@ -435,8 +363,8 @@ accounts
 balance
 	^self subclassResponsibility.! !
 
-!FinancialRecord methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:19:53'!
-hasRegistered: aTransaction
+!FinancialRecord methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:10:24'!
+registers: aTransaction
 	^self subclassResponsibility.! !
 
 !FinancialRecord methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:19:59'!
@@ -451,40 +379,40 @@ FinancialRecord subclass: #Portfolio
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:11:37'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:14:19'!
 accounts
-	^holdees inject: Set new into: [:theAccounts :aHoldee | theAccounts addAll: aHoldee accounts]. ! !
+	^holdees inject: Set new into: [:theAccounts :aFinancialRecord | theAccounts addAll: aFinancialRecord accounts]. ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:47:54'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:09:22'!
 addFinancialRecord: aFinancialRecord 
 	(aFinancialRecord isKindOf: Portfolio) ifTrue:[
 		(self financialRecords includes: aFinancialRecord ) ifTrue: [self error: self class portfolioAlreadyAddedErrorMessage].
 	].
 	
-	(aFinancialRecord accounts anySatisfy: [:anAccount | self hasAccount: anAccount]) ifTrue:[self error: self class accountAlreadyAddedErrorMessage].
+	(aFinancialRecord accounts anySatisfy: [:anAccount | self manages: anAccount]) ifTrue:[self error: self class accountAlreadyAddedErrorMessage].
 	
 	holdees add: aFinancialRecord .! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:09:45'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:13:59'!
 balance
-	^holdees sum: [:anAccount | anAccount balance] ifEmpty: [0].
+	^holdees sum: [:aFinancialRecord | aFinancialRecord balance] ifEmpty: [0].
 	! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:39:35'!
 financialRecords
 	^ holdees copy add: self;yourself.! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:13:00'!
-hasAccount: aReceptiveAccount 
-	^self accounts includes: aReceptiveAccount ! !
-
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 19:36:07'!
-hasRegistered: aTransaction
-	^ self transactions includes: aTransaction ! !
-
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:09:45'!
 initialize
 	holdees := Set new.! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:41:14'!
+manages: aFinancialRecord 
+	^holdees anySatisfy: [:aHoldee | aHoldee manages: aFinancialRecord]! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:12:26'!
+registers: aTransaction
+	^ holdees anySatisfy: [:aFinancialRecord | aFinancialRecord registers: aTransaction].! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jy 10/17/2019 20:09:45'!
 transactions
@@ -544,8 +472,13 @@ balance
 accounts
 	^Set with: self.! !
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
-hasRegistered: aTransaction
+!ReceptiveAccount methodsFor: 'testing' stamp: 'fz 10/20/2019 19:10:24'!
+registers: aTransaction
 
 	^ transactions includes: aTransaction 
 ! !
+
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'fz 10/20/2019 19:41:41'!
+manages: aFinancialRecord 
+	^aFinancialRecord = self! !
