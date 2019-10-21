@@ -53,15 +53,18 @@ test06PortfolioBalanceReflectsAddedAccountUpdatedBalance
 	
 	self assert: portfolio balance equals: 200.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:34:43'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:24:46'!
 test07portfolioKnowsTransactionsOfAddedAccounts
 
-	|deposit|
+	|portfolio account deposit|
+	portfolio := Portfolio new.	
+	account := ReceptiveAccount new.
 	
-	deposit := Deposit register: 100 on: aManagedAccount .
+	portfolio manage: account.
+	deposit := Deposit register: 100 on: account .
 	
-	self assert: aPortfolio transactions includes: deposit.
-	self assert: aPortfolio transactions size equals: 1.! !
+	self assert: portfolio transactions includes: deposit.
+	self assert: portfolio transactions size equals: 1.! !
 
 !PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:35:29'!
 test08transactionsNotInPortfolioAccountsAreNotRegistered
@@ -81,12 +84,12 @@ test09transactionsInPortfolioAccountsAreRegistered
 	
 	self assert: (aPortfolio registers: deposit).! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:54:16'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:16:05'!
 test10CannotAddDuplicateAccountsInPortfolio
 
 	self should: [aPortfolio manage: aManagedAccount] 
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio accountAlreadyAddedErrorMessage.
+		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio financialRecordAlreadyAddedErrorMessage.
 				self assert: (aPortfolio manages: aManagedAccount)]! !
 
 !PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:54:16'!
@@ -109,7 +112,7 @@ test12PortfolioBalanceReflectsAddedPortfolios
 	
 	self assert: aPortfolio balance equals: 100.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:54:16'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:16:05'!
 test13CannotAddAPortfolioWithDuplicatedAccounts
 
 	| portfolioWithRepitedAccount |
@@ -120,23 +123,39 @@ test13CannotAddAPortfolioWithDuplicatedAccounts
 	
 	self should: [aPortfolio manage: portfolioWithRepitedAccount] 
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio accountAlreadyAddedErrorMessage.
+		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio financialRecordAlreadyAddedErrorMessage.
 				self assert: (aPortfolio manages: aManagedAccount).
 				self deny: (aPortfolio manages: portfolioWithRepitedAccount)]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:54:16'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:18:08'!
 test14CannotAddADuplicatedPortfolio
 
 	self should: [aPortfolio manage: aManagedSubPortfolio] 
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio portfolioAlreadyAddedErrorMessage.]! !
+		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio financialRecordAlreadyAddedErrorMessage.]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 19:54:16'!
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:18:12'!
 test15PortfolioCannotAddItself
 
 	self should: [aPortfolio manage: aPortfolio] 
 		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio portfolioAlreadyAddedErrorMessage.]! !
+		withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio financialRecordAlreadyAddedErrorMessage.]! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'fz 10/20/2019 21:25:40'!
+test16PortfolioFailsInCasesWhereItNeedsToKnowItsParents
+
+    | portfolioA portfolioB portfolioC |
+    portfolioA := Portfolio new.
+    portfolioB := Portfolio new.
+    portfolioC := Portfolio new.
+
+    portfolioA manage: portfolioB.
+    portfolioA manage: portfolioC.
+    
+    self should: [portfolioC manage: portfolioB] 
+        raise: Error - MessageNotUnderstood 
+        withExceptionDo: [:anError | self assert: anError messageText equals: Portfolio financialRecordAlreadyAddedErrorMessage.
+                        self deny: (portfolioC manages: portfolioB).]! !
 
 
 !PortfolioTest methodsFor: 'setup' stamp: 'fz 10/20/2019 19:54:16'!
@@ -396,13 +415,9 @@ initialize
 	children := Set new.! !
 
 
-!Portfolio methodsFor: 'manage' stamp: 'fz 10/20/2019 19:54:16'!
-manage: aFinancialRecord 
-	(aFinancialRecord isKindOf: Portfolio) ifTrue:[
-		(self manages: aFinancialRecord ) ifTrue: [self error: self class portfolioAlreadyAddedErrorMessage].
-	].
-	
-	(aFinancialRecord accounts anySatisfy: [:anAccount | self manages: anAccount]) ifTrue:[self error: self class accountAlreadyAddedErrorMessage].
+!Portfolio methodsFor: 'manage' stamp: 'fz 10/20/2019 21:19:29'!
+manage: aFinancialRecord 	
+	(aFinancialRecord accounts anySatisfy: [:anAccount | self manages: anAccount]) ifTrue:[self error: self class financialRecordAlreadyAddedErrorMessage].
 	
 	children add: aFinancialRecord .! !
 
@@ -420,10 +435,10 @@ registers: aTransaction
 	^ children anySatisfy: [:aFinancialRecord | aFinancialRecord registers: aTransaction].! !
 
 
-!Portfolio methodsFor: 'transactions' stamp: 'fz 10/20/2019 19:50:49'!
+!Portfolio methodsFor: 'transactions' stamp: 'fz 10/20/2019 21:22:46'!
 transactions
 	
-	^children inject: Set new into: [:transactions :aChild| transactions addAll: aChild transactions].
+	^children inject: Set new into: [:aTransactionsSet :aChild| aTransactionsSet addAll: aChild transactions].
 	
 	! !
 
@@ -433,13 +448,9 @@ transactions
 Portfolio class
 	instanceVariableNames: ''!
 
-!Portfolio class methodsFor: 'error message' stamp: 'jy 10/17/2019 19:47:41'!
-accountAlreadyAddedErrorMessage
-	^'la cuenta ya fue agregada'! !
-
-!Portfolio class methodsFor: 'error message' stamp: 'jy 10/17/2019 20:40:02'!
-portfolioAlreadyAddedErrorMessage
-	^'no se pueden tener portfolios repetidos'! !
+!Portfolio class methodsFor: 'error message' stamp: 'fz 10/20/2019 21:16:18'!
+financialRecordAlreadyAddedErrorMessage
+	^'el registro financiero ya fue agregado'! !
 
 
 !classDefinition: #ReceptiveAccount category: #'Portfolio-Ejercicio'!
