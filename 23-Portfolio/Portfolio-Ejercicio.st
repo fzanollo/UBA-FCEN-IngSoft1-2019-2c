@@ -374,8 +374,8 @@ Object subclass: #FinancialRecord
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!FinancialRecord methodsFor: 'testing' stamp: 'jy 10/17/2019 20:19:08'!
-accounts
+!FinancialRecord methodsFor: 'testing' stamp: 'MFD 10/21/2019 11:41:47'!
+allHoldings
 	^self subclassResponsibility.! !
 
 !FinancialRecord methodsFor: 'testing' stamp: 'fz 10/20/2019 20:53:08'!
@@ -396,10 +396,16 @@ balance
 transactions
 	^self subclassResponsibility.! !
 
+
+!FinancialRecord methodsFor: 'roots management' stamp: 'MFD 10/21/2019 11:25:55'!
+replaceOldRoot: oldRootPortfolio for: newRootPortfolios
+
+	^ self subclassResponsibility.! !
+
 
 !classDefinition: #Portfolio category: #'Portfolio-Ejercicio'!
 FinancialRecord subclass: #Portfolio
-	instanceVariableNames: 'children'
+	instanceVariableNames: 'children rootPortfolios'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -410,21 +416,33 @@ balance
 	! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'fz 10/20/2019 19:49:09'!
+!Portfolio methodsFor: 'initialization' stamp: 'MFD 10/21/2019 11:16:13'!
 initialize
-	children := Set new.! !
+	children := Set new.
+	rootPortfolios := Set with: self.! !
 
 
-!Portfolio methodsFor: 'manage' stamp: 'fz 10/20/2019 21:19:29'!
-manage: aFinancialRecord 	
-	(aFinancialRecord accounts anySatisfy: [:anAccount | self manages: anAccount]) ifTrue:[self error: self class financialRecordAlreadyAddedErrorMessage].
+!Portfolio methodsFor: 'manage' stamp: 'MFD 10/21/2019 11:41:47'!
+hasConflictsWith: aFinancialRecord 	
+	(aFinancialRecord allHoldings anySatisfy: [:anAccount | self manages: anAccount]) ifTrue:[^true].
 	
-	children add: aFinancialRecord .! !
+	^false.! !
+
+!Portfolio methodsFor: 'manage' stamp: 'MFD 10/21/2019 11:22:26'!
+manage: aFinancialRecord 	
+	
+	(rootPortfolios anySatisfy: [:aRootPortfolio | aRootPortfolio hasConflictsWith: aFinancialRecord]) ifTrue: [self error: self class financialRecordAlreadyAddedErrorMessage].
+	
+	children add: aFinancialRecord.
+	aFinancialRecord replaceOldRoot: aFinancialRecord for: rootPortfolios.! !
 
 
-!Portfolio methodsFor: 'testing' stamp: 'fz 10/20/2019 19:49:09'!
-accounts
-	^children inject: Set new into: [:theAccounts :aFinancialRecord | theAccounts addAll: aFinancialRecord accounts]. ! !
+!Portfolio methodsFor: 'testing' stamp: 'MFD 10/21/2019 11:42:16'!
+allHoldings
+	
+	| holdings |
+	holdings := Set with: self.
+	^ children inject: holdings into: [:theAccounts :aFinancialRecord | theAccounts addAll: aFinancialRecord allHoldings]. ! !
 
 !Portfolio methodsFor: 'testing' stamp: 'fz 10/20/2019 19:49:09'!
 manages: aFinancialRecord 
@@ -441,6 +459,15 @@ transactions
 	^children inject: Set new into: [:aTransactionsSet :aChild| aTransactionsSet addAll: aChild transactions].
 	
 	! !
+
+
+!Portfolio methodsFor: 'roots management' stamp: 'MFD 10/21/2019 11:26:59'!
+replaceOldRoot: oldRootPortfolio for: newRootPortfolios
+	
+	rootPortfolios remove: oldRootPortfolio ifAbsent: [].
+	rootPortfolios addAll: newRootPortfolios.
+	
+	children do: [:aChild | aChild replaceOldRoot: oldRootPortfolio for: newRootPortfolios.]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -472,8 +499,8 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'jy 10/17/2019 20:11:57'!
-accounts
+!ReceptiveAccount methodsFor: 'testing' stamp: 'MFD 10/21/2019 11:41:47'!
+allHoldings
 	^Set with: self.! !
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'fz 10/20/2019 19:41:41'!
@@ -497,3 +524,9 @@ register: aTransaction
 transactions 
 
 	^ transactions copy! !
+
+
+!ReceptiveAccount methodsFor: 'roots management' stamp: 'MFD 10/21/2019 11:26:14'!
+replaceOldRoot: oldRootPortfolio for: newRootPortfolios
+
+	^self.! !
