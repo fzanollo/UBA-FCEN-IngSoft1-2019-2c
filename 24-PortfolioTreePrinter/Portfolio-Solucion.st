@@ -902,7 +902,7 @@ initializeOf: aReceptiveAccount
 	account := aReceptiveAccount.! !
 
 
-!SummaryReport methodsFor: 'report' stamp: 'jy 10/21/2019 21:41:04'!
+!SummaryReport methodsFor: 'report' stamp: 'MD 10/24/2019 17:21:32'!
 showReport
 	|report|
 	
@@ -912,7 +912,9 @@ showReport
 	
 	^report.
 	
-	"To do: cambiar [aTransaction summaryReport] por algo como aTransaction showOn: self y bla, double dispatch"! !
+	"To do: cambiar [aTransaction summaryReport] por algo como aTransaction showOn: self y bla, double dispatch"
+	"poner el report como variable de instancia, como haciamos en el method object"
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
