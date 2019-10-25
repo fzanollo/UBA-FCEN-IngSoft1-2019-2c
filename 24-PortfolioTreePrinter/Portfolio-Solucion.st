@@ -1,5 +1,13 @@
+!classDefinition: #AllTests category: #'Portfolio-Solucion'!
+TestCase subclass: #AllTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+
 !classDefinition: #PortfolioTest category: #'Portfolio-Solucion'!
-TestCase subclass: #PortfolioTest
+AllTests subclass: #PortfolioTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -215,7 +223,7 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Solucion'!
-TestCase subclass: #ReceptiveAccountTest
+AllTests subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -306,7 +314,7 @@ test07AccountKnowsItsTransactions
 
 
 !classDefinition: #ReportTest category: #'Portfolio-Solucion'!
-TestCase subclass: #ReportTest
+AllTests subclass: #ReportTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -381,7 +389,7 @@ test05AccountSummaryOfReceptiveAccountReflectsWholeHistory
 
 
 !classDefinition: #TransferTest category: #'Portfolio-Solucion'!
-TestCase subclass: #TransferTest
+AllTests subclass: #TransferTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -473,6 +481,10 @@ addTransactionsTo: aCollectionOfTransactions
 
 	self subclassResponsibility ! !
 
+!Account methodsFor: 'transactions' stamp: 'MD 10/25/2019 17:29:02'!
+executeOnAllTransactions: aBlockToExecute
+	^ self subclassResponsibility.! !
+
 !Account methodsFor: 'transactions' stamp: 'HAW 5/25/2019 12:23:15'!
 transactions
 
@@ -544,6 +556,10 @@ balance
 addTransactionsTo: aCollectionOfTransactions
 
 	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
+
+!Portfolio methodsFor: 'transactions' stamp: 'MD 10/25/2019 17:15:16'!
+executeOnAllTransactions: aBlockToExecute
+	^ self transactions do: aBlockToExecute! !
 
 !Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:32'!
 transactions
@@ -641,6 +657,10 @@ initialize
 addTransactionsTo: aCollectionOfTransactions
 
 	aCollectionOfTransactions addAll: transactions ! !
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'MD 10/25/2019 17:14:48'!
+executeOnAllTransactions: aBlockToExecute
+	^ transactions do: aBlockToExecute! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -892,7 +912,7 @@ Object subclass: #Report
 
 !classDefinition: #SummaryReport category: #'Portfolio-Solucion'!
 Report subclass: #SummaryReport
-	instanceVariableNames: 'account'
+	instanceVariableNames: 'account report'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -902,18 +922,16 @@ initializeOf: aReceptiveAccount
 	account := aReceptiveAccount.! !
 
 
-!SummaryReport methodsFor: 'report' stamp: 'MD 10/24/2019 17:21:32'!
+!SummaryReport methodsFor: 'report' stamp: 'MD 10/25/2019 17:13:04'!
 showReport
-	|report|
-	
+	 
 	report := ''.
-	account transactions do: [:aTransaction | report := report, (aTransaction summaryReport), ' '].
+	account executeOnAllTransactions: [:aTransaction | report := report, (aTransaction summaryReport), ' '].
 	report := report,'Balance = ', account balance asString .
 	
 	^report.
 	
 	"To do: cambiar [aTransaction summaryReport] por algo como aTransaction showOn: self y bla, double dispatch"
-	"poner el report como variable de instancia, como haciamos en el method object"
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
