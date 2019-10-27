@@ -9,6 +9,54 @@ Esta clase es solo para ordenar visualmente la lista de clases!
 
 
 
+!classDefinition: #PortfolioReportTest category: #'Portfolio-Solucion'!
+AllTest subclass: #PortfolioReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 17:40:45'!
+test01StructureOfAnEmptyPortfolioIsOnlyItsName
+	|portfolio structureReport|
+	
+	portfolio := Portfolio named: 'Portfolio solito'.
+	
+	structureReport := PortfolioStructureReport of: portfolio.
+	
+	self assert: structureReport showReport equals: portfolio accountName! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 17:45:10'!
+test02AccountsInsidePortfolioAreShowed
+	|portfolio account structureReport|
+	
+	portfolio := Portfolio named: 'Portfolio solito'.
+	account := ReceptiveAccount named:'una cuenta de adentro'.
+	portfolio add: account.
+	
+	structureReport := PortfolioStructureReport of: portfolio.
+	
+	self assert: structureReport showReport equals: (portfolio accountName, String newLineString, '    ', account accountName).! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 18:17:51'!
+test03StructureReportReflectsStructureDeepness
+	|rootPortfolio account structureReport subPortfolio expectedReport actualReport |
+	
+	rootPortfolio := Portfolio named: 'Portfolio raiz'.
+	subPortfolio := Portfolio named: 'Sub portfolio'.
+	account := ReceptiveAccount named: 'Cuenta de nivel dos'.
+	
+	rootPortfolio add: subPortfolio.
+	subPortfolio add: account.
+	
+	structureReport := PortfolioStructureReport of: rootPortfolio.
+	
+	expectedReport := rootPortfolio accountName, String newLineString, '    ', subPortfolio accountName, String newLineString, '        ', account accountName.
+	actualReport := structureReport showReport.
+	
+	self assert: actualReport equals: expectedReport.! !
+
+
 !classDefinition: #PortfolioTest category: #'Portfolio-Solucion'!
 AllTest subclass: #PortfolioTest
 	instanceVariableNames: ''
@@ -225,6 +273,128 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
 
+!classDefinition: #ReceptiveAccountReportTest category: #'Portfolio-Solucion'!
+AllTest subclass: #ReceptiveAccountReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'jy 10/21/2019 21:15:46'!
+test01AccountSummaryOfEmptyAccountIsCorrect
+
+	|anAccount summaryReport|
+	
+	anAccount := ReceptiveAccount new.
+	
+	summaryReport := SummaryReport of: anAccount.
+	self assert: summaryReport showReport equals: 'Balance = 0'.	! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:05:14'!
+test02AccountSummaryOfReceptiveAccountReflectsDeposit
+
+	|anAccount summaryReport report|
+	
+	report := String newLineString join: #('Depósito por 100.' 'Balance = 100').
+	
+	anAccount := ReceptiveAccount new.
+	Deposit register: 100 on: anAccount .
+	
+	summaryReport := SummaryReport of: anAccount.
+	self assert: summaryReport showReport equals: report.! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:05:39'!
+test03AccountSummaryOfReceptiveAccountReflectsWithdrawal
+
+	|anAccount summaryReport report|
+	
+	report := String newLineString join: #('Extracción por 100.' 'Balance = -100').
+	
+	anAccount := ReceptiveAccount new.
+	Withdraw register: 100 on: anAccount .
+	
+	summaryReport := SummaryReport of: anAccount.
+	self assert: summaryReport showReport equals: report.! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:06:35'!
+test04AccountSummaryOfReceptiveAccountReflectsTransfers
+
+	|emisorAccount receptorAccount emisorReport receptorReport|
+	
+	emisorAccount := ReceptiveAccount new.
+	receptorAccount := ReceptiveAccount new.
+	Transfer from: emisorAccount to: receptorAccount ammount: 100.
+	
+	emisorReport := SummaryReport of: emisorAccount.
+	receptorReport := SummaryReport of: receptorAccount.
+	
+	self assert: emisorReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Balance = -100')).
+	self assert: receptorReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Balance = 100')).! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:04:33'!
+test05AccountSummaryOfReceptiveAccountReflectsWholeHistory
+
+	|anAccount anotherAccount anAccountReport anotherAccountReport |
+	
+	anAccount := ReceptiveAccount new.
+	anotherAccount := ReceptiveAccount new.
+	Transfer from: anAccount to: anotherAccount ammount: 100.
+	
+	Deposit register: 50 on: anotherAccount.
+	Withdraw register: 130 on: anotherAccount.
+	
+	Transfer from: anotherAccount to: anAccount ammount: 50.
+	
+	anAccountReport := SummaryReport of: anAccount.
+	anotherAccountReport := SummaryReport of: anotherAccount.
+	
+	self assert: anAccountReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Entrada por transferencia de 50.' 'Balance = -50')).
+	self assert: anotherAccountReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Depósito por 50.' 'Extracción por 130.' 'Salida por transferencia de 50.' 'Balance = -30')).! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:10:32'!
+test06TransferNetReportOfAccountWithNoTransfersIsZero
+	|anAccount transferNetReport|
+	
+	anAccount := ReceptiveAccount new.
+	transferNetReport := TransferNetReport of: anAccount.
+	
+	self assert: transferNetReport showReport equals: 0.! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:52:36'!
+test07TransferNetReportIsNegativeForOutgoingTransferAndPositiveForIncoming
+	|emisorAccount receptorAccount emisorReport receptorReport|
+	
+	emisorAccount := ReceptiveAccount new.
+	receptorAccount := ReceptiveAccount new.
+	
+	Transfer from: emisorAccount to: receptorAccount ammount: 50.
+	Transfer from: emisorAccount to: receptorAccount ammount: 50.	
+	
+	emisorReport := TransferNetReport of: emisorAccount.
+	receptorReport := TransferNetReport of: receptorAccount.
+	
+	self assert: emisorReport showReport equals: -100.
+	self assert: receptorReport showReport equals: 100.! !
+
+!ReceptiveAccountReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:26:54'!
+test08TransferNetReportDoesNotLookForDepositsNorWithdrawals
+	|emisorAccount receptorAccount emisorReport receptorReport|
+	
+	emisorAccount := ReceptiveAccount new.
+	receptorAccount := ReceptiveAccount new.
+	
+	Deposit register: 100 on: emisorAccount.
+	Withdraw register: 50 on: receptorAccount.
+	
+	Transfer from: emisorAccount to: receptorAccount ammount: 100.
+	
+	emisorReport := TransferNetReport of: emisorAccount.
+	receptorReport := TransferNetReport of: receptorAccount.
+	
+	self assert: emisorReport showReport equals: -100.
+	self assert: receptorReport showReport equals: 100.! !
+
+
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Solucion'!
 AllTest subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
@@ -314,128 +484,6 @@ test07AccountKnowsItsTransactions
 	self assert: 1 equals: account1 transactions size .
 	self assert: (account1 transactions includes: deposit1).
 ! !
-
-
-!classDefinition: #ReportTest category: #'Portfolio-Solucion'!
-AllTest subclass: #ReportTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
-
-!ReportTest methodsFor: 'tests' stamp: 'jy 10/21/2019 21:15:46'!
-test01AccountSummaryOfEmptyAccountIsCorrect
-
-	|anAccount summaryReport|
-	
-	anAccount := ReceptiveAccount new.
-	
-	summaryReport := SummaryReport of: anAccount.
-	self assert: summaryReport showReport equals: 'Balance = 0'.	! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:05:14'!
-test02AccountSummaryOfReceptiveAccountReflectsDeposit
-
-	|anAccount summaryReport report|
-	
-	report := String newLineString join: #('Depósito por 100.' 'Balance = 100').
-	
-	anAccount := ReceptiveAccount new.
-	Deposit register: 100 on: anAccount .
-	
-	summaryReport := SummaryReport of: anAccount.
-	self assert: summaryReport showReport equals: report.! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:05:39'!
-test03AccountSummaryOfReceptiveAccountReflectsWithdrawal
-
-	|anAccount summaryReport report|
-	
-	report := String newLineString join: #('Extracción por 100.' 'Balance = -100').
-	
-	anAccount := ReceptiveAccount new.
-	Withdraw register: 100 on: anAccount .
-	
-	summaryReport := SummaryReport of: anAccount.
-	self assert: summaryReport showReport equals: report.! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:06:35'!
-test04AccountSummaryOfReceptiveAccountReflectsTransfers
-
-	|emisorAccount receptorAccount emisorReport receptorReport|
-	
-	emisorAccount := ReceptiveAccount new.
-	receptorAccount := ReceptiveAccount new.
-	Transfer from: emisorAccount to: receptorAccount ammount: 100.
-	
-	emisorReport := SummaryReport of: emisorAccount.
-	receptorReport := SummaryReport of: receptorAccount.
-	
-	self assert: emisorReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Balance = -100')).
-	self assert: receptorReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Balance = 100')).! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:04:33'!
-test05AccountSummaryOfReceptiveAccountReflectsWholeHistory
-
-	|anAccount anotherAccount anAccountReport anotherAccountReport |
-	
-	anAccount := ReceptiveAccount new.
-	anotherAccount := ReceptiveAccount new.
-	Transfer from: anAccount to: anotherAccount ammount: 100.
-	
-	Deposit register: 50 on: anotherAccount.
-	Withdraw register: 130 on: anotherAccount.
-	
-	Transfer from: anotherAccount to: anAccount ammount: 50.
-	
-	anAccountReport := SummaryReport of: anAccount.
-	anotherAccountReport := SummaryReport of: anotherAccount.
-	
-	self assert: anAccountReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Entrada por transferencia de 50.' 'Balance = -50')).
-	self assert: anotherAccountReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Depósito por 50.' 'Extracción por 130.' 'Salida por transferencia de 50.' 'Balance = -30')).! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:10:32'!
-test06TransferNetReportOfAccountWithNoTransfersIsZero
-	|anAccount transferNetReport|
-	
-	anAccount := ReceptiveAccount new.
-	transferNetReport := TransferNetReport of: anAccount.
-	
-	self assert: transferNetReport showReport equals: 0.! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:52:36'!
-test07TransferNetReportIsNegativeForOutgoingTransferAndPositiveForIncoming
-	|emisorAccount receptorAccount emisorReport receptorReport|
-	
-	emisorAccount := ReceptiveAccount new.
-	receptorAccount := ReceptiveAccount new.
-	
-	Transfer from: emisorAccount to: receptorAccount ammount: 50.
-	Transfer from: emisorAccount to: receptorAccount ammount: 50.	
-	
-	emisorReport := TransferNetReport of: emisorAccount.
-	receptorReport := TransferNetReport of: receptorAccount.
-	
-	self assert: emisorReport showReport equals: -100.
-	self assert: receptorReport showReport equals: 100.! !
-
-!ReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:26:54'!
-test08TransferNetReportDoesNotLookForDepositsNorWithdrawals
-	|emisorAccount receptorAccount emisorReport receptorReport|
-	
-	emisorAccount := ReceptiveAccount new.
-	receptorAccount := ReceptiveAccount new.
-	
-	Deposit register: 100 on: emisorAccount.
-	Withdraw register: 50 on: receptorAccount.
-	
-	Transfer from: emisorAccount to: receptorAccount ammount: 100.
-	
-	emisorReport := TransferNetReport of: emisorAccount.
-	receptorReport := TransferNetReport of: receptorAccount.
-	
-	self assert: emisorReport showReport equals: -100.
-	self assert: receptorReport showReport equals: 100.! !
 
 
 !classDefinition: #TransferTest category: #'Portfolio-Solucion'!
@@ -531,9 +579,9 @@ addTransactionsTo: aCollectionOfTransactions
 
 	self subclassResponsibility ! !
 
-!Account methodsFor: 'transactions' stamp: 'MD 10/25/2019 17:29:02'!
+!Account methodsFor: 'transactions' stamp: 'fz 10/27/2019 18:36:07'!
 executeOnAllTransactions: aBlockToExecute
-	^ self subclassResponsibility.! !
+	^ self subclassResponsibility ! !
 
 !Account methodsFor: 'transactions' stamp: 'HAW 5/25/2019 12:23:15'!
 transactions
@@ -549,7 +597,7 @@ addedTo: aPortfolio
 
 !classDefinition: #Portfolio category: #'Portfolio-Solucion'!
 Account subclass: #Portfolio
-	instanceVariableNames: 'accounts parents'
+	instanceVariableNames: 'accounts parents name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -578,6 +626,10 @@ add: accountToAdd
 	accountToAdd addedTo: self 
 	! !
 
+!Portfolio methodsFor: 'accounts management' stamp: 'fz 10/27/2019 18:18:47'!
+executeOnAllAccounts: aBlockToExecute
+	^ accounts do: aBlockToExecute! !
+
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 12:17:31'!
 rootParents
 	
@@ -595,6 +647,10 @@ initialize
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
 
+!Portfolio methodsFor: 'initialization' stamp: 'fz 10/27/2019 17:25:29'!
+initializeNamed: aName
+	name := aName! !
+
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
 balance
@@ -607,7 +663,7 @@ addTransactionsTo: aCollectionOfTransactions
 
 	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'MD 10/25/2019 17:15:16'!
+!Portfolio methodsFor: 'transactions' stamp: 'fz 10/27/2019 18:35:54'!
 executeOnAllTransactions: aBlockToExecute
 	^ self transactions do: aBlockToExecute! !
 
@@ -627,6 +683,10 @@ addedTo: aPortfolio
 	
 	parents add: aPortfolio ! !
 
+
+!Portfolio methodsFor: 'testing' stamp: 'fz 10/27/2019 17:40:45'!
+accountName
+	^name! !
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
 anyRootParentIsComposedBy: accountToAdd
@@ -662,6 +722,11 @@ signalCanNotAddAccount
 	
 	self error: self class canNotAddAccountErrorMessage! !
 
+
+!Portfolio methodsFor: 'reports' stamp: 'fz 10/27/2019 18:31:44'!
+showOn: aReport 
+	aReport showPortfolio: self.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Portfolio class' category: #'Portfolio-Solucion'!
@@ -688,10 +753,16 @@ with: anAccount with: anotherAccount
 		add: anotherAccount;
 		yourself! !
 
+
+!Portfolio class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 17:25:07'!
+named: aName
+	^self new initializeNamed: aName
+	! !
+
 
 !classDefinition: #ReceptiveAccount category: #'Portfolio-Solucion'!
 Account subclass: #ReceptiveAccount
-	instanceVariableNames: 'transactions'
+	instanceVariableNames: 'transactions name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -701,6 +772,11 @@ initialize
 
 	super initialize.
 	transactions := OrderedCollection new.! !
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'fz 10/27/2019 17:31:48'!
+initializeNamed: aName
+	name := aName.
+	! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
@@ -732,6 +808,10 @@ balance
 		into: [ :currentBalance :transaction | transaction affectBalance: currentBalance ]! !
 
 
+!ReceptiveAccount methodsFor: 'testing' stamp: 'fz 10/27/2019 17:40:45'!
+accountName
+	^name! !
+
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
 hasRegistered: aTransaction
 
@@ -749,6 +829,21 @@ addedTo: aPortfolio
 	
 	! !
 
+
+!ReceptiveAccount methodsFor: 'reports' stamp: 'fz 10/27/2019 18:27:45'!
+showOn: aReport 
+	aReport showReceptiveAccount: self.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: #'Portfolio-Solucion'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 17:31:31'!
+named: aName
+	^self new initializeNamed: aName.! !
+
 
 !classDefinition: #AccountTransaction category: #'Portfolio-Solucion'!
 Object subclass: #AccountTransaction
@@ -757,14 +852,19 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
-value 
+!AccountTransaction methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:39'!
+affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
 
-!AccountTransaction methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:39'!
-affectBalance: aBalance
+!AccountTransaction methodsFor: 'reports' stamp: 'fz 10/27/2019 16:59:33'!
+showOn: aReport 
+	self subclassResponsibility ! !
+
+
+!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
+value 
 
 	self subclassResponsibility ! !
 
@@ -792,27 +892,27 @@ AccountTransaction subclass: #Deposit
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Deposit methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:05:27'!
-initializeFor: aValue
-
-	value := aValue ! !
-
-
-!Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
-value
-
-	^ value! !
-
-
 !Deposit methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:02'!
 affectBalance: aBalance
 
 	^aBalance + value ! !
 
 
+!Deposit methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:05:27'!
+initializeFor: aValue
+
+	value := aValue ! !
+
+
 !Deposit methodsFor: 'reports' stamp: 'fz 10/27/2019 16:33:54'!
 showOn: aReport 
 	aReport showDeposit: self.! !
+
+
+!Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
+value
+
+	^ value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -841,23 +941,24 @@ TransferLeg subclass: #TransferDeposit
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!TransferDeposit methodsFor: 'balance' stamp: 'jy 10/21/2019 20:19:19'!
+affectBalance: anAmmount 
+	^anAmmount + transfer value! !
+
+
 !TransferDeposit methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:18:56'!
 initializeOf: aTransfer 
 	transfer := aTransfer.! !
 
 
-!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'jy 10/21/2019 20:19:19'!
-affectBalance: anAmmount 
-	^anAmmount + transfer value! !
-
-!TransferDeposit methodsFor: 'as yet unclassified' stamp: 'jy 10/21/2019 20:19:53'!
-value
-	^transfer value! !
-
-
 !TransferDeposit methodsFor: 'reports' stamp: 'fz 10/27/2019 16:32:48'!
 showOn: aReport 
 	aReport showTransferDeposit: self.! !
+
+
+!TransferDeposit methodsFor: 'value' stamp: 'jy 10/21/2019 20:19:53'!
+value
+	^transfer value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -877,23 +978,24 @@ TransferLeg subclass: #TransferWithdraw
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!TransferWithdraw methodsFor: 'balance' stamp: 'jy 10/21/2019 20:19:27'!
+affectBalance: anAmmount 
+	^anAmmount - transfer value! !
+
+
 !TransferWithdraw methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:18:46'!
 initializeOf: aTransfer 
 	transfer := aTransfer.! !
 
 
-!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'jy 10/21/2019 20:19:27'!
-affectBalance: anAmmount 
-	^anAmmount - transfer value! !
-
-!TransferWithdraw methodsFor: 'as yet unclassified' stamp: 'jy 10/21/2019 20:19:58'!
-value
-	^transfer value! !
-
-
 !TransferWithdraw methodsFor: 'reports' stamp: 'fz 10/27/2019 16:29:01'!
 showOn: aReport 
 	aReport showTransferWithdraw: self.! !
+
+
+!TransferWithdraw methodsFor: 'value' stamp: 'jy 10/21/2019 20:19:58'!
+value
+	^transfer value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -918,27 +1020,27 @@ AccountTransaction subclass: #Withdraw
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Withdraw methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:05:41'!
-initializeFor: aValue
-
-	value := aValue ! !
-
-
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-value
-
-	^ value! !
-
-
 !Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
 affectBalance: aBalance
 
 	^aBalance - value! !
 
 
+!Withdraw methodsFor: 'initialization' stamp: 'jy 10/21/2019 20:05:41'!
+initializeFor: aValue
+
+	value := aValue ! !
+
+
 !Withdraw methodsFor: 'reports' stamp: 'fz 10/27/2019 16:34:29'!
 showOn: aReport 
 	aReport showWithdraw: self.! !
+
+
+!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+value
+
+	^ value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -954,57 +1056,139 @@ for: aValue
 
 !classDefinition: #Report category: #'Portfolio-Solucion'!
 Object subclass: #Report
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Report methodsFor: 'printing' stamp: 'fz 10/27/2019 17:22:10'!
+showReport
+	self subclassResponsibility ! !
+
+
+!classDefinition: #AccountsReport category: #'Portfolio-Solucion'!
+Report subclass: #AccountsReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+
+!classDefinition: #PortfolioStructureReport category: #'Portfolio-Solucion'!
+AccountsReport subclass: #PortfolioStructureReport
+	instanceVariableNames: 'startingDeepness structureReport currentDeepness account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioStructureReport methodsFor: 'printing' stamp: 'fz 10/27/2019 18:38:36'!
+showReport
+	
+	currentDeepness := startingDeepness.
+	structureReport := (self tabs: currentDeepness), account accountName.
+
+	account executeOnAllAccounts:[:anAccount | 
+		currentDeepness := currentDeepness +1.
+		anAccount showOn: self.
+	].
+	
+	^structureReport ! !
+
+
+!PortfolioStructureReport methodsFor: 'initialization' stamp: 'fz 10/27/2019 18:40:28'!
+initializeOf: anAccount withDeepness: deepness
+	
+	account := anAccount.
+	startingDeepness := deepness.! !
+
+
+!PortfolioStructureReport methodsFor: 'private' stamp: 'fz 10/27/2019 18:13:08'!
+tabs: deepness
+	|tabs result|
+
+	tabs := '    '.
+	
+	result := ''.
+	deepness timesRepeat: [result := result, tabs].
+	
+	^result
+! !
+
+
+!PortfolioStructureReport methodsFor: 'showing accounts' stamp: 'fz 10/27/2019 18:32:28'!
+showPortfolio: aPortfolio 
+	|subStructure|
+	subStructure := PortfolioStructureReport of: aPortfolio withDeepness: currentDeepness.
+	
+	structureReport := structureReport, String newLineString, subStructure showReport.! !
+
+!PortfolioStructureReport methodsFor: 'showing accounts' stamp: 'fz 10/27/2019 18:29:25'!
+showReceptiveAccount: aReceptiveAccount 
+	structureReport := structureReport, String newLineString, (self tabs: currentDeepness), aReceptiveAccount accountName.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PortfolioStructureReport class' category: #'Portfolio-Solucion'!
+PortfolioStructureReport class
+	instanceVariableNames: ''!
+
+!PortfolioStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:54'!
+of: anAccount 
+	^self new initializeOf: anAccount withDeepness: 0.! !
+
+!PortfolioStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:59'!
+of: anAccount withDeepness: deepness 
+	^self new initializeOf: anAccount withDeepness: deepness.! !
+
+
+!classDefinition: #TransactionsReport category: #'Portfolio-Solucion'!
+Report subclass: #TransactionsReport
 	instanceVariableNames: 'account'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Report methodsFor: 'initialization' stamp: 'fz 10/27/2019 16:39:16'!
-initializeOf: anAccount
-	account := anAccount.
-	"creemos que account como colaborador interno está bien en esta clase porque tiene sentido que un reporte de cuentas necesite saber de qué cuenta. Esto evita código de inicialización repetido"! !
-
-
-!Report methodsFor: 'printing' stamp: 'fz 10/27/2019 16:17:26'!
-showReport
-	self subclassResponsibility ! !
-
-
-!Report methodsFor: 'registering account transactions' stamp: 'fz 10/27/2019 16:35:38'!
+!TransactionsReport methodsFor: 'showing transactions' stamp: 'fz 10/27/2019 16:35:38'!
 showDeposit: aDeposit 
 	self subclassResponsibility ! !
 
-!Report methodsFor: 'registering account transactions' stamp: 'fz 10/27/2019 16:35:53'!
+!TransactionsReport methodsFor: 'showing transactions' stamp: 'fz 10/27/2019 16:35:53'!
 showTransferDeposit: aTransferDeposit 
 	self subclassResponsibility ! !
 
-!Report methodsFor: 'registering account transactions' stamp: 'fz 10/27/2019 16:36:02'!
+!TransactionsReport methodsFor: 'showing transactions' stamp: 'fz 10/27/2019 16:36:02'!
 showTransferWithdraw: aTransferWithdraw 
 	self subclassResponsibility ! !
 
-!Report methodsFor: 'registering account transactions' stamp: 'fz 10/27/2019 16:36:08'!
+!TransactionsReport methodsFor: 'showing transactions' stamp: 'fz 10/27/2019 16:36:08'!
 showWithdraw: aWithdraw 
 	self subclassResponsibility ! !
 
+
+!TransactionsReport methodsFor: 'initialization' stamp: 'fz 10/27/2019 18:41:35'!
+initializeOf: anAccount
+	account := anAccount.
+	"Creemos que account como colaborador está bien a esta altura, evita código repetido"! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Report class' category: #'Portfolio-Solucion'!
-Report class
+!classDefinition: 'TransactionsReport class' category: #'Portfolio-Solucion'!
+TransactionsReport class
 	instanceVariableNames: ''!
 
-!Report class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 16:37:09'!
+!TransactionsReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:39:12'!
 of: anAccount 
 	^self new initializeOf: anAccount ! !
 
 
 !classDefinition: #SummaryReport category: #'Portfolio-Solucion'!
-Report subclass: #SummaryReport
+TransactionsReport subclass: #SummaryReport
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!SummaryReport methodsFor: 'printing' stamp: 'fz 10/27/2019 16:47:21'!
+!SummaryReport methodsFor: 'printing' stamp: 'fz 10/27/2019 18:39:45'!
 showReport
 	 
 	transactions := OrderedCollection new.
@@ -1035,13 +1219,13 @@ showWithdraw: aWithdraw
 
 
 !classDefinition: #TransferNetReport category: #'Portfolio-Solucion'!
-Report subclass: #TransferNetReport
+TransactionsReport subclass: #TransferNetReport
 	instanceVariableNames: 'transferNetValue'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!TransferNetReport methodsFor: 'printing' stamp: 'fz 10/27/2019 16:32:06'!
+!TransferNetReport methodsFor: 'printing' stamp: 'fz 10/27/2019 18:39:45'!
 showReport
 	transferNetValue := 0.
 	
