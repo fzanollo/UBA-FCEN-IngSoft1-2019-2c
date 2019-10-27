@@ -16,17 +16,17 @@ AllTest subclass: #AccountsReportTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountsReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 17:40:45'!
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:02:02'!
 test01StructureOfAnEmptyPortfolioIsOnlyItsName
 	|portfolio structureReport|
 	
 	portfolio := Portfolio named: 'Portfolio solito'.
 	
-	structureReport := PortfolioStructureReport of: portfolio.
+	structureReport := TreeStructureReport of: portfolio.
 	
 	self assert: structureReport showReport equals: portfolio accountName! !
 
-!AccountsReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 17:45:10'!
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:02:02'!
 test02AccountsInsidePortfolioAreShowed
 	|portfolio account structureReport|
 	
@@ -34,11 +34,11 @@ test02AccountsInsidePortfolioAreShowed
 	account := ReceptiveAccount named:'una cuenta de adentro'.
 	portfolio add: account.
 	
-	structureReport := PortfolioStructureReport of: portfolio.
+	structureReport := TreeStructureReport of: portfolio.
 	
 	self assert: structureReport showReport equals: (portfolio accountName, String newLineString, '    ', account accountName).! !
 
-!AccountsReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 18:17:51'!
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:02:02'!
 test03StructureReportReflectsStructureDeepness
 	|rootPortfolio account structureReport subPortfolio expectedReport actualReport |
 	
@@ -49,14 +49,14 @@ test03StructureReportReflectsStructureDeepness
 	rootPortfolio add: subPortfolio.
 	subPortfolio add: account.
 	
-	structureReport := PortfolioStructureReport of: rootPortfolio.
+	structureReport := TreeStructureReport of: rootPortfolio.
 	
 	expectedReport := rootPortfolio accountName, String newLineString, '    ', subPortfolio accountName, String newLineString, '        ', account accountName.
 	actualReport := structureReport showReport.
 	
 	self assert: actualReport equals: expectedReport.! !
 
-!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 19:17:53'!
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:02:02'!
 test04StructureReportWorksWithMultipleLevelsWithMultipleAccounts
 	"Portfolio de la familia
 	   Cuenta Mia
@@ -83,13 +83,38 @@ test04StructureReportWorksWithMultipleLevelsWithMultipleAccounts
 	portfolioDeHijos add: portfolioDeHijosMenores.
 	portfolioDeHijosMenores add: cuentaDeMartin.
 	
-	structureReport := PortfolioStructureReport of: portfolioDeLaFamilia.
+	structureReport := TreeStructureReport of: portfolioDeLaFamilia.
 	
 	expectedReport := portfolioDeLaFamilia accountName, String newLineString, '    ', cuentaMia accountName, String newLineString, '    ', portfolioDeHijos accountName,  String newLineString, '        ', cuentaDeJuan accountName, String newLineString, '        ', cuentaDeAngeles accountName , String newLineString, '        ', portfolioDeHijosMenores accountName , String newLineString, '            ', cuentaDeMartin accountName .
 	
 	actualReport := structureReport showReport.
 	
 	self assert: actualReport equals: expectedReport.! !
+
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:02:49'!
+test05StructureReportOfReceptiveAccountShowsItsName
+	|account structureReport report |
+	
+	account := ReceptiveAccount named:'una cuentita'.
+	
+	structureReport := TreeStructureReport of: account.
+	report := structureReport showReport.
+	
+	self assert: report equals: account accountName.! !
+
+!AccountsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 20:14:49'!
+test06SpecialSummaryReportOfReceptiveAccountShowsItsNameAndItsSummary
+	|account specialSummaryReport report predictedReport |
+	
+	account := ReceptiveAccount named:'una cuentita'.
+	Deposit register: 100 on: account.
+	Withdraw register: 20 on: account.
+	
+	specialSummaryReport := SpecialSummaryReport of: account.
+	report := specialSummaryReport showReport.
+	predictedReport := account accountName, String newLineString, '    ','Depósito por 100.',String newLineString, '    ', 'Extracción por 20.'.
+	
+	self assert: report equals: predictedReport.! !
 
 
 !classDefinition: #PortfolioTest category: #'Portfolio-Solucion'!
@@ -730,11 +755,12 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:29:03'!
+!Portfolio methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:57:11'!
 initialize
 
 	accounts := OrderedCollection new.
-	parents := OrderedCollection new.! !
+	parents := OrderedCollection new.
+	name := 'default name'.! !
 
 !Portfolio methodsFor: 'initialization' stamp: 'fz 10/27/2019 17:25:29'!
 initializeNamed: aName
@@ -852,11 +878,12 @@ Account subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:29:03'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:57:21'!
 initialize
 
 	super initialize.
-	transactions := OrderedCollection new.! !
+	transactions := OrderedCollection new.
+	name := 'default name'.! !
 
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'fz 10/27/2019 17:31:48'!
 initializeNamed: aName
@@ -910,6 +937,11 @@ addedTo: aPortfolio
 	
 	! !
 
+
+!ReceptiveAccount methodsFor: 'reports' stamp: 'MD 10/27/2019 20:08:17'!
+executeOnAllAccounts: aBlock
+
+	"a ReceptiveAccount has no accounts to execute. This is only to make the class polymorphic for the reports"! !
 
 !ReceptiveAccount methodsFor: 'reports' stamp: 'fz 10/27/2019 18:27:45'!
 showOn: aReport 
@@ -1155,14 +1187,45 @@ Report subclass: #AccountsReport
 	category: 'Portfolio-Solucion'!
 
 
-!classDefinition: #PortfolioStructureReport category: #'Portfolio-Solucion'!
-AccountsReport subclass: #PortfolioStructureReport
+!classDefinition: #SpecialSummaryReport category: #'Portfolio-Solucion'!
+AccountsReport subclass: #SpecialSummaryReport
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!SpecialSummaryReport methodsFor: 'initialization' stamp: 'MD 10/27/2019 20:16:18'!
+initializeOf: anAccount 
+	account := anAccount.! !
+
+
+!SpecialSummaryReport methodsFor: 'printing' stamp: 'MD 10/27/2019 20:17:07'!
+showReport
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SpecialSummaryReport class' category: #'Portfolio-Solucion'!
+SpecialSummaryReport class
+	instanceVariableNames: ''!
+
+!SpecialSummaryReport class methodsFor: 'instance creation' stamp: 'MD 10/27/2019 20:17:33'!
+of: anAccount 
+	^self new initializeOf: anAccount withDeepness: 0.! !
+
+!SpecialSummaryReport class methodsFor: 'instance creation' stamp: 'MD 10/27/2019 20:17:54'!
+of: anAccount withDeepness: deepness 
+	^self new initializeOf: anAccount withDeepness: deepness.! !
+
+
+!classDefinition: #TreeStructureReport category: #'Portfolio-Solucion'!
+AccountsReport subclass: #TreeStructureReport
 	instanceVariableNames: 'structureReport account deepness'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!PortfolioStructureReport methodsFor: 'printing' stamp: 'MD 10/27/2019 19:14:49'!
+!TreeStructureReport methodsFor: 'printing' stamp: 'MD 10/27/2019 19:14:49'!
 showReport
 	
 	structureReport := (self baseTabs), account accountName.
@@ -1174,14 +1237,14 @@ showReport
 	^structureReport ! !
 
 
-!PortfolioStructureReport methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:09:40'!
+!TreeStructureReport methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:09:40'!
 initializeOf: anAccount withDeepness: aDeepness
 	
 	account := anAccount.
 	deepness := aDeepness.! !
 
 
-!PortfolioStructureReport methodsFor: 'private' stamp: 'MD 10/27/2019 19:14:49'!
+!TreeStructureReport methodsFor: 'private' stamp: 'MD 10/27/2019 19:14:49'!
 baseTabs
 	|tabs result|
 
@@ -1194,28 +1257,28 @@ baseTabs
 ! !
 
 
-!PortfolioStructureReport methodsFor: 'showing accounts' stamp: 'MD 10/27/2019 19:09:40'!
+!TreeStructureReport methodsFor: 'showing accounts' stamp: 'MD 10/27/2019 20:02:02'!
 showPortfolio: aPortfolio 
 	|subStructure|
-	subStructure := PortfolioStructureReport of: aPortfolio withDeepness: deepness+1.
+	subStructure := TreeStructureReport of: aPortfolio withDeepness: deepness+1.
 	
 	structureReport := structureReport, String newLineString, subStructure showReport.! !
 
-!PortfolioStructureReport methodsFor: 'showing accounts' stamp: 'MD 10/27/2019 19:15:02'!
+!TreeStructureReport methodsFor: 'showing accounts' stamp: 'MD 10/27/2019 19:15:02'!
 showReceptiveAccount: aReceptiveAccount 
 	structureReport := structureReport, String newLineString, (self baseTabs), '    ', aReceptiveAccount accountName.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'PortfolioStructureReport class' category: #'Portfolio-Solucion'!
-PortfolioStructureReport class
+!classDefinition: 'TreeStructureReport class' category: #'Portfolio-Solucion'!
+TreeStructureReport class
 	instanceVariableNames: ''!
 
-!PortfolioStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:54'!
+!TreeStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:54'!
 of: anAccount 
 	^self new initializeOf: anAccount withDeepness: 0.! !
 
-!PortfolioStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:59'!
+!TreeStructureReport class methodsFor: 'instance creation' stamp: 'fz 10/27/2019 18:38:59'!
 of: anAccount withDeepness: deepness 
 	^self new initializeOf: anAccount withDeepness: deepness.! !
 
