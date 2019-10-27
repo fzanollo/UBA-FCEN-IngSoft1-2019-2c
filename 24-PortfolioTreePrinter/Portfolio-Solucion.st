@@ -457,7 +457,7 @@ test04AccountSummaryOfReceptiveAccountReflectsTransfers
 	self assert: emisorReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Balance = -100')).
 	self assert: receptorReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Balance = 100')).! !
 
-!TransactionsReportTest methodsFor: 'tests' stamp: 'fz 10/27/2019 16:04:33'!
+!TransactionsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 19:22:20'!
 test05AccountSummaryOfReceptiveAccountReflectsWholeHistory
 
 	|anAccount anotherAccount anAccountReport anotherAccountReport |
@@ -519,6 +519,56 @@ test08TransferNetReportDoesNotLookForDepositsNorWithdrawals
 	
 	self assert: emisorReport showReport equals: -100.
 	self assert: receptorReport showReport equals: 100.! !
+
+!TransactionsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 19:31:01'!
+test09AccountSummaryWorksForPortfolios
+
+	|aPortfolio anAccount anotherPortfolio anotherAccount aPortfolioReport anotherPortfolioReport |
+	
+	aPortfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	anAccount := ReceptiveAccount new.
+	anotherAccount := ReceptiveAccount new.
+	aPortfolio add: anAccount.
+	anotherPortfolio add: anotherAccount.
+	
+	Transfer from: anAccount to: anotherAccount ammount: 100.
+	
+	Deposit register: 50 on: anotherAccount .
+	Withdraw register: 130 on: anotherAccount .
+	
+	Transfer from: anotherAccount to: anAccount ammount: 50.
+	
+	aPortfolioReport := SummaryReport of: aPortfolio.
+	anotherPortfolioReport := SummaryReport of: anotherPortfolio.
+	
+	self assert: aPortfolioReport showReport equals: (String newLineString join: #('Salida por transferencia de 100.' 'Entrada por transferencia de 50.' 'Balance = -50')).
+	self assert: anotherPortfolioReport showReport equals: (String newLineString join: #('Entrada por transferencia de 100.' 'Depósito por 50.' 'Extracción por 130.' 'Salida por transferencia de 50.' 'Balance = -30')).! !
+
+!TransactionsReportTest methodsFor: 'tests' stamp: 'MD 10/27/2019 19:33:06'!
+test10TransferNetWorksForPortfolios
+
+	|aPortfolio anAccount anotherPortfolio anotherAccount aPortfolioReport anotherPortfolioReport |
+	
+	aPortfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	anAccount := ReceptiveAccount new.
+	anotherAccount := ReceptiveAccount new.
+	aPortfolio add: anAccount.
+	anotherPortfolio add: anotherAccount.
+	
+	Transfer from: anAccount to: anotherAccount ammount: 100.
+	
+	Deposit register: 50 on: anotherAccount .
+	Withdraw register: 130 on: anotherAccount .
+	
+	Transfer from: anotherAccount to: anAccount ammount: 50.
+	
+	aPortfolioReport := TransferNetReport of: aPortfolio.
+	anotherPortfolioReport := TransferNetReport of: anotherPortfolio.
+	
+	self assert: aPortfolioReport showReport equals: -50.
+	self assert: anotherPortfolioReport showReport equals: 50.! !
 
 
 !classDefinition: #TransferTest category: #'Portfolio-Solucion'!
@@ -680,7 +730,7 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
+!Portfolio methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:29:03'!
 initialize
 
 	accounts := OrderedCollection new.
@@ -802,7 +852,7 @@ Account subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'MD 10/27/2019 19:29:03'!
 initialize
 
 	super initialize.
