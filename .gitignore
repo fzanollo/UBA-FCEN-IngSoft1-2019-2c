@@ -2,23 +2,23 @@
 #/cuis
 
 # changes file
-*.changes
+#*.changes
 
 # system image
-*.image
+#*.image
 
 # Pharo Smalltalk Debug log file
-PharoDebug.log
+#PharoDebug.log
 
 # Squeak Smalltalk Debug log file
-SqueakDebug.log
+#SqueakDebug.log
 
 # Monticello package cache
-/package-cache
+#/package-cache
 
 # playground cache
-/play-cache
-/play-stash
+#/play-cache
+#/play-stash
 
 # Metacello-github cache
 /github-cache
