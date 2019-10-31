@@ -1,0 +1,348 @@
+
+
+----STARTUP---- (30 October 2019 23:09:36) as /home/akima/Documents/ing/repo/cuis/CuisUniversity-3938.image!
+
+
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #Cart category: #'Tus-Libros' stamp: 'fz_md 10/30/2019 23:17:01'!
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+----SNAPSHOT----(30 October 2019 23:17:07) CuisUniversity-3938.image priorSource: 14319118!
+
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #CartTest category: #'Tus-Libros' stamp: 'fz_md 10/30/2019 23:19:36'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!CartTest methodsFor: 'nil' stamp: 'fz_md 10/30/2019 23:20:34'!
+test01newCartIsEmpty
+	|cart|
+	
+	cart := Cart new.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:20:35'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:20:41'!
+isEmpty
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:20:48' prior: 50777392!
+isEmpty
+	^true.! !
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:20:50'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:20:50'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:20:54'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:26:12'!
+test02cartWithABookIsNotEmpty
+	|cart book|
+	
+	cart := Cart new.
+	
+	book := 'ISBN'.
+	cart add: 1 copiesOf: book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:26:18'!
+ERROR!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:26:18'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:26:24'!
+add: aSmallInteger copiesOf: aString 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Cart category: #'Tus-Libros' stamp: 'fz_md 10/30/2019 23:26:56'!
+Object subclass: #Cart
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:26:55' prior: 50777421!
+add: aQuantity copiesOf: aBook
+	items add: aBook.! !
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:26:57'!
+ERROR!
+!Cart methodsFor: 'nil' stamp: 'fz_md 10/30/2019 23:27:33'!
+initialize
+	items := Set new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:27:43' prior: 50777440!
+initialize
+	items := Dictionary new.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:27:58' prior: 50777433!
+add: aQuantity copiesOf: aBook
+	items at: aBook put: aQuantity.! !
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:28:01'!
+FAILURE!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:28:01'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:28:34' prior: 50777397!
+isEmpty
+	^items isEmpty! !
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:28:37'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:28:37'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:42:12'!
+test03booksAddedAreContainedInCart
+	|cart book|
+	
+	cart := Cart new.
+	
+	book := 'ISBN'.
+	cart add: 1 copiesOf: book.
+	
+	self assert: (cart has: book).! !
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:42:14'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:42:19'!
+has: aString 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:42:42' prior: 50777481!
+has: aBook
+	^true! !
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:42:43'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:42:43'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:42:43'!
+PASSED!
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:42:43'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:43:02'!
+test04booksNotAddedAreNotContainedInCart
+	|cart book|
+	
+	cart := Cart new.
+	
+	book := 'ISBN'.
+	cart add: 1 copiesOf: book.
+	
+	self assert: (cart has: book).! !
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:43:27' prior: 50777501!
+test04booksNotAddedAreNotContainedInCart
+	|cart addedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN'.
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: (cart has: addedBook).! !
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:43:59' prior: 50777509!
+test04booksNotAddedAreNotContainedInCart
+	|cart addedBook notAddedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN1'.
+	notAddedBook := 'ISBN1'.
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: (cart has: addedBook).
+	self deny: (cart has: notAddedBook).! !
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:44:00'!
+FAILURE!
+
+----End fileIn of /home/akima/Documents/ing/repo/cuis/Packages/TerseGuide.pck.st----!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:45:40' prior: 50777486!
+has: aBook
+	^items includesKey: aBook! !
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:45:41'!
+FAILURE!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:45:52' prior: 50777518!
+test04booksNotAddedAreNotContainedInCart
+	|cart addedBook notAddedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN1'.
+	notAddedBook := 'ISBN1'.
+	
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: (cart has: addedBook).
+	self deny: (cart has: notAddedBook).! !
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:45:53'!
+FAILURE!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:46:21' prior: 50780552!
+test04booksNotAddedAreNotContainedInCart
+	|cart addedBook notAddedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN1'.
+	notAddedBook := 'ISBN2'.
+	
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: (cart has: addedBook).
+	self deny: (cart has: notAddedBook).! !
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:46:22'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:46:22'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:46:22'!
+PASSED!
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:46:22'!
+PASSED!
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:46:22'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:51:28'!
+test05listingOfAnEmptyCartIsEmpty
+	|cart|
+	
+	cart := Cart new.
+	
+	self assert: cart list equals: ''! !
+
+!testRun: #CartTest #test05listingOfAnEmptyCartIsEmpty stamp: 'fz_md 10/30/2019 23:51:30'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:51:34'!
+list
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:51:42' prior: 50780602!
+list
+	^''! !
+
+!testRun: #CartTest #test05listingOfAnEmptyCartIsEmpty stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+
+!testRun: #CartTest #test05listingOfAnEmptyCartIsEmpty stamp: 'fz_md 10/30/2019 23:51:43'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:52:12'!
+test06listingOfACartHasOnlyContainedBooks
+	|cart|
+	
+	cart := Cart new.
+	
+	self assert: cart list equals: ''! !
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:53:22' prior: 50780627!
+test06listingOfACartHasOnlyContainedBooks
+	|cart addedBook notAddedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN1'.
+	notAddedBook := 'ISBN2'.
+	
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: cart list equals: (addedBook, '|1')! !
+!CartTest methodsFor: 'tests' stamp: 'fz_md 10/30/2019 23:53:40' prior: 50780634!
+test06listingOfACartHasOnlyContainedBooks
+	|cart addedBook|
+	
+	cart := Cart new.
+	
+	addedBook := 'ISBN1'.
+	
+	cart add: 1 copiesOf: addedBook.
+	
+	self assert: cart list equals: (addedBook, '|1')! !
+
+!testRun: #CartTest #test06listingOfACartHasOnlyContainedBooks stamp: 'fz_md 10/30/2019 23:53:42'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz_md 10/30/2019 23:55:47' prior: 50780606!
+list
+	|listing|
+	listing := ''.
+	items keysAndValuesDo: [:aKey :aValue | listing := listing, aKey, '|', aValue asString].
+	
+	^listing.! !
+
+!testRun: #CartTest #test06listingOfACartHasOnlyContainedBooks stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test05listingOfAnEmptyCartIsEmpty stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test06listingOfACartHasOnlyContainedBooks stamp: 'fz_md 10/30/2019 23:55:48'!
+PASSED!
+
+!testRun: #CartTest #test01newCartIsEmpty stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+!testRun: #CartTest #test02cartWithABookIsNotEmpty stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+!testRun: #CartTest #test03booksAddedAreContainedInCart stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+!testRun: #CartTest #test04booksNotAddedAreNotContainedInCart stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+!testRun: #CartTest #test05listingOfAnEmptyCartIsEmpty stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+!testRun: #CartTest #test06listingOfACartHasOnlyContainedBooks stamp: 'fz_md 10/30/2019 23:55:54'!
+PASSED!
+
+----SNAPSHOT----(30 October 2019 23:58:18) CuisUniversity-3938.image priorSource: 14263027!
+
+----QUIT----(30 October 2019 23:58:20) CuisUniversity-3938.image priorSource: 14369731!
