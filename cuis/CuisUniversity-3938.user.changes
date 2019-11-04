@@ -346,3 +346,2242 @@ PASSED!
 ----SNAPSHOT----(30 October 2019 23:58:18) CuisUniversity-3938.image priorSource: 14263027!
 
 ----QUIT----(30 October 2019 23:58:20) CuisUniversity-3938.image priorSource: 14369731!
+
+----STARTUP---- (4 November 2019 17:40:32) as /home/fzanollo/Documents/ing/repo/cuis/CuisUniversity-3938.image!
+
+
+!classRemoval: #Cart stamp: 'fz_md 11/4/2019 17:40:55'!
+Object subclass: #Cart
+	instanceVariableNames: 'items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classRemoval: #CartTest stamp: 'fz_md 11/4/2019 17:40:55'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+----End fileIn of /home/fzanollo/Documents/ing/repo/25-TusLibros_E2/TusLibros.st----!
+
+TestCase subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 17:41:40'!
+TestCase subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'nil' stamp: 'fz_md 11/4/2019 17:43:16'!
+test01cannotCheckoutEmptyCart! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 17:51:59'!
+Object subclass: #Cashier
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 17:51:37' prior: 50780921!
+test01cannotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: Cart new] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier cannotCheckoutEmptyCart]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 17:52:37' prior: 50780932!
+test01cannotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: Cart new] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 17:52:43'!
+test01canNotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: Cart new] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart]! !
+
+!methodRemoval: CashierTest #test01cannotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:52:43'!
+test01cannotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: Cart new] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart]!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:52:48'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 17:52:55'!
+toCheckout: aCart 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeToCheckout: aCart ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 17:53:11' prior: 50780975!
+toCheckout: aCart 
+	^self new initializeToCheckout: aCart ! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:53:13'!
+ERROR!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 17:53:27'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 17:53:27'!
+initializeToCheckout: aCart 
+	self shouldBeImplemented.
+	cart := aCart.! !
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 17:57:09' prior: 50780997!
+initializeToCheckout: aCart 
+	cart := aCart.! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:57:12'!
+FAILURE!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 17:58:00' prior: 50780983!
+toCheckout: aCart 
+	aCart isEmpty ifTrue:[^self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 17:58:05' prior: 50781011!
+toCheckout: aCart 
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart ! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:58:06'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 17:58:42' prior: 50781019!
+toCheckout: aCart 
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart ! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 17:58:46'!
+ERROR!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:00:24' prior: 50780952!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	
+	self should: [Cashier toCheckout: (CartTest new createCart)] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart]! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:00:26'!
+ERROR!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:00:37'!
+ERROR!
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 18:01:01'!
+canNotCheckoutEmptyCart
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 18:01:13' prior: 50781059!
+canNotCheckoutEmptyCart
+	^'can not checkout an empty cart'! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:01:14'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:01:14'!
+PASSED!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:07:56' prior: 50781041!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	
+	self should: [Cashier toCheckout: (CartTest new createCart)]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:14:12' prior: 50781076!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: (CartTest new createCart) registerOn: salesBook]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:14:15'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 18:14:49'!
+toCheckout: aCart registerOn: anOrderedCollection 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeToCheckout: aCart registerOn: anOrderedCollection ! !
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 18:15:03' prior: 50781107!
+toCheckout: aCart registerOn: aSalesBook 
+	^self new initializeToCheckout: aCart registerOn: aSalesBook ! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:15:05'!
+ERROR!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 18:15:17'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 18:15:17'!
+initializeToCheckout: aCart registerOn: aSalesBook 
+	self shouldBeImplemented.
+	cart := aCart.
+	salesBook := aSalesBook.! !
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 18:15:20' prior: 50781133!
+initializeToCheckout: aCart registerOn: aSalesBook 
+	cart := aCart.
+	salesBook := aSalesBook.! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:15:22'!
+FAILURE!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 18:15:45' prior: 50781117!
+toCheckout: aCart registerOn: aSalesBook 
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart registerOn: aSalesBook ! !
+
+!methodRemoval: Cashier class #toCheckout: stamp: 'fz_md 11/4/2019 18:15:48'!
+toCheckout: aCart 
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart !
+
+!methodRemoval: Cashier #initializeToCheckout: stamp: 'fz_md 11/4/2019 18:15:54'!
+initializeToCheckout: aCart 
+	cart := aCart.!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:15:58'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:15:58'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:18:06'!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier |
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	cart := cartTester createCart.
+	cart add: CartTest itemSellByTheStore.
+	
+	cashier :=  Cashier toCheckout: cart.
+	
+	self assert: (cashier checkout) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:41:21'!
+ERROR!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:41:21'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:42:00' prior: 50781175!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier |
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	cashier :=  Cashier toCheckout: cart.
+	
+	self assert: (cashier checkout) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:42:01'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:42:48' prior: 50781194!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook.
+	
+	self assert: (cashier checkout) equals: 10.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:43:12' prior: 50781210!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook at:0) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:43:15'!
+ERROR!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:43:23'!
+checkout
+	self shouldBeImplemented.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:45:18' prior: 50781244!
+checkout
+	self shouldBeImplemented.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:47:06' prior: 50781225!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: (Dictionary new; at: cartTester itemSellByTheStore put: 10).
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook at:0) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:47:12'!
+ERROR!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 18:49:50'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart registerOn: aSalesBook ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:49:50' prior: 50781088!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: (CartTest new createCart) registerOn: salesBook priceList: Dictionary new]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+
+!methodRemoval: Cashier class #toCheckout:registerOn: stamp: 'fz_md 11/4/2019 18:49:50'!
+toCheckout: aCart registerOn: aSalesBook 
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart registerOn: aSalesBook !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:50:00'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:51:14' prior: 50781253!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook at:0) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:51:16'!
+ERROR!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 18:52:24'!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	cart := aCart.
+	salesBook := aSalesBook.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:52:24' prior: 50781274!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: Dictionary new ! !
+
+!methodRemoval: Cashier #initializeToCheckout:registerOn: stamp: 'fz_md 11/4/2019 18:52:24'!
+initializeToCheckout: aCart registerOn: aSalesBook 
+	cart := aCart.
+	salesBook := aSalesBook.!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 18:52:36' prior: 50781342!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList ! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 18:52:58'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 18:52:56' prior: 50781335!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	cart := aCart.
+	salesBook := aSalesBook.
+	priceList := aPriceList.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:53:00'!
+ERROR!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:56:12' prior: 50781249!
+checkout
+	^ cart items inject: 0 into: [:totalValue :item | totalValue + priceList at:item]! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:56:16'!
+ERROR!
+!Cart methodsFor: 'REFACTORIZAR' stamp: 'fz_md 11/4/2019 18:56:29'!
+items
+	self shouldBeImplemented.
+	^items! !
+!Cart methodsFor: 'REFACTORIZAR' stamp: 'fz_md 11/4/2019 18:56:53' prior: 50781395!
+items
+	^items! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:56:55'!
+ERROR!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 18:58:00' prior: 50781386!
+checkout
+	|totalCheckout|
+	
+	totalCheckout := cart items inject: 0 into: [:totalValue :item | totalValue + priceList at:item].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:58:03'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:58:21' prior: 50781312!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook top) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:58:23'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 18:58:38' prior: 50781418!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:58:39'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 18:58:39'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 18:58:39'!
+PASSED!
+
+----SNAPSHOT----(4 November 2019 18:58:43) CuisUniversity-3938.image priorSource: 14369824!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:01:01'!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:03:44' prior: 50781473!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 19:05:53'!
+Object subclass: #CreditCard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:05:46' prior: 50781493!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	aCreditCard := CreditCard new.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:10:36' prior: 50781521!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	aCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2004 monthNumber:1).
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard onDay: (FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1).
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:12:35' prior: 50781543!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	aCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard onDay: (FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1).
+	
+	self should: [Cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:12:44' prior: 50781569!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	aCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard onDay: (FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1).
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:13:11' prior: 50781599!
+test03cannotCheckoutWithExpiredCreditCard
+	| cartTester cart cashier salesBook priceList aCreditCard |
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	aCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: aCreditCard onDay: (FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1).
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutWIthExpiredCreditCard.
+								self assert: salesBook isEmpty]! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:13:18'!
+ERROR!
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:13:27'!
+expiresOn: aGregorianMonthOfYear 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeExpiresOn: aGregorianMonthOfYear ! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:13:44' prior: 50781663!
+expiresOn: aGregorianMonthOfYear 
+	^self new initializeExpiresOn: aGregorianMonthOfYear ! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:13:56' prior: 50781673!
+expiresOn: expirationDate 
+	^self new initializeExpiresOn: expirationDate ! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:14:01'!
+ERROR!
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 19:14:11'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate_CHANGE_ME'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:14:11'!
+initializeExpiresOn: expirationDate 
+	self shouldBeImplemented.
+	expirationDate_CHANGE_ME := expirationDate.! !
+!CreditCard methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:14:15' prior: 50781696!
+initializeExpiresOn: expirationDate 
+	
+	expirationDate_CHANGE_ME := expirationDate.! !
+!CreditCard methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:14:53' prior: 50781703!
+initializeExpiresOn: anExpirationDate 
+	! !
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 19:14:56'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate_CHANGE_ME expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:14:55' prior: 50781709!
+initializeExpiresOn: anExpirationDate 
+	
+	expirationDate := anExpirationDate.! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:14:57'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:15:26'!
+toCheckout: aCart registerOn: anOrderedCollection priceList: aDictionary withCreditCard: aCreditCard onDay: aFixedGregorianDate 
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:17:14'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard   
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:17:14' prior: 50781284!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: (CartTest new createCart) registerOn: salesBook priceList: Dictionary new withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1)))]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:17:15' prior: 50781441!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))).
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+
+!methodRemoval: Cashier class #toCheckout:registerOn:priceList: stamp: 'fz_md 11/4/2019 19:17:15'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList !
+
+!methodRemoval: Cashier class #toCheckout:registerOn:priceList:withCreditCard:onDay: stamp: 'fz_md 11/4/2019 19:17:30'!
+toCheckout: aCart registerOn: anOrderedCollection priceList: aDictionary withCreditCard: aCreditCard onDay: aFixedGregorianDate 
+	self shouldBeImplemented.!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:18:08'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:18:08' prior: 50781750!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: (CartTest new createCart) registerOn: salesBook priceList: Dictionary new withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1))]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:18:08' prior: 50781770!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1)).
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+
+!methodRemoval: Cashier class #toCheckout:registerOn:priceList:withCreditCard: stamp: 'fz_md 11/4/2019 19:18:08'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard   
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList !
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:18:42'!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	priceList := aPriceList.! !
+
+!methodRemoval: Cashier #initializeToCheckout:registerOn:priceList: stamp: 'fz_md 11/4/2019 19:18:50'!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList  
+	cart := aCart.
+	salesBook := aSalesBook.
+	priceList := aPriceList.!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:19:02' prior: 50781811!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    ! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 19:19:24'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook priceList creditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:19:22' prior: 50781881!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	priceList := aPriceList.
+	creditCard := aCreditCard.
+	day := aDay.! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 19:19:35'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook priceList creditCard date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:19:31' prior: 50781918!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	priceList := aPriceList.
+	creditCard := aCreditCard.
+	date := aDay.! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:19:40'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:19:40'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:19:40'!
+FAILURE!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:19:40'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:21:24' prior: 50781406!
+checkout
+	|totalCheckout|
+	
+	date > creditCard expirationDate ifTrue: [].
+	
+	totalCheckout := cart items inject: 0 into: [:totalValue :item | totalValue + priceList at:item].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+!CreditCard methodsFor: 'nil' stamp: 'fz_md 11/4/2019 19:22:00'!
+expirationDate
+
+	^ expirationDate.! !
+
+Object subclass: #CreditCard
+	instanceVariableNames: ' expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 19:22:04'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+(GregorianMonthOfYear yearNumber: 2000 monthNumber:1)	 lastDayOfMonth !
+
+|asd|
+
+asd := GregorianMonthOfYear yearNumber: 2000 monthNumber:1.
+!
+
+self lastDay !
+
+self lastDayNumber !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:24:26' prior: 50781960!
+checkout
+	|totalCheckout|
+	
+	date > creditCard expirationDate ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	
+	totalCheckout := cart items inject: 0 into: [:totalValue :item | totalValue + priceList at:item].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:24:30'!
+ERROR!
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 19:24:39'!
+canNotCheckoutWIthExpiredCreditCard
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 19:24:50' prior: 50782007!
+canNotCheckoutWIthExpiredCreditCard
+	^'the credit card is no longer valid'! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:24:55'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:24:55'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:24:55'!
+ERROR!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:24:55'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:24:55'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:25:15' prior: 50781845!
+test02TotalCheckoutAmmountIsCorrect
+	| cartTester cart cashier salesBook priceList|
+	
+	salesBook := OrderedCollection new.
+	
+	"refactorizar esto del cart tester"
+	cartTester := CartTest new.
+	
+	cart := cartTester createCart.
+	cart add: cartTester itemSellByTheStore.
+	
+	priceList := Dictionary new.
+	priceList at: cartTester itemSellByTheStore put: 10.
+	
+	cashier :=  Cashier toCheckout: cart registerOn: salesBook priceList: priceList withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2020 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1)).
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (salesBook first) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:25:16'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:25:22'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:25:22'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:25:22'!
+PASSED!
+!CashierTest methodsFor: 'nil' stamp: 'fz_md 11/4/2019 19:26:48'!
+setUp! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:27:21'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:27:19' prior: 50781823!
+test01canNotCheckoutEmptyCart
+	"refactorizar la parte de llamar a cartTest, no?"
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: salesBook priceList: Dictionary new withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1))]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:27:36' prior: 50782072!
+setUp
+	emptyCart := CartTest new createCart.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:27:44' prior: 50782082!
+test01canNotCheckoutEmptyCart
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: salesBook priceList: Dictionary new withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1))]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:27:50' prior: 50782103!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:28:06'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:28:05' prior: 50782108!
+test01canNotCheckoutEmptyCart
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: emptySalesBook priceList: Dictionary new withCreditCard: ((CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1))) onDay: ((FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1))]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:28:20' prior: 50782128!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:29:23'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:29:22' prior: 50782162!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:29:36'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:29:35' prior: 50782178!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:29:42' prior: 50782197!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:30:02'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:30:01' prior: 50782142!
+test01canNotCheckoutEmptyCart
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: emptySalesBook priceList: Dictionary new withCreditCard: validCreditCard onDay: date]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:30:15' prior: 50782211!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	date := FixedGregorianDate yearNumber: 2004 monthNumber: 1 dayNumber: 1.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:30:28' prior: 50782249!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	date := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:30:36'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:30:36' prior: 50782265!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:30:36' prior: 50782233!
+test01canNotCheckoutEmptyCart
+	|salesBook|
+	
+	salesBook := OrderedCollection new.
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: emptySalesBook priceList: Dictionary new withCreditCard: validCreditCard onDay: testingDate]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: salesBook isEmpty]! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:30:43'!
+PASSED!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:32:47'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:32:48'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:32:46' prior: 50782291!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	
+	emptyCart := CartTest new createCart.
+	
+	item := CartTest new itemSellByTheStore.
+	cartWithItems := CartTest new createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:32:58' prior: 50782346!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	item := CartTest new itemSellByTheStore.
+	
+	emptyCart := CartTest new createCart.
+	
+	cartWithItems := CartTest new createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:34:44'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems pricesList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:34:43' prior: 50782366!
+setUp
+	"refactorizar la parte de llamar a cartTest"
+	item := CartTest new itemSellByTheStore.
+	
+	emptyCart := CartTest new createCart.
+	
+	cartWithItems := CartTest new createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	pricesList := Dictionary new.
+	pricesList at: item put: 10.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:36:16' prior: 50782035!
+test02TotalCheckoutAmmountIsCorrect
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook priceList: pricesList withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: 10.
+	self assert: (emptySalesBook first) equals: 10.! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:36:23'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:36:23'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:36:23'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:36:23'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:36:35' prior: 50782308!
+test01canNotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: emptySalesBook priceList: Dictionary new withCreditCard: validCreditCard onDay: testingDate]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: emptySalesBook isEmpty]! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:36:37'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:36:37'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:36:37'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:36:37'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:38:28' prior: 50781629!
+test03cannotCheckoutWithExpiredCreditCard
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook priceList: pricesList withCreditCard: expiredCreditCard onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutWIthExpiredCreditCard.
+								self assert: emptySalesBook isEmpty]! !
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:38:30'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:38:30'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:38:30'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:38:30'!
+PASSED!
+
+----SNAPSHOT----(4 November 2019 19:38:34) CuisUniversity-3938.image priorSource: 14394212!
+
+Object subclass: #TusLibrosTestObjectFactory
+	instanceVariableNames: 'expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TusLibrosTestObjectFactory category: #TusLibros stamp: 'fz_md 11/4/2019 19:40:02'!
+Object subclass: #TusLibrosTestObjectFactory
+	instanceVariableNames: 'expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!TusLibrosTestObjectFactory methodsFor: 'nil' stamp: 'fz_md 11/4/2019 19:40:49'!
+createCart
+	
+	^Cart acceptingItemsOf: self defaultCatalog! !
+!TusLibrosTestObjectFactory methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:40:57'!
+defaultCatalog
+	
+	^ Array with: self itemSellByTheStore! !
+!TusLibrosTestObjectFactory methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:41:03'!
+itemNotSellByTheStore
+	
+	^'invalidBook'! !
+!TusLibrosTestObjectFactory methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:41:13'!
+itemSellByTheStore
+	
+	^ 'validBook'! !
+
+!methodRemoval: CartTest #itemSellByTheStore stamp: 'fz_md 11/4/2019 19:41:42'!
+itemSellByTheStore
+	
+	^ 'validBook'!
+!CartTest methodsFor: 'support' stamp: 'fz_md 11/4/2019 19:42:09'!
+itemSellByTheStore
+	^TusLibrosTestObjectFactory itemSellByTheStore! !
+!TusLibrosTestObjectFactory class methodsFor: 'nil' stamp: 'fz_md 11/4/2019 19:42:38'!
+createCart
+	
+	^Cart acceptingItemsOf: self defaultCatalog! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:42:43'!
+defaultCatalog
+	
+	^ Array with: self itemSellByTheStore! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:42:50'!
+itemNotSellByTheStore
+	
+	^'invalidBook'! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:43:00'!
+itemSellByTheStore
+	^'valid book'! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:43:07' prior: 50782567!
+itemSellByTheStore
+
+	^'validBook'! !
+
+!methodRemoval: TusLibrosTestObjectFactory #createCart stamp: 'fz_md 11/4/2019 19:43:10'!
+createCart
+	
+	^Cart acceptingItemsOf: self defaultCatalog!
+
+!methodRemoval: TusLibrosTestObjectFactory #defaultCatalog stamp: 'fz_md 11/4/2019 19:43:10'!
+defaultCatalog
+	
+	^ Array with: self itemSellByTheStore!
+
+!methodRemoval: TusLibrosTestObjectFactory #itemNotSellByTheStore stamp: 'fz_md 11/4/2019 19:43:10'!
+itemNotSellByTheStore
+	
+	^'invalidBook'!
+
+!methodRemoval: TusLibrosTestObjectFactory #itemSellByTheStore stamp: 'fz_md 11/4/2019 19:43:10'!
+itemSellByTheStore
+	
+	^ 'validBook'!
+!CartTest methodsFor: 'support' stamp: 'fz_md 11/4/2019 19:43:46' prior: 50780890!
+itemNotSellByTheStore
+	
+	^TusLibrosTestObjectFactory itemNotSellByTheStore ! !
+!CartTest methodsFor: 'support' stamp: 'fz_md 11/4/2019 19:43:52' prior: 50780899!
+defaultCatalog
+	
+	^ TusLibrosTestObjectFactory defaultCatalog ! !
+!CartTest methodsFor: 'support' stamp: 'fz_md 11/4/2019 19:43:58' prior: 50780894!
+createCart
+	
+	^TusLibrosTestObjectFactory createCart ! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:44:31' prior: 50782403!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	pricesList := Dictionary new.
+	pricesList at: item put: 10.! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:45:06'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems pricesList itemPrice'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:45:05' prior: 50782610!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	itemPrice := 10.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	pricesList := Dictionary new.
+	pricesList at: item put: 10.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:45:11' prior: 50782642!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	itemPrice := 10.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	pricesList := Dictionary new.
+	pricesList at: item put: itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:45:16' prior: 50782425!
+test02TotalCheckoutAmmountIsCorrect
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook priceList: pricesList withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: itemPrice.
+	self assert: (emptySalesBook first) equals: itemPrice.! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:45:25'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:45:25'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:45:25'!
+PASSED!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:48:00' prior: 50781992!
+checkout
+	|totalCheckout|
+	
+	date > creditCard expirationDate ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	
+	totalCheckout := cart totalPrice.
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!methodRemoval: Cart #items stamp: 'fz_md 11/4/2019 19:48:08'!
+items
+	^items!
+!Cart methodsFor: 'queries' stamp: 'fz_md 11/4/2019 19:48:36'!
+totalPrice
+	items inject: 0 into: [:totalValue :item | totalValue + catalog at:item].! !
+!Cart methodsFor: 'queries' stamp: 'fz_md 11/4/2019 19:48:39' prior: 50782722!
+totalPrice
+	^items inject: 0 into: [:totalValue :item | totalValue + catalog at:item].! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:49:38' prior: 50782556!
+defaultCatalog
+
+	^ Dictionary new; at: self itemSellByTheStore put: 10.! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:49:49' prior: 50782735!
+defaultCatalog
+
+	^ Dictionary new; at: self itemSellByTheStore put: self itemPrice.! !
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:49:57'!
+itemPrice
+	^10.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:50:32' prior: 50782664!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	itemPrice := TusLibrosTestObjectFactory itemPrice.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	pricesList := Dictionary new.
+	pricesList at: item put: itemPrice.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 19:50:46' prior: 50782752!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 19:51:07'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'assertions' stamp: 'fz_md 11/4/2019 19:52:09' prior: 50780747!
+assertIsValidItem: anItem
+
+	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'fz_md 11/4/2019 19:52:35'!
+ERROR!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'fz_md 11/4/2019 19:52:38'!
+ERROR!
+!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:53:49' prior: 50782742!
+defaultCatalog
+	|catalog|
+	
+	catalog := Dictionary new.
+	catalog at: self itemSellByTheStore put: self itemPrice.
+	^ catalog ! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'fz_md 11/4/2019 19:53:50'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'fz_md 11/4/2019 19:53:52'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:53:56'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:53:56'!
+FAILURE!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:53:56'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:53:56'!
+FAILURE!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:55:04'!
+FAILURE!
+
+----SNAPSHOT----(4 November 2019 19:55:14) CuisUniversity-3938.image priorSource: 14427388!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:55:51' prior: 50782687!
+test02TotalCheckoutAmmountIsCorrect
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:57:02' prior: 50782477!
+test03cannotCheckoutWithExpiredCreditCard
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: expiredCreditCard onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutWIthExpiredCreditCard.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 19:57:12' prior: 50782450!
+test01canNotCheckoutEmptyCart
+	
+	self should: [Cashier toCheckout: emptyCart registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutEmptyCart.
+								self assert: emptySalesBook isEmpty]! !
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:57:48' prior: 50781936!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	creditCard := aCreditCard.
+	date := aDay.! !
+!Cashier methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 19:57:55'!
+initializeToCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	creditCard := aCreditCard.
+	date := aDay.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:57:55' prior: 50781898!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard onDay: aDay    ! !
+
+!methodRemoval: Cashier #initializeToCheckout:registerOn:priceList:withCreditCard:onDay: stamp: 'fz_md 11/4/2019 19:57:55'!
+initializeToCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	cart := aCart.
+	salesBook := aSalesBook.
+	creditCard := aCreditCard.
+	date := aDay.!
+
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook creditCard date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 19:58:01'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook creditCard date'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 19:58:06'!
+toCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard onDay: aDay    
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard onDay: aDay    ! !
+
+!methodRemoval: Cashier class #toCheckout:registerOn:priceList:withCreditCard:onDay: stamp: 'fz_md 11/4/2019 19:58:06'!
+toCheckout: aCart registerOn: aSalesBook priceList: aPriceList withCreditCard: aCreditCard onDay: aDay    
+	
+	aCart isEmpty ifTrue:[self error: self canNotCheckoutEmptyCart].
+	
+	^self new initializeToCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard onDay: aDay    !
+
+----SNAPSHOT----(4 November 2019 19:58:17) CuisUniversity-3938.image priorSource: 14440013!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 19:58:20'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 19:58:20'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 19:58:20'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'fz_md 11/4/2019 19:58:22'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:00:58'!
+test02TotalCheckoutAmmountIsCorrectAndIsRegistered
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+
+!methodRemoval: CashierTest #test02TotalCheckoutAmmountIsCorrect stamp: 'fz_md 11/4/2019 20:00:59'!
+test02TotalCheckoutAmmountIsCorrect
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:01:44'!
+test04validCheckoutCallsMP
+	| cashier|
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:12:52' prior: 50783090!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate withMerchantProcessor: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+
+!classDefinition: #MerchantProcessor category: #TusLibros stamp: 'fz_md 11/4/2019 20:13:51'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:13:46' prior: 50783104!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor tester.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate withMerchantProcessor: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:14:01' prior: 50783126!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor newTester.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate withMerchantProcessor: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:14:46'!
+ERROR!
+!MerchantProcessor class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:14:51'!
+newTester
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeNewTester! !
+!MerchantProcessor class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:15:00' prior: 50783161!
+newTester
+	^self new initializeNewTester! !
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:15:03'!
+ERROR!
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:15:25'!
+ERROR!
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:15:25'!
+ERROR!
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:16:13'!
+ERROR!
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:16:13'!
+ERROR!
+!MerchantProcessor class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:17:25' prior: 50783169!
+newTester
+	^self new! !
+
+!testRun: #CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:17:33'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:23:13' prior: 50783142!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor newTester.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:24:11' prior: 50783196!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+
+!methodRemoval: MerchantProcessor class #newTester stamp: 'fz_md 11/4/2019 20:24:16'!
+newTester
+	^self new!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:25:07' prior: 50783211!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:25:52'!
+test04canNotChargeInvalidCreditCard
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.! !
+
+!methodRemoval: CashierTest #test04validCheckoutCallsMP stamp: 'fz_md 11/4/2019 20:25:52'!
+test04validCheckoutCallsMP
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self assert: (cashier checkout) equals: TusLibrosTestObjectFactory itemPrice.
+	self assert: (emptySalesBook first) equals: TusLibrosTestObjectFactory itemPrice.!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:26:30' prior: 50783244!
+test04canNotChargeInvalidCreditCard
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self should: []
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | ]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:30:04'!
+test04canNotChargeInvalidCreditCardOwner
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self should: []
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | ]! !
+
+!methodRemoval: CashierTest #test04canNotChargeInvalidCreditCard stamp: 'fz_md 11/4/2019 20:30:04'!
+test04canNotChargeInvalidCreditCard
+	| cashier aMP |
+	
+	aMP := MerchantProcessor new.
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: aMP.
+	
+	self should: []
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | ]!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 20:32:47'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems cardWithInvalidOwnerName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:32:46' prior: 50782776!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	cardWithInvalidOwnerName := CreditCard blankCopyOf: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) scaledBy: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:33:15' prior: 50783324!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	cardWithInvalidOwnerName := CreditCard blankCopyOf: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) scaledBy: 'tooLongOfAStringlolaaaaaaaaaaaaaaaaaaa'.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:34:02' prior: 50783349!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa'.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:34:40' prior: 50783374!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:35:55'!
+expiresOn: expirationDate ownedBy: anOwner  
+	^self new initializeExpiresOn: expirationDate ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:35:55' prior: 50783399!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner'.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner'.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+!methodRemoval: CreditCard class #expiresOn: stamp: 'fz_md 11/4/2019 20:35:55'!
+expiresOn: expirationDate 
+	^self new initializeExpiresOn: expirationDate !
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:36:23'!
+expiresOn: expirationDate ownedBy: anOwner withNumber: aNumber   
+	^self new initializeExpiresOn: expirationDate ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:36:23' prior: 50783431!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+!methodRemoval: CreditCard class #expiresOn:ownedBy: stamp: 'fz_md 11/4/2019 20:36:23'!
+expiresOn: expirationDate ownedBy: anOwner  
+	^self new initializeExpiresOn: expirationDate !
+!CreditCard class methodsFor: 'instance creation' stamp: 'fz_md 11/4/2019 20:36:50' prior: 50783462!
+expiresOn: expirationDate ownedBy: anOwner withNumber: aNumber   
+	^self new initializeExpiresOn: expirationDate ownedBy: anOwner withNumber: aNumber   ! !
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 20:37:23'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 20:37:24'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate owner number'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CreditCard methodsFor: 'initialization' stamp: 'fz_md 11/4/2019 20:37:22'!
+initializeExpiresOn: anExpirationDate ownedBy: anOwner withNumber: aNumber   
+	expirationDate := anExpirationDate.
+	owner := anOwner.
+	number := aNumber.! !
+
+!methodRemoval: CreditCard #initializeExpiresOn: stamp: 'fz_md 11/4/2019 20:37:28'!
+initializeExpiresOn: anExpirationDate 
+	
+	expirationDate := anExpirationDate.!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:37:51' prior: 50782710!
+checkout
+	|totalCheckout|
+	
+	date > creditCard expirationDate ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	
+	totalCheckout := cart totalPrice.
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:38:53' prior: 50783469!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 20:43:24'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems cardWithInvalidOwnerName cardWithInvalidNumber'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:39:21' prior: 50783548!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+	cardWithInvalidNumber := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: -1.		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:43:28' prior: 50783586!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+	cardWithInvalidNumber := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: -1.		
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:43:32' prior: 50783618!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+	cardWithInvalidNumber := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: -1.
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:44:14' prior: 50783650!
+setUp
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+	cardWithInvalidNumber := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2200 monthNumber:1) ownedBy: 'Juan Perez' withNumber: -1.
+	
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.! !
+!CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 20:45:18' prior: 50783682!
+setUp
+	|validCardDate|
+	item := TusLibrosTestObjectFactory itemSellByTheStore.
+	
+	emptyCart := TusLibrosTestObjectFactory createCart.
+	
+	cartWithItems := TusLibrosTestObjectFactory createCart.
+	cartWithItems add: item.
+	
+	emptySalesBook := OrderedCollection new.
+	testingDate := FixedGregorianDate yearNumber: 2019 monthNumber: 12 dayNumber: 31.
+	
+	expiredCreditCard := CreditCard expiresOn: (GregorianMonthOfYear yearNumber: 2000 monthNumber:1) ownedBy: 'owner' withNumber: 1.
+	
+	validCardDate := (GregorianMonthOfYear yearNumber: 2200 monthNumber:1).
+	
+	validCreditCard := CreditCard expiresOn: validCardDate ownedBy: 'owner' withNumber: 1.
+	cardWithInvalidOwnerName := CreditCard expiresOn: validCardDate ownedBy: 'tooLongOfAString_lol_aaaaaaaaaaaaaaaaaa' withNumber: 1.
+	cardWithInvalidNumber := CreditCard expiresOn: validCardDate ownedBy: 'Juan Perez' withNumber: -1.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:50:11' prior: 50783287!
+test04canNotChargeInvalidCreditCardOwner
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self should: []
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError | ]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:50:51' prior: 50783744!
+test04canNotChargeInvalidCreditCardOwner
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidOwner.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:51:11'!
+test04canNotCheckoutCreditCardWithInvalidOwner
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidOwner.
+								self assert: emptySalesBook isEmpty]! !
+
+!methodRemoval: CashierTest #test04canNotChargeInvalidCreditCardOwner stamp: 'fz_md 11/4/2019 20:51:11'!
+test04canNotChargeInvalidCreditCardOwner
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidOwner.
+								self assert: emptySalesBook isEmpty]!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:51:14'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:51:51' prior: 50783538!
+checkout
+	|totalCheckout|
+	
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	date > creditCard expirationDate ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	
+	totalCheckout := cart totalPrice.
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:51:53'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:52:01'!
+owner
+	self shouldBeImplemented.
+	^owner! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:52:03' prior: 50783825!
+owner
+	^owner! !
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:52:09'!
+FAILURE!
+!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 20:52:25' prior: 50783772!
+test04canNotCheckoutCreditCardWithInvalidOwner
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: cardWithInvalidOwnerName onDay: testingDate.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidOwner.
+								self assert: emptySalesBook isEmpty]! !
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:52:27'!
+ERROR!
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 20:52:34'!
+canNotCheckoutCardWithInvalidOwner
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'error messages' stamp: 'fz_md 11/4/2019 20:52:47' prior: 50783857!
+canNotCheckoutCardWithInvalidOwner
+	^'can not checkout card with invalid owner'! !
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:52:48'!
+FAILURE!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:53:06'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz_md 11/4/2019 20:53:06'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz_md 11/4/2019 20:53:06'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz_md 11/4/2019 20:53:06'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz_md 11/4/2019 20:53:06'!
+PASSED!
+
+----SNAPSHOT----(4 November 2019 20:53:20) CuisUniversity-3938.image priorSource: 14443932!
