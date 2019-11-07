@@ -3074,3 +3074,545 @@ test06validPurchaseIsChargedThroughMP
 	"test07: el mp se trula"! !
 
 ----QUIT----(4 November 2019 21:23:24) CuisUniversity-3938.image priorSource: 14492374!
+
+----STARTUP---- (7 November 2019 13:45:19) as /home/akima/Documents/ing_II/repo/cuis/CuisUniversity-3938.image!
+
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:47:00'!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier |
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: cardWithInvalidNumber onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidNumber.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:47:30' prior: 50784541!
+test06validPurchaseIsChargedThroughMP
+	| cashier debitedCard debitedAmmount ammount|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		debitedCard := aCreditCard.
+		debitedAmmount := anAmmount ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	ammount := cashier checkout.
+	
+	self assert: debitedCard equals: validCreditCard.
+	self assert: debitedAmmount equals: ammount.! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:48:52' prior: 50784566!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier debitedCard debitedAmmount ammount|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: 'el MP se truló' ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidNumber.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:49:11' prior: 50784601!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: 'el MP se truló' ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidNumber.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:54:35' prior: 50784621!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: 'el MP se truló' ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidNumber.
+								self assert: emptySalesBook isEmpty]! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:57:32' prior: 50784640!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: 'el MP se truló' ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier merchantProcessorNotWorkingErrorMessage.
+								self assert: emptySalesBook isEmpty]! !
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 13:57:44'!
+ERROR!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 13:58:04'!
+merchantProcessorNotWorkingErrorMessage
+	self shouldBeImplemented.! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 13:58:52' prior: 50784682!
+merchantProcessorNotWorkingErrorMessage
+	^'asd'! !
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 13:58:54'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'fz 11/7/2019 14:01:27' prior: 50784462!
+checkout
+	|totalCheckout|
+	
+	self assertValidCreditCard.
+	
+	totalCheckout := cart totalPrice.
+	
+	[merchantProcessor debit: totalCheckout from: creditCard] on: Error do:[:error | self error: self class merchantProcessorNotWorkingErrorMessage].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:01:33'!
+PASSED!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:02:20'!
+merchantProcessorNotWorkingErrorMessage: anErrorDescription
+	^'asd'! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:02:20' prior: 50784696!
+checkout
+	|totalCheckout|
+	
+	self assertValidCreditCard.
+	
+	totalCheckout := cart totalPrice.
+	
+	[merchantProcessor debit: totalCheckout from: creditCard] on: Error do:[:error | self error: self class merchantProcessorNotWorkingErrorMessage: ''].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:02:20' prior: 50784659!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier|
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: 'el MP se truló' ].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier merchantProcessorNotWorkingErrorMessage: ''.
+								self assert: emptySalesBook isEmpty]! !
+
+!methodRemoval: Cashier class #merchantProcessorNotWorkingErrorMessage stamp: 'fz 11/7/2019 14:02:20'!
+merchantProcessorNotWorkingErrorMessage
+	^'asd'!
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:02:27' prior: 50784732!
+merchantProcessorNotWorkingErrorMessage: anErrorDescription
+	^anErrorDescription! !
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 14:03:46' prior: 50784751!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier errorDescription |
+	
+	errorDescription := 'el MP se truló'.
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: errorDescription].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = Cashier merchantProcessorNotWorkingErrorMessage: errorDescription.
+								self assert: emptySalesBook isEmpty]! !
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:05:43' prior: 50784002!
+assertValidCreditCard
+	creditCard number < 0 ifTrue: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:05:49'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:05:49'!
+ERROR!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:05:49'!
+ERROR!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:05:49'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:05:49'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:05:49'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:05:49'!
+ERROR!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:05:52'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:06:08'!
+isExpiredOn: aFixedGregorianDate 
+	self shouldBeImplemented.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:07:17' prior: 50784844!
+isExpiredOn: aDate 
+	^ aDate > expirationDate ! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:07:18'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:07:22'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:07:22'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'fz 11/7/2019 14:08:10' prior: 50784738!
+checkout
+	|totalCheckout|
+	
+	self assertValidCreditCard.
+	
+	totalCheckout := cart totalPrice.
+	
+	[merchantProcessor debit: totalCheckout from: creditCard] on: Error do:[:error | self error: (self class merchantProcessorNotWorkingErrorMessage: error messageText)].
+	
+	salesBook add: totalCheckout.
+	
+	^totalCheckout! !
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:08:17'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:08:17'!
+ERROR!
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 14:08:38' prior: 50784782!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier errorDescription |
+	
+	errorDescription := 'el MP se truló'.
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: errorDescription].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = (Cashier merchantProcessorNotWorkingErrorMessage: errorDescription).
+								self assert: emptySalesBook isEmpty]! !
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:08:40'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:08:42'!
+PASSED!
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:09:20' prior: 50784804!
+assertValidCreditCard
+	(creditCard isValidNumber) ifTrue: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:09:24'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:09:24'!
+ERROR!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:09:26'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:09:32'!
+isValidNumber
+	self shouldBeImplemented.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:09:43' prior: 50784991!
+isValidNumber
+	^number >= 0! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:10:13' prior: 50784996!
+isValidNumber
+	^number >= 0 and:[number isKindOf: Integer]! !
+
+4 isKindOf: Integer!
+
+-4 isKindOf: Integer!
+
+-4.0 isKindOf: Integer!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:10:48'!
+ERROR!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:10:49'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:10:51'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:10:51'!
+ERROR!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:10:51'!
+FAILURE!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:10:51'!
+FAILURE!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:10:51'!
+FAILURE!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:10:51'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:10:51'!
+FAILURE!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:10:53'!
+ERROR!
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:11:25' prior: 50784951!
+assertValidCreditCard
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:11:28'!
+PASSED!
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:11:52' prior: 50785041!
+assertValidCreditCard
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isValidOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:12:16' prior: 50785078!
+assertValidCreditCard
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:12:57' prior: 50785091!
+assertValidCreditCard
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:12:59'!
+FAILURE!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:12:59'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:12:59'!
+FAILURE!
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:13:26' prior: 50785104!
+assertValidCreditCard
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	(creditCard isValidOwner) ifFalse: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	! !
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:13:29'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:13:29'!
+ERROR!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:13:29'!
+ERROR!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:13:29'!
+ERROR!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:13:29'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:13:29'!
+ERROR!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:13:29'!
+ERROR!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:13:31'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:13:37'!
+isValidOwner
+	self shouldBeImplemented.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 14:13:51' prior: 50785184!
+isValidOwner
+	^owner size <= 30! !
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:13:54'!
+PASSED!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:13:56'!
+PASSED!
+
+!methodRemoval: CreditCard #number stamp: 'fz 11/7/2019 14:14:05'!
+number
+	^number!
+
+!methodRemoval: CreditCard #owner stamp: 'fz 11/7/2019 14:14:08'!
+owner
+	^owner!
+
+!methodRemoval: CreditCard #expirationDate stamp: 'fz 11/7/2019 14:14:10'!
+expirationDate
+
+	^ expirationDate.!
+
+!testRun: #CashierTest #test01canNotCheckoutEmptyCart stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test02TotalCheckoutAmmountIsCorrectAndIsRegistered stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test03cannotCheckoutWithExpiredCreditCard stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test04canNotCheckoutCreditCardWithInvalidOwner stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test05canNotCheckoutCreditCardWithInvalidNumber stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test06validPurchaseIsChargedThroughMP stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+!testRun: #CashierTest #test07doesNotCheckoutWhenMPThrowsError stamp: 'fz 11/7/2019 14:14:33'!
+PASSED!
+
+----SNAPSHOT----(7 November 2019 14:16:12) CuisUniversity-3938.image priorSource: 14493086!
+
+----SNAPSHOT----(7 November 2019 16:05:39) CuisUniversity-3938.image priorSource: 14515241!
+
+----SNAPSHOT----(7 November 2019 16:08:35) CuisUniversity-3938.image priorSource: 14515334!
+
+----QUIT----(7 November 2019 16:08:41) CuisUniversity-3938.image priorSource: 14515427!
