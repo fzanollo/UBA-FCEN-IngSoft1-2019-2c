@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #CartTest category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -112,7 +112,7 @@ itemSellByTheStore
 	^TusLibrosTestObjectFactory itemSellByTheStore! !
 
 
-!classDefinition: #CashierTest category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #CashierTest category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems cardWithInvalidOwnerName cardWithInvalidNumber merchantProcessorBehaviour'
 	classVariableNames: ''
@@ -169,7 +169,7 @@ test05canNotCheckoutCreditCardWithInvalidNumber
 		withExceptionDo: [:anError| self assert: anError messageText = Cashier canNotCheckoutCardWithInvalidNumber.
 								self assert: emptySalesBook isEmpty]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'fz_md 11/4/2019 21:23:16'!
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 13:47:30'!
 test06validPurchaseIsChargedThroughMP
 	| cashier debitedCard debitedAmmount ammount|
 	
@@ -181,9 +181,23 @@ test06validPurchaseIsChargedThroughMP
 	ammount := cashier checkout.
 	
 	self assert: debitedCard equals: validCreditCard.
-	self assert: debitedAmmount equals: ammount.
+	self assert: debitedAmmount equals: ammount.! !
+
+!CashierTest methodsFor: 'tests' stamp: 'fz 11/7/2019 14:08:38'!
+test07doesNotCheckoutWhenMPThrowsError
+	| cashier errorDescription |
 	
-	"test07: el mp se trula"! !
+	errorDescription := 'el MP se truló'.
+	
+	merchantProcessorBehaviour := [:anAmmount :aCreditCard | 
+		self error: errorDescription].
+	
+	cashier :=  Cashier toCheckout: cartWithItems registerOn: emptySalesBook withCreditCard: validCreditCard onDay: testingDate through: self.
+	
+	self should: [cashier checkout ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:anError| self assert: anError messageText = (Cashier merchantProcessorNotWorkingErrorMessage: errorDescription).
+								self assert: emptySalesBook isEmpty]! !
 
 
 !CashierTest methodsFor: 'setUp' stamp: 'fz_md 11/4/2019 21:22:22'!
@@ -210,12 +224,12 @@ setUp
 	merchantProcessorBehaviour := [:anAmmount :aCreditCard|]! !
 
 
-!CashierTest methodsFor: 'fake messages' stamp: 'fz_md 11/4/2019 21:21:54'!
+!CashierTest methodsFor: 'merchant processor' stamp: 'fz_md 11/4/2019 21:21:54'!
 debit: anAmmount from: aCreditCard
 	merchantProcessorBehaviour value: anAmmount value: aCreditCard.! !
 
 
-!classDefinition: #Cart category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #Cart category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -287,7 +301,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: 'Cart class' category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -297,7 +311,7 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #Cashier category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Object subclass: #Cashier
 	instanceVariableNames: 'cart salesBook creditCard date merchantProcessor'
 	classVariableNames: ''
@@ -313,7 +327,7 @@ initializeToCheckout: aCart registerOn: aSalesBook withCreditCard: aCreditCard o
 	merchantProcessor := aMerchantProcessor! !
 
 
-!Cashier methodsFor: 'checkout' stamp: 'fz_md 11/4/2019 21:21:11'!
+!Cashier methodsFor: 'checkout' stamp: 'fz 11/7/2019 14:08:10'!
 checkout
 	|totalCheckout|
 	
@@ -321,23 +335,23 @@ checkout
 	
 	totalCheckout := cart totalPrice.
 	
-	merchantProcessor debit: totalCheckout from: creditCard.
+	[merchantProcessor debit: totalCheckout from: creditCard] on: Error do:[:error | self error: (self class merchantProcessorNotWorkingErrorMessage: error messageText)].
 	
 	salesBook add: totalCheckout.
 	
 	^totalCheckout! !
 
 
-!Cashier methodsFor: 'asserts' stamp: 'fz_md 11/4/2019 21:01:36'!
+!Cashier methodsFor: 'asserts' stamp: 'fz 11/7/2019 14:13:26'!
 assertValidCreditCard
-	creditCard number < 0 ifTrue: [self error: self class canNotCheckoutCardWithInvalidNumber].
-	creditCard owner size > 30 ifTrue: [self error: self class canNotCheckoutCardWithInvalidOwner].
-	date > creditCard expirationDate ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
+	(creditCard isValidNumber) ifFalse: [self error: self class canNotCheckoutCardWithInvalidNumber].
+	(creditCard isValidOwner) ifFalse: [self error: self class canNotCheckoutCardWithInvalidOwner].
+	(creditCard isExpiredOn: date) ifTrue: [self error: self class canNotCheckoutWIthExpiredCreditCard ].
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: 'Cashier class' category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -365,8 +379,12 @@ canNotCheckoutEmptyCart
 canNotCheckoutWIthExpiredCreditCard
 	^'the credit card is no longer valid'! !
 
+!Cashier class methodsFor: 'error messages' stamp: 'fz 11/7/2019 14:02:27'!
+merchantProcessorNotWorkingErrorMessage: anErrorDescription
+	^anErrorDescription! !
+
 
-!classDefinition: #CreditCard category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #CreditCard category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'expirationDate owner number'
 	classVariableNames: ''
@@ -380,23 +398,21 @@ initializeExpiresOn: anExpirationDate ownedBy: anOwner withNumber: aNumber
 	number := aNumber.! !
 
 
-!CreditCard methodsFor: 'testing' stamp: 'fz_md 11/4/2019 19:22:00'!
-expirationDate
+!CreditCard methodsFor: 'testing' stamp: 'fz 11/7/2019 14:07:17'!
+isExpiredOn: aDate 
+	^ aDate > expirationDate ! !
 
-	^ expirationDate.! !
+!CreditCard methodsFor: 'testing' stamp: 'fz 11/7/2019 14:10:13'!
+isValidNumber
+	^number >= 0 and:[number isKindOf: Integer]! !
 
-
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:59:55'!
-number
-	^number! !
-
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 20:52:03'!
-owner
-	^owner! !
+!CreditCard methodsFor: 'testing' stamp: 'fz 11/7/2019 14:13:51'!
+isValidOwner
+	^owner size <= 30! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -405,7 +421,7 @@ expiresOn: expirationDate ownedBy: anOwner withNumber: aNumber
 	^self new initializeExpiresOn: expirationDate ownedBy: anOwner withNumber: aNumber   ! !
 
 
-!classDefinition: #TusLibrosTestObjectFactory category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: #TusLibrosTestObjectFactory category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 Object subclass: #TusLibrosTestObjectFactory
 	instanceVariableNames: 'expirationDate'
 	classVariableNames: ''
@@ -414,16 +430,16 @@ Object subclass: #TusLibrosTestObjectFactory
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'TusLibrosTestObjectFactory class' category: #TusLibros stamp: 'fz_md 11/4/2019 21:23:21'!
+!classDefinition: 'TusLibrosTestObjectFactory class' category: #TusLibros stamp: 'fz 11/7/2019 16:08:32'!
 TusLibrosTestObjectFactory class
 	instanceVariableNames: ''!
 
-!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:42:38'!
+!TusLibrosTestObjectFactory class methodsFor: 'object creation' stamp: 'fz_md 11/4/2019 19:42:38'!
 createCart
 	
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:53:49'!
+!TusLibrosTestObjectFactory class methodsFor: 'object creation' stamp: 'fz_md 11/4/2019 19:53:49'!
 defaultCatalog
 	|catalog|
 	
@@ -431,16 +447,16 @@ defaultCatalog
 	catalog at: self itemSellByTheStore put: self itemPrice.
 	^ catalog ! !
 
-!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:42:50'!
+!TusLibrosTestObjectFactory class methodsFor: 'object creation' stamp: 'fz_md 11/4/2019 19:42:50'!
 itemNotSellByTheStore
 	
 	^'invalidBook'! !
 
-!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:49:57'!
+!TusLibrosTestObjectFactory class methodsFor: 'object creation' stamp: 'fz_md 11/4/2019 19:49:57'!
 itemPrice
 	^10.! !
 
-!TusLibrosTestObjectFactory class methodsFor: 'as yet unclassified' stamp: 'fz_md 11/4/2019 19:43:07'!
+!TusLibrosTestObjectFactory class methodsFor: 'object creation' stamp: 'fz_md 11/4/2019 19:43:07'!
 itemSellByTheStore
 
 	^'validBook'! !
