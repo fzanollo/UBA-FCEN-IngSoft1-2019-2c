@@ -3616,3 +3616,1773 @@ PASSED!
 ----SNAPSHOT----(7 November 2019 16:08:35) CuisUniversity-3938.image priorSource: 14515334!
 
 ----QUIT----(7 November 2019 16:08:41) CuisUniversity-3938.image priorSource: 14515427!
+
+----STARTUP---- (7 November 2019 19:02:15) as /home/akima/Documents/ing_II/repo/cuis/CuisUniversity-3938.image!
+
+
+!classRemoval: #TusLibrosTestObjectFactory stamp: 'fz 11/7/2019 19:02:28'!
+Object subclass: #TusLibrosTestObjectFactory
+	instanceVariableNames: 'expirationDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'fz 11/7/2019 19:02:28'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expirationDate owner number'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'fz 11/7/2019 19:02:29'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook creditCard date merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'fz 11/7/2019 19:02:29'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'fz 11/7/2019 19:02:30'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'emptyCart emptySalesBook expiredCreditCard validCreditCard testingDate item cartWithItems cardWithInvalidOwnerName cardWithInvalidNumber merchantProcessorBehaviour'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'fz 11/7/2019 19:02:30'!
+TestCase subclass: #CartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/25-TusLibros/3/TusLibros.st----!
+
+Object subclass: #UserAPI
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 19:04:52'!
+Object subclass: #UserAPI
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:05:26'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'no messages' stamp: 'fz 11/7/2019 19:07:03'!
+test01CreateCartFailsWithUnknownUser! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:08:09' prior: 50785885!
+test01CreateCartFailsWithUnknownUser
+
+	self should: []
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:17:40' prior: 50785890!
+test01CreateCartFailsWithUnknownUser
+
+	self should: [UserAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = Cashier canNotCreateCartWithWongUser. ].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:30:43' prior: 50785897!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = Cashier canNotCreateCartWithWongUser].! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:30:51'!
+ERROR!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 19:31:14'!
+createCartOf: aString withPassword: aString2 
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:32:07' prior: 50785909!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWongUser].! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 19:32:15' prior: 50785924!
+createCartOf: aString withPassword: aString2 
+	^ self error: self class canNotCreateCartWithWongUser.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:32:18'!
+ERROR!
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 19:32:32'!
+canNotCreateCartWithWongUser
+	self shouldBeImplemented.! !
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 19:33:20' prior: 50785951!
+canNotCreateCartWithWongUser
+	^ 'no se pueden crear carritos con usuarios que no esten inscriptos en el sistema'! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:33:21'!
+ERROR!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:33:29'!
+PASSED!
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:34:18'!
+test01CreatedCartIsEmpty
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWongUser].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:34:24'!
+test02CreatedCartIsEmpty
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWongUser].! !
+
+!methodRemoval: UserAPITest #test01CreatedCartIsEmpty stamp: 'fz 11/7/2019 19:34:24'!
+test01CreatedCartIsEmpty
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWongUser].!
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:35:52' prior: 50785981!
+test02CreatedCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: userAPI cartOfID: cartID .! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:36:08' prior: 50786005!
+test02CreatedCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID ).! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:36:25' prior: 50786014!
+test02CreatedCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:39:30'!
+test02CartIsCreatedForValidUser
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).! !
+
+!methodRemoval: UserAPITest #test02CreatedCartIsEmpty stamp: 'fz 11/7/2019 19:39:30'!
+test02CreatedCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:39:49'!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).! !
+
+!methodRemoval: UserAPITest #test02CartIsCreatedForValidUser stamp: 'fz 11/7/2019 19:39:49'!
+test02CartIsCreatedForValidUser
+	|userAPI cartID |
+	
+	userAPI := UserAPI new.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:40:05'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:40:05'!
+ERROR!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 19:40:45' prior: 50785942!
+createCartOf: aUser withPassword: aString2 
+	^ self error: self class canNotCreateCartWithWongUser.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 19:40:51' prior: 50786075!
+createCartOf: aUser withPassword: aPassword 
+	^ self error: self class canNotCreateCartWithWongUser.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:41:42' prior: 50786050!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI cartOfID: cartID isEmpty).! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:41:45'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:41:45'!
+ERROR!
+!UserAPI class methodsFor: 'instance creation' stamp: 'fz 11/7/2019 19:41:51'!
+withUserManager: anUserAPITest 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWithUserManager: anUserAPITest ! !
+!UserAPI class methodsFor: 'instance creation' stamp: 'fz 11/7/2019 19:42:13' prior: 50786104!
+withUserManager: aUM 
+	^self new initializeWithUserManager: aUM ! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:42:15'!
+ERROR!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 19:42:25'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 19:42:25'!
+initializeWithUserManager: aUM 
+	self shouldBeImplemented.
+	uM := aUM.! !
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 19:42:29' prior: 50786128!
+initializeWithUserManager: aUM 
+	uM := aUM.! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:42:36'!
+ERROR!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 19:43:54' prior: 50786081!
+createCartOf: aUser withPassword: aPassword 
+	(uM isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotCreateCartWithWongUser].
+	
+	^1! !
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 19:44:24'!
+canNotCreateCartWithWrongUserErrorMessage
+	^ 'no se pueden crear carritos con usuarios que no esten inscriptos en el sistema'! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:44:24' prior: 50786141!
+createCartOf: aUser withPassword: aPassword 
+	(uM isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotCreateCartWithWrongUserErrorMessage].
+	
+	^1! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:44:24' prior: 50785930!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI new.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+
+!methodRemoval: UserAPI class #canNotCreateCartWithWongUser stamp: 'fz 11/7/2019 19:44:24'!
+canNotCreateCartWithWongUser
+	^ 'no se pueden crear carritos con usuarios que no esten inscriptos en el sistema'!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:44:27'!
+ERROR!
+!UserAPITest methodsFor: 'user manager' stamp: 'fz 11/7/2019 19:44:40'!
+isValidUser: aString withPassword: aString2 
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'user manager' stamp: 'fz 11/7/2019 19:44:45' prior: 50786187!
+isValidUser: aUser withPassword: aString2 
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'user manager' stamp: 'fz 11/7/2019 19:44:58' prior: 50786193!
+isValidUser: aUser withPassword: aPassword 
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'user manager' stamp: 'fz 11/7/2019 19:45:06' prior: 50786199!
+isValidUser: aUser withPassword: aPassword 
+	^true.! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:45:07'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:45:24' prior: 50786087!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: ((userAPI cartOfID: cartID) isEmpty).! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:45:25'!
+ERROR!
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:45:32'!
+cartOfID: aSmallInteger 
+	self shouldBeImplemented.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:46:08' prior: 50786226!
+cartOfID: aCartID
+	^Cart new.! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:46:09'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:48:46' prior: 50786213!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: 'user' withPassword: 'password'.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:48:48'!
+ERROR!
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:48:55'!
+isValidCartID: aSmallInteger 
+	self shouldBeImplemented.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:49:06' prior: 50786251!
+isValidCartID: aCartID 
+	^true! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:07'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:07'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:07'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:07'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:17'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:17'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:17'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:17'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:21'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:49:31' prior: 50786165!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: 'user' withPassword: 'password'.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:49:34'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:38'!
+FAILURE!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:49:38'!
+FAILURE!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:51:05'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:51:04'!
+setUp
+	usersLog := Dictionary new.
+	! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:51:24' prior: 50786320!
+setUp
+	usersLog := Dictionary new.
+	usersLog at: 'validUser' put: 'validUserPasswd'! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:51:34' prior: 50786324!
+setUp
+	usersLog := Dictionary new.
+	usersLog at: 'validUser' put: 'validUserPassword'.! !
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:52:17'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:52:18'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:52:57'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:52:55' prior: 50786330!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .! !
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:53:10'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 19:53:11'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:10' prior: 50786363!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:14' prior: 50786396!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:29' prior: 50786289!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserPassword .]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:30' prior: 50786420!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:37' prior: 50786434!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:53:52' prior: 50786238!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'user manager' stamp: 'fz 11/7/2019 19:54:55' prior: 50786205!
+isValidUser: aUser withPassword: aPassword 
+	^(usersLog at: aUser ifAbsent: [^false]) = aPassword.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 19:55:02'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 19:55:02'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:56:23'!
+test03CreateCartFailsWithWrongPassword
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithWrongUserErrorMessage].! !
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 19:57:02'!
+canNotCreateCartWithInvalidCredentialsErrorMessage
+	^ 'no se pueden crear carritos con usuarios que no esten inscriptos en el sistema'! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:57:02' prior: 50786156!
+createCartOf: aUser withPassword: aPassword 
+	(uM isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotCreateCartWithInvalidCredentialsErrorMessage].
+	
+	^1! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:57:02' prior: 50786485!
+test03CreateCartFailsWithWrongPassword
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 19:57:02' prior: 50786448!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+
+!methodRemoval: UserAPI class #canNotCreateCartWithWrongUserErrorMessage stamp: 'fz 11/7/2019 19:57:02'!
+canNotCreateCartWithWrongUserErrorMessage
+	^ 'no se pueden crear carritos con usuarios que no esten inscriptos en el sistema'!
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 19:57:45' prior: 50786499!
+canNotCreateCartWithInvalidCredentialsErrorMessage
+	^ 'usuario o contraseña invalida'! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 19:58:56'!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:00:49' prior: 50786558!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword .
+	
+	self assert: (userAPI cartOfID: cartID) equals: '0'.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:02:10' prior: 50786572!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword .
+	
+	self assert: (userAPI cartOfID: cartID) listCart equals: '0'.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:02:29' prior: 50786582!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword .
+	
+	self assert: (userAPI cartOfID: cartID) listCart isEmpty.! !
+
+!testRun: #UserAPITest #test04CreatedCartLIstCartIsEmpty stamp: 'fz 11/7/2019 20:02:42'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartLIstCartIsEmpty stamp: 'fz 11/7/2019 20:02:42'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:03:04'!
+listCart
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:03:43' prior: 50786593!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword .
+	
+	self assert: (userAPI cartOfID: cartID) listCart isEmpty.! !
+
+!methodRemoval: UserAPITest #test04CreatedCartLIstCartIsEmpty stamp: 'fz 11/7/2019 20:04:14'!
+test04CreatedCartLIstCartIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword .
+	
+	self assert: (userAPI cartOfID: cartID) listCart isEmpty.!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:07:27'!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 20:09:15'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword validBookISBN'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:09:12' prior: 50786633!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: validBookISBN quantity: 1.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:09:29' prior: 50786408!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .
+	
+	validBookISBN := 0! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:09:30' prior: 50786666!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .
+	
+	validBookISBN := 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:10:13' prior: 50786679!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword .
+	
+	testObjectsFactory := StoreTestObjectsFactory new.! !
+
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 20:10:22'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:10:55' prior: 50786654!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSellByTheStore quantity: 1.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:10:58'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:11:26' prior: 50786724!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSellByTheStore quantity: 1.
+	
+	self assert: (userAPI cartOfID: cartID) .! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:12:37' prior: 50786740!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSellByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSellByTheStore) equals: 1.! !
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'fz 11/7/2019 20:12:52'!
+itemSoldByTheStore
+	
+	^ 'validBook'! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785403!
+test04CanNotAddNonPositiveNumberOfItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	self 
+		should: [cart add: 0 of: testObjectsFactory itemSoldByTheStore ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = cart invalidQuantityErrorMessage.
+			self assert: cart isEmpty ]! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785430!
+test08CartRemembersTheNumberOfAddedItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	cart add: 2 of: testObjectsFactory itemSoldByTheStore.
+	self assert: (cart occurrencesOf: testObjectsFactory itemSoldByTheStore) = 2! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785453!
+test07CartDoesNotHoldNotAddedItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	self deny: (cart includes: testObjectsFactory itemSoldByTheStore)! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785475!
+test06CartRemembersAddedItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	cart add: testObjectsFactory itemSoldByTheStore.
+	self assert: (cart includes: testObjectsFactory itemSoldByTheStore)! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785445!
+test03AfterAddingAnItemTheCartIsNotEmptyAnymore
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	cart add: testObjectsFactory itemSoldByTheStore.
+	self deny: cart isEmpty ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785663!
+test05CashierChargesCreditCardUsingMerchantProcessor
+
+	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSoldByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	salesBook := OrderedCollection new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	debitBehavior := [ :anAmount :aCreditCard | 
+		debitedAmout := anAmount.
+		debitedCreditCard := aCreditCard ].
+	total := cashier checkOut.
+					
+	self assert: debitedCreditCard = creditCard.
+	self assert: debitedAmout = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785705!
+test02CalculatedTotalIsCorrect
+
+	| cart cashier |
+	
+	cart := testObjectsFactory createCart.
+	cart add: 2 of: testObjectsFactory itemSoldByTheStore.
+	
+	cashier :=  Cashier
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard 
+		throught: self
+		on: testObjectsFactory today 
+		registeringOn: OrderedCollection new.
+		
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785598!
+test03CanNotCheckoutWithAnExpiredCreditCart
+
+	| cart salesBook |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSoldByTheStore.
+	salesBook := OrderedCollection new.
+	
+	self
+		should: [ Cashier 
+				toCheckout: cart 
+				charging: testObjectsFactory expiredCreditCard 
+				throught: self
+				on: testObjectsFactory today
+				registeringOn: salesBook ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError | 
+			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
+			self assert: salesBook isEmpty ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785619!
+test04CheckoutRegistersASale
+
+	| cart cashier salesBook total |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSoldByTheStore.
+	salesBook := OrderedCollection new.
+ 
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: testObjectsFactory notExpiredCreditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	total := cashier checkOut.
+					
+	self assert: salesBook size = 1.
+	self assert: salesBook first total = total.! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785637!
+test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
+
+	| cart cashier salesBook creditCard |
+
+	cart := testObjectsFactory createCart.
+	cart add: testObjectsFactory itemSoldByTheStore.
+	creditCard := testObjectsFactory notExpiredCreditCard.
+	salesBook := OrderedCollection new.
+ 	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
+	
+	cashier:= Cashier 
+		toCheckout: cart 
+		charging: creditCard
+		throught: self
+		on: testObjectsFactory today
+		registeringOn: salesBook.
+		
+	self 
+		should: [cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = Cashier creditCardHasNoCreditErrorMessage.
+			self assert: salesBook isEmpty ]! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50785831!
+defaultCatalog
+	
+	^ Dictionary new
+		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
+		yourself ! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:12:52' prior: 50786753!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!methodRemoval: StoreTestObjectsFactory #itemSellByTheStore stamp: 'fz 11/7/2019 20:12:52'!
+itemSellByTheStore
+	
+	^ 'validBook'!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:12:54'!
+ERROR!
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:13:18'!
+addToCart: aSmallInteger book: aString quantity: aSmallInteger3 
+	self shouldBeImplemented.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:13:27' prior: 50786961!
+addToCart: aSmallInteger book: aString quantity: aSmallInteger3 
+	^true.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:13:47' prior: 50786967!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^true.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:14:01' prior: 50786973!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ self shouldBeImplemented .! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:14:02'!
+ERROR!
+
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 20:15:24'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 20:16:31'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister theCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'for testing only' stamp: 'fz 11/7/2019 20:16:29' prior: 50786231!
+cartOfID: aCartID
+	^Cart acceptingItemsOf: theCatalog.! !
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 20:16:38'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:16:38' prior: 50787005!
+cartOfID: aCartID
+	^Cart acceptingItemsOf: catalog.! !
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:19:05'!
+initializeWithUserManager: aUM Catalog: aCatalog  
+	uM := aUM.! !
+!UserAPI class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:19:05' prior: 50786113!
+withUserManager: aUM 
+	^self new initializeWithUserManager: aUM Catalog: Dictionary new. ! !
+
+!methodRemoval: UserAPI #initializeWithUserManager: stamp: 'fz 11/7/2019 20:19:05'!
+initializeWithUserManager: aUM 
+	uM := aUM.!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:19:47' prior: 50787021!
+initializeWithUserManager: aUM Catalog: aCatalog  
+	uM := aUM.
+	catalog = aCatalog.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:19:52'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:19:53'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:19:53'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:19:53'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:19:53'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:20:20'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:20:20'!
+ERROR!
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:21:02' prior: 50786978!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ self cartOfID: aCartID.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:21:05' prior: 50787064!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ self cartOfID: aCartID add.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:21:10' prior: 50787070!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ self cartOfID: aCartID.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:21:59' prior: 50787076!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ (self cartOfID: aCartID) add: aQuantity of: aBookISBN .! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:22:35' prior: 50787082!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+	^ (self cartOfID: aCartID) add: aQuantity of: aBookISBN.! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:22:56'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:22:56'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:23:53'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:23:53'!
+ERROR!
+!UserAPI class methodsFor: 'instance creation' stamp: 'fz 11/7/2019 20:25:30'!
+withUserManager: aUM Catalog: aCatalog  
+	^self new initializeWithUserManager: aUM Catalog: Dictionary new. ! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:30' prior: 50786462!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self Catalog: Dictionary new.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:30' prior: 50786531!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self Catalog: Dictionary new.
+	
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:30' prior: 50786516!
+test03CreateCartFailsWithWrongPassword
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self Catalog: Dictionary new.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:30' prior: 50786940!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self Catalog: Dictionary new.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!methodRemoval: UserAPI class #withUserManager: stamp: 'fz 11/7/2019 20:25:30'!
+withUserManager: aUM 
+	^self new initializeWithUserManager: aUM Catalog: Dictionary new. !
+!UserAPI class methodsFor: 'instance creation' stamp: 'fz 11/7/2019 20:25:37' prior: 50787107!
+withUserManager: aUM Catalog: aCatalog  
+	^self new initializeWithUserManager: aUM Catalog: aCatalog . ! !
+!UserAPI class methodsFor: 'instance creation' stamp: 'fz 11/7/2019 20:25:46'!
+withUserManager: aUM catalog: aCatalog  
+	^self new initializeWithUserManager: aUM Catalog: aCatalog . ! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:46' prior: 50787114!
+test02CartIsCreatedForValidUserAndIsEmpty
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: Dictionary new.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:46' prior: 50787126!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self catalog: Dictionary new.
+	
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:46' prior: 50787141!
+test03CreateCartFailsWithWrongPassword
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self catalog: Dictionary new.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI canNotCreateCartWithInvalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:25:46' prior: 50787156!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: Dictionary new.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!methodRemoval: UserAPI class #withUserManager:Catalog: stamp: 'fz 11/7/2019 20:25:46'!
+withUserManager: aUM Catalog: aCatalog  
+	^self new initializeWithUserManager: aUM Catalog: aCatalog . !
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:26:00'!
+initializeWithUserManager: aUM catalog: aCatalog  
+	uM := aUM.
+	catalog = aCatalog.! !
+!UserAPI class methodsFor: 'as yet unclassified' stamp: 'fz 11/7/2019 20:26:00' prior: 50787183!
+withUserManager: aUM catalog: aCatalog  
+	^self new initializeWithUserManager: aUM catalog: aCatalog . ! !
+
+!methodRemoval: UserAPI #initializeWithUserManager:Catalog: stamp: 'fz 11/7/2019 20:26:00'!
+initializeWithUserManager: aUM Catalog: aCatalog  
+	uM := aUM.
+	catalog = aCatalog.!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:26:02'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:26:02'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:26:02'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:26:02'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:26:02'!
+ERROR!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:26:39'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:26:39'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:26:39'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:26:39'!
+ERROR!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:26:39'!
+ERROR!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:27:15' prior: 50787253!
+initializeWithUserManager: aUM catalog: aCatalog  
+	uM := aUM.
+	catalog := aCatalog.! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:27:18'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:28:12' prior: 50787232!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog .
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:28:13' prior: 50787311!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:28:15'!
+FAILURE!
+!UserAPI methodsFor: 'for testing only' stamp: 'fz 11/7/2019 20:29:22' prior: 50787017!
+cartOfID: aCartID
+	^cartsRegister at: aCartID! !
+!UserAPI methodsFor: 'for testing only' stamp: 'fz 11/7/2019 20:29:55' prior: 50786256!
+isValidCartID: aCartID 
+	^cartsRegister includesKey: aCartID ! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 20:30:26' prior: 50786507!
+createCartOf: aUser withPassword: aPassword 
+	(uM isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotCreateCartWithInvalidCredentialsErrorMessage].
+	
+	cartsRegister at: 1 put: (Cart acceptingItemsOf: catalog).
+	
+	^1! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:30:42'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:30:42'!
+ERROR!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:30:42'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:30:42'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:30:45'!
+ERROR!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:31:35' prior: 50787302!
+initializeWithUserManager: aUM catalog: aCatalog  
+	uM := aUM.
+	catalog := aCatalog.
+	cartsRegister := Dictionary new.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:31:37'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:31:37'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:31:37'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:31:37'!
+PASSED!
+
+----SNAPSHOT----(7 November 2019 20:31:41) CuisUniversity-3938.image priorSource: 14515520!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:33:30'!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:34:42' prior: 50787405!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	
+	self should: [userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartID].! !
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 20:35:00'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword invalidCartID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:34:59' prior: 50787421!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartID].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:35:21' prior: 50787453!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartID].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:36:34' prior: 50787471!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartID].! !
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:36:38'!
+ERROR!
+
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/7/2019 20:36:53'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:37:00' prior: 50787489!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID invalidCartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartID].! !
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:37:01'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:37:12' prior: 50787531!
+test05CanNotAddItemsToInvalidCartID
+	|userAPI cartID invalidCartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:37:31'!
+ERROR!
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 20:37:55'!
+invalidCartIDErrorMessage
+	self shouldBeImplemented.! !
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/7/2019 20:38:06' prior: 50787578!
+invalidCartIDErrorMessage
+	^'invalid cart ID'! !
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:38:08'!
+FAILURE!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:38:20'!
+FAILURE!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:38:20'!
+FAILURE!
+!UserAPI methodsFor: 'for testing only' stamp: 'fz 11/7/2019 20:39:00' prior: 50787346!
+cartOfID: aCartID
+	^cartsRegister at: aCartID ifAbsent: [self error: self class invalidCartIDErrorMessage]! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:39:04'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:39:04'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:39:04'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:39:04'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:39:04'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:42:36'!
+test06AddingItemsToMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:42:52' prior: 50787619!
+test06AddingItemsToMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:44:21'!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cart2ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: ((userAPI cartOfID: cart1ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 0.! !
+
+!methodRemoval: UserAPITest #test06AddingItemsToMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:44:24'!
+test06AddingItemsToMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:44:26'!
+FAILURE!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:44:26'!
+FAILURE!
+
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister catalog currentID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/7/2019 20:44:39'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'uM cartsRegister catalog currentID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/7/2019 20:44:49' prior: 50787383!
+initializeWithUserManager: aUM catalog: aCatalog  
+	uM := aUM.
+	catalog := aCatalog.
+	cartsRegister := Dictionary new.
+	currentID := 1.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 20:45:50' prior: 50787356!
+createCartOf: aUser withPassword: aPassword 
+	|cartID|
+	(uM isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotCreateCartWithInvalidCredentialsErrorMessage].
+	
+	cartID := currentID.
+	currentID  := currentID +1.
+	
+	cartsRegister at: cartID put: (Cart acceptingItemsOf: catalog).
+	
+	^cartID.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:45:54'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:51:37'!
+test07ListCartOfNewCartIsEmpty
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI cartOfID: cart2ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: ((userAPI cartOfID: cart1ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:54:25' prior: 50787741!
+test07ListCartOfNewCartIsEmpty
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: ((userAPI cartOfID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:56:34' prior: 50787766!
+test07ListCartOfNewCartIsEmpty
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI listCart: cartID) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:56:56' prior: 50787779!
+test07ListCartOfNewCartIsEmpty
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI listCart: cartID isEmpty) .! !
+
+!methodRemoval: Cart #listCart stamp: 'fz 11/7/2019 20:57:23'!
+listCart
+	self shouldBeImplemented.!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 20:57:56'!
+listCart: aCartID! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/7/2019 20:58:18' prior: 50787805!
+listCart: aCartID
+
+	^ Set new.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:58:21'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:21'!
+ERROR!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:21'!
+ERROR!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:27'!
+ERROR!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:27'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:58:39' prior: 50787791!
+test07ListCartOfNewCartIsEmpty
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI listCart: cartID) isEmpty.! !
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 20:58:40'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:58:54'!
+test08ListCartReflectsAddedItems
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI listCart: cartID) isEmpty.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 20:59:14' prior: 50787879!
+test08ListCartReflectsAddedItems
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI listCart: cartID) isEmpty.! !
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'fz 11/7/2019 21:00:02'!
+anotherItemSoldByTheStore
+
+	^ 'anotherValidBook'! !
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'fz 11/7/2019 21:00:24'!
+anotherItemSellByTheStorePrice
+	
+	^25! !
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'fz 11/7/2019 21:00:58' prior: 50786933!
+defaultCatalog
+	
+	^ Dictionary new
+		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
+		at: self anotherItemSoldByTheStore put: self anotherItemSellByTheStorePrice;
+		yourself ! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 21:03:50' prior: 50787891!
+test08ListCartReflectsAddedItems
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI listCart: cartID) isEmpty.! !
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/7/2019 21:03:53'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 21:07:28' prior: 50787927!
+test08ListCartReflectsAddedItems
+	|userAPI cartID correctList |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	correctList.
+	
+	self assert: (userAPI listCart: cartID) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 21:09:10' prior: 50787975!
+test08ListCartReflectsAddedItems
+	|userAPI cartID correctList |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	correctList := Dictionary new; at: testObjectsFactory itemSoldByTheStore put: 2; at: testObjectsFactory anotherItemSoldByTheStore put: 1.
+	
+	self assert: (userAPI listCart: cartID) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/7/2019 21:09:20' prior: 50787996!
+test08ListCartReflectsAddedItems
+	|userAPI cartID correctList |
+	
+	userAPI := UserAPI withUserManager: self catalog: testObjectsFactory defaultCatalog.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	correctList := Dictionary new; at: testObjectsFactory itemSoldByTheStore put: 2; at: testObjectsFactory anotherItemSoldByTheStore put: 1.
+	
+	self assert: (userAPI listCart: cartID) equals: correctList .! !
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/7/2019 21:09:22'!
+ERROR!
+
+----QUIT----(7 November 2019 21:11:06) CuisUniversity-3938.image priorSource: 14584048!
