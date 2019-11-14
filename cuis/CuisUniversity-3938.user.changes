@@ -9029,3 +9029,3681 @@ listPurchasesOf: aUser withPassword: aPassword
 FAILURE!
 
 ----SNAPSHOT----(11 November 2019 21:27:12) CuisUniversity-3938.image priorSource: 14718722!
+
+----QUIT----(13 November 2019 19:22:49) CuisUniversity-3938.image priorSource: 14765328!
+
+----STARTUP---- (14 November 2019 17:18:12) as /home/akima/Documents/ing_II/repo/cuis/CuisUniversity-3938.image!
+
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 17:18:18'!
+FAILURE!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 17:18:18'!
+FAILURE!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:19:31'!
+FAILURE!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:19:31'!
+FAILURE!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 17:19:38'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:19:44'!
+FAILURE!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:19:44'!
+FAILURE!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 17:19:54'!
+FAILURE!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 17:19:54'!
+FAILURE!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:20:02'!
+FAILURE!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:20:02'!
+FAILURE!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 17:24:19' prior: 50793050!
+listPurchasesOf: aUser withPassword: aPassword
+	| clientPurchases |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	clientPurchases := OrderedCollection new.
+	salesBook do:[:aSale | aSale client = aUser ifTrue: [clientPurchases add: aSale]].
+	^clientPurchases ! !
+!Sale methodsFor: 'initialization' stamp: 'fz 11/14/2019 17:25:38'!
+items
+	^ listOfItems copy! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 17:33:54' prior: 50793118!
+listPurchasesOf: aUser withPassword: aPassword
+	| clientPurchases |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	clientPurchases := OrderedCollection new.
+	salesBook select:[:aSale | aSale client = aUser].
+	^clientPurchases ! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 17:33:59' prior: 50793136!
+listPurchasesOf: aUser withPassword: aPassword
+	| clientPurchases |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	clientPurchases := salesBook select:[:aSale | aSale client = aUser].
+	^clientPurchases ! !
+
+!classDefinition: #PurchaseSummary category: #TusLibros stamp: 'fz 11/14/2019 17:44:05'!
+Object subclass: #PurchaseSummary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 17:44:01' prior: 50793149!
+listPurchasesOf: aUser withPassword: aPassword
+	| clientPurchases |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	
+	clientPurchases := PurchaseSummary ofClient: aUser withSales: (salesBook select:[:aSale | aSale client = aUser]).
+	^clientPurchases ! !
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:44:22'!
+ERROR!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:44:22'!
+ERROR!
+!PurchaseSummary class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 17:44:29'!
+ofClient: aString withSales: anOrderedCollection 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeOfClient: aString withSales: anOrderedCollection ! !
+!PurchaseSummary class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 17:44:45' prior: 50793190!
+ofClient: aClient withSales: anOrderedCollection 
+	^self new initializeOfClient: aClient withSales: anOrderedCollection ! !
+!PurchaseSummary class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 17:44:53' prior: 50793201!
+ofClient: aClient withSales: aSales 
+	^self new initializeOfClient: aClient withSales: aSales ! !
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:45:03'!
+ERROR!
+
+!classDefinition: #PurchaseSummary category: #TusLibros stamp: 'fz 11/14/2019 17:45:15'!
+Object subclass: #PurchaseSummary
+	instanceVariableNames: 'client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #PurchaseSummary category: #TusLibros stamp: 'fz 11/14/2019 17:45:15'!
+Object subclass: #PurchaseSummary
+	instanceVariableNames: 'client sales'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!PurchaseSummary methodsFor: 'initialization' stamp: 'fz 11/14/2019 17:45:15'!
+initializeOfClient: aClient withSales: aSales 
+	self shouldBeImplemented.
+	client := aClient.
+	sales := aSales.! !
+!PurchaseSummary methodsFor: 'initialization' stamp: 'fz 11/14/2019 17:45:32' prior: 50793233!
+initializeOfClient: aClient withSales: salesOfClient
+	client := aClient.
+	sales := salesOfClient.! !
+!PurchaseSummary class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 17:45:48' prior: 50793209!
+ofClient: aClient withSales: salesOfClient 
+	^self new initializeOfClient: aClient withSales: salesOfClient ! !
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 17:45:52'!
+ERROR!
+!PurchaseSummary methodsFor: 'nil' stamp: 'fz 11/14/2019 17:50:12'!
+itemsPurchased
+	^sales size! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 17:57:13' prior: 50792030!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+#(1 2 3) inject: 0 into: [:total :next | total + next]!
+!PurchaseSummary methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 17:58:48' prior: 50793257!
+itemsPurchased
+	^sales inject: 0 into: [:total :sale | total + sale size]! !
+!PurchaseSummary methodsFor: 'testing' stamp: 'fz 11/14/2019 17:59:56'!
+occurrencesOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale occurrencesOf: anItem)]! !
+!PurchaseSummary methodsFor: 'testing' stamp: 'fz 11/14/2019 18:00:28'!
+total
+	^sales inject: 0 into: [:total :sale | total + sale total]! !
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:00:33'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:36'!
+ERROR!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:36'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 18:00:50' prior: 50792515!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID anotherClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	anotherClientCartID := userAPI createCartOf: anotherValidUser withPassword: anotherValidUserPassword.
+	userAPI addToCart: anotherClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 2.
+	userAPI checkoutCart: anotherClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:53'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:00:55'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:00:56'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 18:01:08) CuisUniversity-3938.image priorSource: 14765422!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:01:42' prior: 50792877!
+createSale
+
+	^ Ticket of: total listOfItems: cart listItems forClient: client
+! !
+!Cashier methodsFor: 'checkout - private' stamp: 'fz 11/14/2019 18:02:25'!
+createTicket
+
+	^ Ticket of: total listOfItems: cart listItems forClient: client
+! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:02:25' prior: 50785502!
+registerSale
+
+	salesBook add: self createTicket! !
+
+!methodRemoval: Cashier #createSale stamp: 'fz 11/14/2019 18:02:25'!
+createSale
+
+	^ Ticket of: total listOfItems: cart listItems forClient: client
+!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:03:38' prior: 50793168!
+listPurchasesOf: aUser withPassword: aPassword
+	| |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	^PurchaseSummary ofClient: aUser withSales: (salesBook select:[:aSale | aSale client = aUser]).! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:03:46' prior: 50793512!
+listPurchasesOf: aUser withPassword: aPassword
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	^PurchaseSummary ofClient: aUser withSales: (salesBook select:[:aSale | aSale client = aUser]).! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:04:15' prior: 50793524!
+listPurchasesOf: aUser withPassword: aPassword
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class canNotListPurchasesWithInvalidCredentialsErrorMessage].
+	
+	^PurchaseSummary ofClient: aUser withSales: (salesBook select:[:aSale | aSale isOfClient: aUser]).! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 18:04:33'!
+isOfClient: aClient
+	^client = aClient ! !
+
+!methodRemoval: Ticket #client stamp: 'fz 11/14/2019 18:04:38'!
+client
+	^client!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:04:58'!
+PASSED!
+
+!methodRemoval: Ticket #items stamp: 'fz 11/14/2019 18:05:18'!
+items
+	^ listOfItems copy!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:05:22'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 18:05:29) CuisUniversity-3938.image priorSource: 14778790!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 18:07:17'!
+clientOfCartID: aCartID
+	^cartClientRegister at: aCartID ! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:07:17' prior: 50792976!
+checkoutCart: aCartID withCreditCard: aCreditCard
+	|cashier total|
+	self assertValidCart: aCartID.
+	
+	cashier:= Cashier 
+		toCheckout: (self cartOfID: aCartID)
+		ofClient: (self clientOfCartID: aCartID) 
+		charging: aCreditCard
+		throught: merchantProcessor
+		on: clock today
+		registeringOn: salesBook.
+		
+	total := cashier checkOut.
+	cartsRegister removeKey: aCartID.
+	cartTimeRegister removeKey: aCartID.
+	cartClientRegister removeKey: aCartID.
+	
+	^total.! !
+
+!methodRemoval: UserAPI #clientOfID: stamp: 'fz 11/14/2019 18:07:17'!
+clientOfID: aCartID
+	^cartClientRegister at: aCartID !
+!UserAPI class methodsFor: 'error messages' stamp: 'fz 11/14/2019 18:08:26'!
+invalidCredentialsErrorMessage
+	^ 'usuario o contraseña invalida'! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:08:26' prior: 50793009!
+createCartOf: aUser withPassword: aPassword 
+	|cartID|
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class invalidCredentialsErrorMessage].
+	
+	cartID := currentID.
+	currentID  := currentID +1.
+	
+	cartsRegister at: cartID put: (Cart acceptingItemsOf: catalog).
+	cartTimeRegister at: cartID put: clock currentTime.
+	cartClientRegister at: cartID put: aUser.
+	
+	^cartID.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:08:26' prior: 50792392!
+test03CreateCartFailsWithWrongPassword
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: Dictionary new salesBook: emptySalesBook merchantProcessor: self.
+	
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:08:26' prior: 50792422!
+test01CreateCartFailsWithUnknownUser
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: Dictionary new salesBook: emptySalesBook merchantProcessor: self.
+	
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+
+!methodRemoval: UserAPI class #canNotCreateCartWithInvalidCredentialsErrorMessage stamp: 'fz 11/14/2019 18:08:26'!
+canNotCreateCartWithInvalidCredentialsErrorMessage
+	^ 'usuario o contraseña invalida'!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:09:43'!
+assertCredentialsOfUser: aUser withPassword: aPassword
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class invalidCredentialsErrorMessage].! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:10:16' prior: 50793536!
+listPurchasesOf: aUser withPassword: aPassword
+	self assertCredentialsOfUser: aUser withPassword: aPassword.
+	
+	^PurchaseSummary ofClient: aUser withSales: (salesBook select:[:aSale | aSale isOfClient: aUser]).! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 18:10:38' prior: 50792137!
+test17ListPurchasesFailsWithInvalidCredentials
+	|userAPI|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: Dictionary new salesBook: emptySalesBook merchantProcessor: self.
+	
+	self should: [userAPI listPurchasesOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+
+!methodRemoval: UserAPI class #canNotListPurchasesWithInvalidCredentialsErrorMessage stamp: 'fz 11/14/2019 18:10:46'!
+canNotListPurchasesWithInvalidCredentialsErrorMessage
+	^'invalid credentials'!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:10:57'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 18:11:04) CuisUniversity-3938.image priorSource: 14785043!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:20:13'!
+PASSED!
+!PurchaseSummary methodsFor: 'testing' stamp: 'fz 11/14/2019 18:22:01'!
+namesOfBooks
+	^sales inject: Set new into: [:total :sale | total addAll: sale items]! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:30:05'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:30:05'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:30:06'!
+PASSED!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/14/2019 18:32:46' prior: 50792994!
+initializeWithUserManager: aUserManager clock: aClock catalog: aCatalog salesBook: aSalesBook merchantProcessor: aMerchantProcessor    
+	userManager := aUserManager.
+	catalog := aCatalog.
+	clock := aClock.
+	salesBook := aSalesBook.
+	merchantProcessor := aMerchantProcessor.
+	
+	currentID := 1.
+	
+	cartsRegister := Dictionary new.
+	cartTimeRegister := Dictionary new.
+	cartClientRegister := Dictionary new.! !
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/14/2019 18:33:21'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'userManager cartsRegister catalog currentID clock cartTimeRegister salesBook merchantProcessor cartClientRegister sessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/14/2019 18:33:20' prior: 50794012!
+initializeWithUserManager: aUserManager clock: aClock catalog: aCatalog salesBook: aSalesBook merchantProcessor: aMerchantProcessor    
+	userManager := aUserManager.
+	catalog := aCatalog.
+	clock := aClock.
+	salesBook := aSalesBook.
+	merchantProcessor := aMerchantProcessor.
+	
+	currentID := 1.
+	
+	sessions := Dictionary new.
+	
+	cartsRegister := Dictionary new.
+	cartTimeRegister := Dictionary new.
+	cartClientRegister := Dictionary new.! !
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:36:43'!
+Object subclass: #Session
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:37:46' prior: 50793718!
+createCartOf: aUser withPassword: aPassword 
+	|cartID cart |
+	(userManager isValidUser: aUser withPassword: aPassword) ifFalse: [self error: self class invalidCredentialsErrorMessage].
+	
+	cartID := currentID.
+	currentID  := currentID +1.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	sessions at: cartID put: (Session ofUser: aUser withCart: cart lastUsedTime: clock currentTime).
+	
+	^cartID.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:37:59'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:38:02'!
+ERROR!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:38:02'!
+ERROR!
+!Session class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 18:38:11'!
+ofUser: aString withCart: aCart lastUsedTime: aGregorianDateTime 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeOfUser: aString withCart: aCart lastUsedTime: aGregorianDateTime ! !
+!Session class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 18:38:45' prior: 50794086!
+ofUser: aUser withCart: aCart lastUsedTime: theLastUsedTime 
+	^self new initializeOfUser: aUser withCart: aCart lastUsedTime: theLastUsedTime ! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:38:49'!
+ERROR!
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:39:08'!
+Object subclass: #Session
+	instanceVariableNames: 'user'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:39:08'!
+Object subclass: #Session
+	instanceVariableNames: 'user cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:39:08'!
+Object subclass: #Session
+	instanceVariableNames: 'user cart theLastUsedTime_CHANGE_ME'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'initialization' stamp: 'fz 11/14/2019 18:39:08'!
+initializeOfUser: aUser withCart: aCart lastUsedTime: theLastUsedTime 
+	self shouldBeImplemented.
+	user := aUser.
+	cart := aCart.
+	theLastUsedTime_CHANGE_ME := theLastUsedTime.! !
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:39:24'!
+Object subclass: #Session
+	instanceVariableNames: 'user cart theLastUsedTime_CHANGE_ME lastUsedTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'initialization' stamp: 'fz 11/14/2019 18:39:22' prior: 50794128!
+initializeOfUser: aUser withCart: aCart lastUsedTime: theLastUsedTime 
+	user := aUser.
+	cart := aCart.
+	lastUsedTime := theLastUsedTime.! !
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:39:30'!
+FAILURE!
+
+Object subclass: #Session
+	instanceVariableNames: 'user cart lastUsedTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: #TusLibros stamp: 'fz 11/14/2019 18:39:41'!
+Object subclass: #Session
+	instanceVariableNames: 'user cart lastUsedTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:41:13' prior: 50789453!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+
+	self assertValidCart: aCartID.
+	
+	(sessions at: aCartID) updateTime: clock currentTime.
+
+	^ (self cartOfID: aCartID) add: aQuantity of: aBookISBN.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:46:03' prior: 50794167!
+addToCart: aCartID book: aBookISBN quantity: aQuantity 
+
+	self assertValidCart: aCartID.
+	
+	(sessions at: aCartID) add: aQuantity of: aBookISBN on: clock currentTime.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:48:15' prior: 50793691!
+checkoutCart: aCartID withCreditCard: aCreditCard
+	|total|
+	self assertValidCart: aCartID.
+	
+	total := (sessions at: aCartID) checkoutCharging: aCreditCard
+		throught: merchantProcessor
+		on: clock today
+		registeringOn: salesBook.
+		
+	cartsRegister removeKey: aCartID.
+	cartTimeRegister removeKey: aCartID.
+	cartClientRegister removeKey: aCartID.
+	
+	^total.! !
+!Session methodsFor: 'nil' stamp: 'fz 11/14/2019 18:50:11'!
+checkoutCharging: aCreditCard throught: aMerchantProcessor on: aTime registeringOn: aSalesBook
+	|cashier|
+	
+	cashier:= Cashier 
+			toCheckout: cart
+			ofClient: user
+			charging: aCreditCard
+			throught: aMerchantProcessor
+			on: aTime
+			registeringOn: aSalesBook.
+		
+	^cashier checkOut.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:50:30' prior: 50794184!
+checkoutCart: aCartID withCreditCard: aCreditCard
+	|total|
+	self assertValidCart: aCartID.
+	
+	total := (sessions at: aCartID) checkoutCharging: aCreditCard
+		throught: merchantProcessor
+		on: clock today
+		registeringOn: salesBook.
+		
+	sessions removeKey: aCartID.
+	
+	^total.! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:51:08'!
+add: aQuantity of: aBookISBN on: aTime
+	cart add: aQuantity of: aBookISBN.
+	lastUsedTime := aTime.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:51:55' prior: 50794061!
+createCartOf: aUser withPassword: aPassword 
+	|cartID cart |
+	self assertCredentialsOfUser: aUser withPassword: aPassword.
+	
+	cartID := currentID.
+	currentID  := currentID +1.
+	
+	cart := Cart acceptingItemsOf: catalog.
+	sessions at: cartID put: (Session ofUser: aUser withCart: cart lastUsedTime: clock currentTime).
+	
+	^cartID.! !
+!UserAPI methodsFor: 'API' stamp: 'fz 11/14/2019 18:52:28' prior: 50789462!
+listCart: aCartID
+	self assertValidCart: aCartID.
+	^ (sessions at: aCartID) listItems.! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:52:40'!
+listItems
+	^cart listItems ! !
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 18:57:17' prior: 50789169!
+cartOfID: aCartID
+	^sessions at: aCartID.! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:57:33'!
+occurrencesOf: anItem
+	^cart occurrencesOf: anItem! !
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 18:58:09' prior: 50787351!
+isValidCartID: aCartID 
+	^sessions includesKey: aCartID ! !
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 18:58:47' prior: 50789174!
+lastAccesedTime: aCartID 
+	^ (sessions at: aCartID) lastAccesedTime.! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:58:58'!
+lastAccesedTime
+	^lastUsedTime! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:59:13'!
+lastUsedTime
+	^lastUsedTime! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:59:13' prior: 50794265!
+lastAccesedTime: aCartID 
+	^ (sessions at: aCartID) lastUsedTime.! !
+
+!methodRemoval: Session #lastAccesedTime stamp: 'fz 11/14/2019 18:59:13'!
+lastAccesedTime
+	^lastUsedTime!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 18:59:25'!
+lastUsedTime: aCartID 
+	^ (sessions at: aCartID) lastUsedTime.! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:59:26' prior: 50789249!
+isExpiredCart: aCartID 
+	^clock currentTime > ((self lastUsedTime: aCartID) next: (TimeUnits minute with: 30))! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 18:59:26' prior: 50792268!
+test09newCartHasLastAccesedTimeRightNow
+	|userAPI cartID|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: Dictionary new salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI lastUsedTime: cartID) equals: self currentTime.! !
+
+!methodRemoval: UserAPI #lastAccesedTime: stamp: 'fz 11/14/2019 18:59:26'!
+lastAccesedTime: aCartID 
+	^ (sessions at: aCartID) lastUsedTime.!
+!UserAPI methodsFor: 'initialization' stamp: 'fz 11/14/2019 18:59:40' prior: 50794038!
+initializeWithUserManager: aUserManager clock: aClock catalog: aCatalog salesBook: aSalesBook merchantProcessor: aMerchantProcessor    
+	userManager := aUserManager.
+	catalog := aCatalog.
+	clock := aClock.
+	salesBook := aSalesBook.
+	merchantProcessor := aMerchantProcessor.
+	
+	currentID := 1.
+	
+	sessions := Dictionary new.! !
+
+Object subclass: #UserAPI
+	instanceVariableNames: 'userManager catalog currentID clock salesBook merchantProcessor sessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #UserAPI category: #TusLibros stamp: 'fz 11/14/2019 18:59:52'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'userManager catalog currentID clock salesBook merchantProcessor sessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 18:59:59'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:00:06'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 19:00:12) CuisUniversity-3938.image priorSource: 14791252!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:03:26'!
+inCartID: aCartID
+	^sessions at: aCartID.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:03:26' prior: 50792324!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI inCartID: cart2ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: ((userAPI inCartID: cart1ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 0.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:03:26' prior: 50792374!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI inCartID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!methodRemoval: UserAPI #cartOfID: stamp: 'fz 11/14/2019 19:03:26'!
+cartOfID: aCartID
+	^sessions at: aCartID.!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:04:27'!
+itemsOf: anItem inCartID: aCartID
+	^sessions at: aCartID.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:04:27' prior: 50794477!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart2ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: ((userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart1ID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 0.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:04:27' prior: 50794505!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: ((userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cartID) occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.! !
+
+!methodRemoval: UserAPI #inCartID: stamp: 'fz 11/14/2019 19:04:27'!
+inCartID: aCartID
+	^sessions at: aCartID.!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:04:36'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 19:04:41) CuisUniversity-3938.image priorSource: 14810203!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:05:01' prior: 50794562!
+test04CreatedCartCanAddItems
+	|userAPI cartID |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cartID) equals: 1.! !
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:05:21' prior: 50794526!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) .! !
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:05:48' prior: 50794669!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) occurrencesOf: anItem.! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:05:52'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:06:12' prior: 50794531!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart2ID) equals: 2.
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart1ID) equals: 0.! !
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:06:14'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:06:23'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 19:06:31) CuisUniversity-3938.image priorSource: 14815894!
+!Cart methodsFor: 'queries' stamp: 'fz 11/14/2019 19:09:04'!
+quantityOf: anItem
+
+	^items occurrencesOf: anItem  ! !
+!PurchaseSummary methodsFor: 'testing' stamp: 'fz 11/14/2019 19:09:04'!
+quantityOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale occurrencesOf: anItem)]! !
+!Session methodsFor: 'using cart' stamp: 'fz 11/14/2019 19:09:04'!
+quantityOf: anItem
+	^cart occurrencesOf: anItem! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:09:04'!
+quantityOf: anItem
+	^listOfItems occurrencesOf: anItem
+	! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50785351!
+occurrencesOf: anItem
+
+	^items quantityOf: anItem  ! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50786786!
+test08CartRemembersTheNumberOfAddedItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	cart add: 2 of: testObjectsFactory itemSoldByTheStore.
+	self assert: (cart quantityOf: testObjectsFactory itemSoldByTheStore) = 2! !
+!PurchaseSummary methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50793295!
+occurrencesOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale quantityOf: anItem)]! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50794255!
+occurrencesOf: anItem
+	^cart quantityOf: anItem! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50791539!
+occurrencesOf: anItem
+	^listOfItems quantityOf: anItem
+	! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50794674!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) quantityOf: anItem.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50792220!
+test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween
+	|userAPI cartID itemsList |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 20).
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 20).
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList quantityOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: itemsList size equals: 2.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50792282!
+test08ListCartReflectsAddedItems
+	|userAPI cartID itemsList |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList quantityOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: (itemsList quantityOf: testObjectsFactory anotherItemSoldByTheStore) equals: 1.
+	self assert: itemsList size equals: 3.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50793261!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases quantityOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:04' prior: 50793317!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID anotherClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	anotherClientCartID := userAPI createCartOf: anotherValidUser withPassword: anotherValidUserPassword.
+	userAPI addToCart: anotherClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 2.
+	userAPI checkoutCart: anotherClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases quantityOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:05' prior: 50794779!
+quantityOf: anItem
+
+	^items quantityOf: anItem  ! !
+!PurchaseSummary methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:05' prior: 50794783!
+quantityOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale quantityOf: anItem)]! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:05' prior: 50794789!
+quantityOf: anItem
+	^cart quantityOf: anItem! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:05' prior: 50794793!
+quantityOf: anItem
+	^listOfItems quantityOf: anItem
+	! !
+
+!methodRemoval: Cart #occurrencesOf: stamp: 'fz 11/14/2019 19:09:05'!
+occurrencesOf: anItem
+
+	^items quantityOf: anItem  !
+
+!methodRemoval: PurchaseSummary #occurrencesOf: stamp: 'fz 11/14/2019 19:09:05'!
+occurrencesOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale quantityOf: anItem)]!
+
+!methodRemoval: Session #occurrencesOf: stamp: 'fz 11/14/2019 19:09:05'!
+occurrencesOf: anItem
+	^cart quantityOf: anItem!
+
+!methodRemoval: Ticket #occurrencesOf: stamp: 'fz 11/14/2019 19:09:05'!
+occurrencesOf: anItem
+	^listOfItems quantityOf: anItem
+	!
+!Cart methodsFor: 'queries' stamp: 'fz 11/14/2019 19:09:39'!
+occurrencesOf: anItem
+
+	^items quantityOf: anItem  ! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:09:40'!
+occurrencesOf: anItem
+	^listOfItems quantityOf: anItem
+	! !
+!PurchaseSummary methodsFor: 'testing' stamp: 'fz 11/14/2019 19:09:40'!
+occurrencesOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale quantityOf: anItem)]! !
+!Session methodsFor: 'using cart' stamp: 'fz 11/14/2019 19:09:40'!
+occurrencesOf: anItem
+	^cart quantityOf: anItem! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794957!
+quantityOf: anItem
+
+	^items occurrencesOf: anItem  ! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794803!
+test08CartRemembersTheNumberOfAddedItems
+
+	| cart |
+	
+	cart := testObjectsFactory createCart.
+	
+	cart add: 2 of: testObjectsFactory itemSoldByTheStore.
+	self assert: (cart occurrencesOf: testObjectsFactory itemSoldByTheStore) = 2! !
+!PurchaseSummary methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794962!
+quantityOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale occurrencesOf: anItem)]! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794968!
+quantityOf: anItem
+	^cart occurrencesOf: anItem! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794973!
+quantityOf: anItem
+	^listOfItems occurrencesOf: anItem
+	! !
+!UserAPI methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794830!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) occurrencesOf: anItem.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794836!
+test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween
+	|userAPI cartID itemsList |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 20).
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 20).
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: itemsList size equals: 2.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794863!
+test08ListCartReflectsAddedItems
+	|userAPI cartID itemsList |
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: (itemsList occurrencesOf: testObjectsFactory anotherItemSoldByTheStore) equals: 1.
+	self assert: itemsList size equals: 3.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794892!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794919!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID anotherClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	anotherClientCartID := userAPI createCartOf: anotherValidUser withPassword: anotherValidUserPassword.
+	userAPI addToCart: anotherClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 2.
+	userAPI checkoutCart: anotherClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794995!
+occurrencesOf: anItem
+
+	^items occurrencesOf: anItem  ! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50794999!
+occurrencesOf: anItem
+	^listOfItems occurrencesOf: anItem
+	! !
+!PurchaseSummary methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50795004!
+occurrencesOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale occurrencesOf: anItem)]! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:09:40' prior: 50795010!
+occurrencesOf: anItem
+	^cart occurrencesOf: anItem! !
+
+!methodRemoval: Cart #quantityOf: stamp: 'fz 11/14/2019 19:09:40'!
+quantityOf: anItem
+
+	^items occurrencesOf: anItem  !
+
+!methodRemoval: Ticket #quantityOf: stamp: 'fz 11/14/2019 19:09:40'!
+quantityOf: anItem
+	^listOfItems occurrencesOf: anItem
+	!
+
+!methodRemoval: PurchaseSummary #quantityOf: stamp: 'fz 11/14/2019 19:09:40'!
+quantityOf: anItem
+	^sales inject: 0 into: [:total :sale | total + (sale occurrencesOf: anItem)]!
+
+!methodRemoval: Session #quantityOf: stamp: 'fz 11/14/2019 19:09:40'!
+quantityOf: anItem
+	^cart occurrencesOf: anItem!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:09:58' prior: 50795047!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) occurrencesOf: anItem.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:10:08'!
+PASSED!
+!Session methodsFor: 'using cart' stamp: 'fz 11/14/2019 19:10:52'!
+quantityOf: anItem
+	^cart occurrencesOf: anItem! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:10:52' prior: 50795192!
+occurrencesOf: anItem
+	^cart quantityOf: anItem! !
+!Session methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:10:52' prior: 50795282!
+quantityOf: anItem
+	^cart quantityOf: anItem! !
+
+!methodRemoval: Session #occurrencesOf: stamp: 'fz 11/14/2019 19:10:52'!
+occurrencesOf: anItem
+	^cart quantityOf: anItem!
+!UserAPI methodsFor: 'testing' stamp: 'fz 11/14/2019 19:11:05' prior: 50795214!
+itemsOf: anItem inCartID: aCartID
+	^(sessions at: aCartID) quantityOf: anItem.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:11:09'!
+ERROR!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:11:09'!
+ERROR!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:11:09'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:11:13'!
+ERROR!
+!Session methodsFor: 'using cart' stamp: 'fz 11/14/2019 19:11:28' prior: 50795292!
+quantityOf: anItem
+	^cart occurrencesOf: anItem! !
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:11:30'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:11:32'!
+PASSED!
+
+!methodRemoval: UserAPI #clientOfCartID: stamp: 'fz 11/14/2019 19:12:05'!
+clientOfCartID: aCartID
+	^cartClientRegister at: aCartID !
+
+!methodRemoval: Ticket #occurrencesOf: stamp: 'fz 11/14/2019 19:23:01'!
+occurrencesOf: anItem
+	^listOfItems occurrencesOf: anItem
+	!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:23:06'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:23:06'!
+ERROR!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:23:06'!
+ERROR!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:23:09'!
+ERROR!
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:23:40'!
+occurrencesOf: anItem
+	^listOfItems occurrencesOf: anItem! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:23:52'!
+PASSED!
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:26:16'!
+of: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:26:16' prior: 50793497!
+createTicket
+
+	^ Ticket of: total listOfItems: cart listItems forClient: client withCatalog: catalog
+! !
+
+!methodRemoval: Ticket class #of:listOfItems:forClient: stamp: 'fz 11/14/2019 19:26:16'!
+of: aTotal listOfItems: aListOfItems forClient: aClient  
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient !
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:26:42'!
+initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.! !
+!Ticket class methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:26:42' prior: 50795584!
+of: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog ! !
+
+!methodRemoval: Ticket #initializeTotal:listOfItems:forClient: stamp: 'fz 11/14/2019 19:26:42'!
+initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient  
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.!
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:27:59'!
+initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient    
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.! !
+!Ticket class methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:27:59' prior: 50795618!
+of: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient ! !
+
+!methodRemoval: Ticket #initializeTotal:listOfItems:forClient:withCatalog: stamp: 'fz 11/14/2019 19:27:59'!
+initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.!
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:28:11'!
+of: aTotal listOfItems: aListOfItems forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:28:11' prior: 50795594!
+createTicket
+
+	^ Ticket of: total listOfItems: cart listItems forClient: client ! !
+
+!methodRemoval: Ticket class #of:listOfItems:forClient:withCatalog: stamp: 'fz 11/14/2019 19:28:11'!
+of: aTotal listOfItems: aListOfItems forClient: aClient withCatalog: aCatalog   
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient !
+!Cashier methodsFor: 'checkout - private' stamp: 'fz 11/14/2019 19:32:39' prior: 50795670!
+createTicket
+
+	^ Ticket of: total listOfItems: cart listItemsWithPrices forClient: client ! !
+!Cart methodsFor: 'queries' stamp: 'fz 11/14/2019 19:32:49'!
+listItemsWithPrices
+	^items copy! !
+!Cart methodsFor: 'queries' stamp: 'fz 11/14/2019 19:33:51' prior: 50795691!
+listItemsWithPrices
+	^items inject: Dictionary new into: [:itemsWithPrice :item | itemsWithPrice at: item put: (catalog at: item)]! !
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:34:41'!
+of: aTotal itemsWithPrices: aListOfItems forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:34:41' prior: 50795686!
+createTicket
+
+	^ Ticket of: total itemsWithPrices: cart listItemsWithPrices forClient: client ! !
+
+!methodRemoval: Ticket class #of:listOfItems:forClient: stamp: 'fz 11/14/2019 19:34:41'!
+of: aTotal listOfItems: aListOfItems forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient !
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:35:48'!
+initializeTotal: aTotal itemsWithPrices: aListOfItems forClient: aClient    
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.! !
+!Ticket class methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:35:48' prior: 50795702!
+of: aTotal itemsWithPrices: aListOfItems forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: aListOfItems forClient: aClient ! !
+
+!methodRemoval: Ticket #initializeTotal:listOfItems:forClient: stamp: 'fz 11/14/2019 19:35:48'!
+initializeTotal: aTotal listOfItems: aListOfItems forClient: aClient    
+
+	total := aTotal.
+	listOfItems := aListOfItems.
+	client := aClient.!
+
+!classDefinition: #Ticket category: #TusLibros stamp: 'fz 11/14/2019 19:35:57'!
+Object subclass: #Ticket
+	instanceVariableNames: 'total listOfItemsWithPrice client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:35:57' prior: 50795516!
+occurrencesOf: anItem
+	^listOfItemsWithPrice occurrencesOf: anItem! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:35:57' prior: 50791509!
+size
+	^listOfItemsWithPrice size.! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:35:57' prior: 50795725!
+initializeTotal: aTotal itemsWithPrices: aListOfItems forClient: aClient    
+
+	total := aTotal.
+	listOfItemsWithPrice := aListOfItems.
+	client := aClient.! !
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:36:23' prior: 50795733!
+of: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient ! !
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:36:30' prior: 50795767!
+initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	listOfItemsWithPrice := theItemsAndPrices.
+	client := aClient.! !
+
+----SNAPSHOT----(14 November 2019 19:36:34) CuisUniversity-3938.image priorSource: 14820012!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:37:21'!
+test20cartCheckoutHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	
+	"acá podrían venir muchos tests medio redudantes de la lógica de cashier, no sería TDD sino testing, decidimos no agregarlos ya que nos parece que no es lo importante del ejercicio"
+! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:38:30' prior: 50795796!
+test20cartCheckoutHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.! !
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:38:34'!
+ERROR!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:38:34'!
+ERROR!
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:38:45'!
+priceOf: aString 
+	self shouldBeImplemented.! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:38:59' prior: 50795853!
+priceOf: anItem
+	^listOfItemsWithPrice at: anItem
+	! !
+
+!classDefinition: #Ticket category: #TusLibros stamp: 'fz 11/14/2019 19:39:08'!
+Object subclass: #Ticket
+	instanceVariableNames: 'total itemsWithPrice client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:39:08' prior: 50795785!
+initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsWithPrice := theItemsAndPrices.
+	client := aClient.! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:39:08' prior: 50795763!
+size
+	^itemsWithPrice size.! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:39:08' prior: 50795857!
+priceOf: anItem
+	^itemsWithPrice at: anItem
+	! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:39:08' prior: 50795757!
+occurrencesOf: anItem
+	^itemsWithPrice occurrencesOf: anItem! !
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:39:21'!
+ERROR!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:40:00'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:40:01'!
+ERROR!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:40:01'!
+ERROR!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:40:01'!
+ERROR!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:40:04'!
+ERROR!
+!Cart methodsFor: 'queries' stamp: 'fz 11/14/2019 19:41:06' prior: 50795695!
+listItemsWithPrices
+	^items inject: Dictionary new into: [:itemsWithPrice :item | itemsWithPrice at: item put: (catalog at: item). itemsWithPrice]! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:41:11'!
+FAILURE!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:41:11'!
+FAILURE!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:41:11'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:41:14'!
+FAILURE!
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:44:08'!
+of: aTotal itemsQuantity: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:44:08' prior: 50795711!
+createTicket
+
+	^ Ticket of: total itemsQuantity: cart listItemsWithPrices forClient: client ! !
+
+!methodRemoval: Ticket class #of:itemsWithPrices:forClient: stamp: 'fz 11/14/2019 19:44:08'!
+of: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient !
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:45:14'!
+of: aTotal itemsPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:45:14' prior: 50796052!
+createTicket
+
+	^ Ticket of: total itemsPrices: cart listItemsWithPrices forClient: client ! !
+
+!methodRemoval: Ticket class #of:itemsQuantity:forClient: stamp: 'fz 11/14/2019 19:45:14'!
+of: aTotal itemsQuantity: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient !
+!Ticket class methodsFor: 'instance creation' stamp: 'fz 11/14/2019 19:45:49'!
+of: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient ! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:45:49' prior: 50796077!
+createTicket
+
+	^ Ticket of: total itemsQuantity: cart listItems itemsPrices: cart listItemsWithPrices forClient: client ! !
+
+!methodRemoval: Ticket class #of:itemsPrices:forClient: stamp: 'fz 11/14/2019 19:45:49'!
+of: aTotal itemsPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient !
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:46:07'!
+initializeTotal: aTotal itemsPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsWithPrice := theItemsAndPrices.
+	client := aClient.! !
+!Ticket class methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:07' prior: 50796092!
+of: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsPrices: theItemsAndPrices forClient: aClient ! !
+
+!methodRemoval: Ticket #initializeTotal:itemsWithPrices:forClient: stamp: 'fz 11/14/2019 19:46:07'!
+initializeTotal: aTotal itemsWithPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsWithPrice := theItemsAndPrices.
+	client := aClient.!
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:46:30'!
+initializeTotal: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsWithPrice := theItemsAndPrices.
+	client := aClient.! !
+!Ticket class methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:30' prior: 50796127!
+of: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient ! !
+
+!methodRemoval: Ticket #initializeTotal:itemsPrices:forClient: stamp: 'fz 11/14/2019 19:46:30'!
+initializeTotal: aTotal itemsPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsWithPrice := theItemsAndPrices.
+	client := aClient.!
+
+!classDefinition: #Ticket category: #TusLibros stamp: 'fz 11/14/2019 19:46:42'!
+Object subclass: #Ticket
+	instanceVariableNames: 'total itemsPrice client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:42' prior: 50795886!
+occurrencesOf: anItem
+	^itemsPrice occurrencesOf: anItem! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:42' prior: 50795877!
+size
+	^itemsPrice size.! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:42' prior: 50795881!
+priceOf: anItem
+	^itemsPrice at: anItem
+	! !
+!Ticket methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 19:46:42' prior: 50796145!
+initializeTotal: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsPrice := theItemsAndPrices.
+	client := aClient.! !
+
+!classDefinition: #Ticket category: #TusLibros stamp: 'fz 11/14/2019 19:46:56'!
+Object subclass: #Ticket
+	instanceVariableNames: 'total itemsPrice client itemsQuantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Ticket methodsFor: 'initialization' stamp: 'fz 11/14/2019 19:46:54' prior: 50796195!
+initializeTotal: aTotal itemsQuantity: theItemsQuantity itemsPrices: theItemsAndPrices forClient: aClient    
+
+	total := aTotal.
+	itemsQuantity := theItemsQuantity.
+	itemsPrice := theItemsAndPrices.
+	client := aClient.! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:47:07' prior: 50796181!
+occurrencesOf: anItem
+	^itemsQuantity occurrencesOf: anItem! !
+!Ticket methodsFor: 'testing' stamp: 'fz 11/14/2019 19:47:16' prior: 50796186!
+size
+	^itemsQuantity size.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:47:23'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:47:38'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:48:25' prior: 50795823!
+test20cartCheckoutHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:48:47' prior: 50796300!
+test20cartCheckoutHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:49:17'!
+test20cartCheckoutTicketHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+
+!methodRemoval: UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:49:17'!
+test20cartCheckoutHasDetailedPricesOfBooks
+	|userAPI cartID total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:50:41'!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:51:30' prior: 50796412!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := total + userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 19:51:33'!
+ERROR!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 19:51:50' prior: 50796439!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|userAPI cartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := total + (userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard).
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 19:51:52'!
+FAILURE!
+
+self itemsPurchased !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:52:30'!
+ERROR!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:52:30'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:52:30'!
+ERROR!
+
+self size!
+
+self inject: 0 into: [:total :sale | total + sale size]!
+
+self inject: 0 into: [:total :sale | total + (sale occurrencesOf: 'validBook')]!
+
+self  inject: 0 into: [:total :sale | total + sale total]!
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 19:56:51'!
+PASSED!
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutTicketHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 19:57:02'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 19:57:06) CuisUniversity-3938.image priorSource: 14852551!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:00:03' prior: 50795136!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	self createCartForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 20:00:11'!
+ERROR!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 20:00:11'!
+ERROR!
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:00:26'!
+createCartForUser: aString withPassword: aString2 andBuy: aSmallInteger of: aString4 
+	self shouldBeImplemented.! !
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:01:51' prior: 50796711!
+createCartForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem
+	|cartID userAPI |
+	cartID := userAPI createCartOf: aUser withPassword: aPassword.
+	userAPI addToCart: cartID book: anItem quantity: aQuantity.
+	userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 20:02:14'!
+ERROR!
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:02:47'!
+createCartForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID userAPI |
+	cartID := userAPI createCartOf: aUser withPassword: aPassword.
+	userAPI addToCart: cartID book: anItem quantity: aQuantity.
+	userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:02:47' prior: 50796672!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	self createCartForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+!methodRemoval: UserAPITest #createCartForUser:withPassword:andBuy:of: stamp: 'fz 11/14/2019 20:02:47'!
+createCartForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem
+	|cartID userAPI |
+	cartID := userAPI createCartOf: aUser withPassword: aPassword.
+	userAPI addToCart: cartID book: anItem quantity: aQuantity.
+	userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:03:03' prior: 50796748!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI queringClientCartID total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	self createCartForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	self createCartForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	queringClientCartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: queringClientCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	total := userAPI checkoutCart: queringClientCartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:03:29' prior: 50796734!
+createCartForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID |
+	cartID := anUserAPI createCartOf: aUser withPassword: aPassword.
+	anUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ anUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:04:01' prior: 50796794!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	self createCartForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	total := self createCartForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:05:17' prior: 50796356!
+test20cartCheckoutTicketHasDetailedPricesOfBooks
+	|userAPI total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self createCartForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutTicketHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 20:05:22'!
+PASSED!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:05:49' prior: 50795109!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self createCartForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:06:42' prior: 50796478!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self createCartForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	total := total + (self createCartForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI).
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:07:05'!
+makePurchaseForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID |
+	cartID := anUserAPI createCartOf: aUser withPassword: aPassword.
+	anUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ anUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:07:05' prior: 50796991!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	total := total + (self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI).
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:07:05' prior: 50796968!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:07:05' prior: 50796873!
+test20cartCheckoutTicketHasDetailedPricesOfBooks
+	|userAPI total|
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:07:05' prior: 50796845!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|userAPI total purchases |
+ 
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	self makePurchaseForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: userAPI.
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+!methodRemoval: UserAPITest #createCartForUser:withPassword:andBuy:of:withAPI: stamp: 'fz 11/14/2019 20:07:05'!
+createCartForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID |
+	cartID := anUserAPI createCartOf: aUser withPassword: aPassword.
+	anUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ anUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/14/2019 20:09:29'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword time anotherValidUser anotherValidUserPassword emptySalesBook validUserAPI'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:09:27' prior: 50792560!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	anotherValidUser := 'anotherValidUser'.
+	anotherValidUserPassword := 'anotherValidUserPassword'.
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword.
+	usersLog at: anotherValidUser put: anotherValidUserPassword.	
+	
+	testObjectsFactory := StoreTestObjectsFactory new.
+	
+	time := GregorianDateTime now.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	validUserAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:09:48' prior: 50793751!
+test01CreateCartFailsWithUnknownUser
+
+	self should: [validUserAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:10:02' prior: 50792409!
+test02CartIsCreatedForValidUserAndIsEmpty
+	| cartID |
+
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (validUserAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:10:13' prior: 50793734!
+test03CreateCartFailsWithWrongPassword
+
+	self should: [validUserAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:10:24' prior: 50794651!
+test04CreatedCartCanAddItems
+	| cartID |
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (validUserAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cartID) equals: 1.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:10:40' prior: 50792351!
+test05CanNotAddItemsToInvalidCartID
+	| cartID invalidCartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [validUserAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:10:58' prior: 50794683!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	|userAPI cart1ID cart2ID|
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	validUserAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	validUserAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (validUserAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart2ID) equals: 2.
+	self assert: (validUserAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart1ID) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:11:15' prior: 50797256!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	| cart1ID cart2ID|
+	
+	cart1ID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := validUserAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	validUserAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	validUserAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (validUserAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart2ID) equals: 2.
+	self assert: (validUserAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart1ID) equals: 0.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:11:28' prior: 50792311!
+test07ListCartOfNewCartIsEmpty
+	|cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (validUserAPI listCart: cartID) isEmpty.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:11:44' prior: 50795080!
+test08ListCartReflectsAddedItems
+	|cartID itemsList |
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	validUserAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	itemsList := validUserAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: (itemsList occurrencesOf: testObjectsFactory anotherItemSoldByTheStore) equals: 1.
+	self assert: itemsList size equals: 3.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:11:55' prior: 50794298!
+test09newCartHasLastAccesedTimeRightNow
+	|cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (validUserAPI lastUsedTime: cartID) equals: self currentTime.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:12:26' prior: 50792247!
+test10canNotAddItemsToCartAfter30Mins
+	| cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 31).
+	
+	self should: [validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:12:44' prior: 50795053!
+test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween
+	|cartID itemsList |
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 20).
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 20).
+	
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	itemsList := validUserAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: itemsList size equals: 2.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:12:59' prior: 50792201!
+test12canNotListCartAfter30Mins
+	|cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 31).
+	
+	self should: [validUserAPI listCart: cartID]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:13:10' prior: 50792154!
+test13CanNotLIstInvalidCartID
+	|cartID invalidCartID|
+	
+	validUserAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [validUserAPI listCart: invalidCartID ]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:13:26' prior: 50792175!
+test14cartCheckoutRegistersSales
+	|cartID total|
+ 
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	
+	"acá podrían venir muchos tests medio redudantes de la lógica de cashier, no sería TDD sino testing, decidimos no agregarlos ya que nos parece que no es lo importante del ejercicio"
+! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:13:41' prior: 50792088!
+test15afterCheckOutCartIDIsInvalid
+	|cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self should: [validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:13:56' prior: 50792113!
+test16cannotCheckoutAfter30Minutes
+	|cartID|
+	
+	cartID := validUserAPI createCartOf: validUser withPassword: validUserPassword.
+	validUserAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 31).
+			
+	self should: [validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage ].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:14:04' prior: 50793792!
+test17ListPurchasesFailsWithInvalidCredentials
+	
+	self should: [validUserAPI listPurchasesOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:14:16' prior: 50797062!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI.
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:14:32' prior: 50797111!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|total purchases |
+	
+	self makePurchaseForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI.
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI.
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:14:44' prior: 50797086!
+test20cartCheckoutTicketHasDetailedPricesOfBooks
+	|total|
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+!UserAPITest methodsFor: 'tests' stamp: 'fz 11/14/2019 20:15:00' prior: 50797033!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI.
+	total := total + (self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore withAPI: validUserAPI).
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:15:40' prior: 50797019!
+makePurchaseForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID |
+	cartID := validUserAPI createCartOf: aUser withPassword: aPassword.
+	validUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'private' stamp: 'fz 11/14/2019 20:15:49'!
+makePurchaseForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem  
+	|cartID |
+	cartID := validUserAPI createCartOf: aUser withPassword: aPassword.
+	validUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:49' prior: 50797558!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	total := total + (self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore ).
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:49' prior: 50797496!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:49' prior: 50797538!
+test20cartCheckoutTicketHasDetailedPricesOfBooks
+	|total|
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	self assert: (emptySalesBook first priceOf: testObjectsFactory itemSoldByTheStore) = total.
+	
+	"este test en cierta manera deberia haber estado en checkout, como no se sabia el formato del ticket que debia devolver lo testeamos aca"! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:49' prior: 50797515!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|total purchases |
+	
+	self makePurchaseForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore .
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	
+	purchases := validUserAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+
+!methodRemoval: UserAPITest #makePurchaseForUser:withPassword:andBuy:of:withAPI: stamp: 'fz 11/14/2019 20:15:49'!
+makePurchaseForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem withAPI: anUserAPI 
+	|cartID |
+	cartID := validUserAPI createCartOf: aUser withPassword: aPassword.
+	validUserAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ validUserAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	!
+
+!classDefinition: #UserAPITest category: #TusLibros stamp: 'fz 11/14/2019 20:15:59'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword time anotherValidUser anotherValidUserPassword emptySalesBook userAPI'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797238!
+test05CanNotAddItemsToInvalidCartID
+	| cartID invalidCartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [userAPI addToCart: invalidCartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797609!
+test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	total := total + (self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore ).
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 2.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797484!
+test17ListPurchasesFailsWithInvalidCredentials
+	
+	self should: [userAPI listPurchasesOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797465!
+test16cannotCheckoutAfter30Minutes
+	|cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 31).
+			
+	self should: [userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage ].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797279!
+test06AddingItemsWithMultipleCartsBehavesCorrectly
+	| cart1ID cart2ID|
+	
+	cart1ID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	cart2ID := userAPI createCartOf: validUser withPassword: validUserPassword.	
+	
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cart2ID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart2ID) equals: 2.
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cart1ID) equals: 0.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797213!
+test03CreateCartFailsWithWrongPassword
+
+	self should: [userAPI createCartOf: validUser withPassword: validUserButWrongPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797302!
+test07ListCartOfNewCartIsEmpty
+	|cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI listCart: cartID) isEmpty.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797401!
+test13CanNotLIstInvalidCartID
+	|cartID invalidCartID|
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	invalidCartID := cartID +1. "asumimos que los IDs son incrementales"
+	
+	self should: [userAPI listCart: invalidCartID ]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797166!
+setUp
+	validUser := 'validUser'.
+	validUserPassword := 'validUserPassword'.
+	validUserButWrongPassword := 'wrongPassword'.	
+	
+	anotherValidUser := 'anotherValidUser'.
+	anotherValidUserPassword := 'anotherValidUserPassword'.
+	
+	invalidUser := 'invalidUser'.
+	invalidUserPassword := 'invalidUserPassword'.
+	
+	usersLog := Dictionary new.
+	usersLog at: validUser put: validUserPassword.
+	usersLog at: anotherValidUser put: anotherValidUserPassword.	
+	
+	testObjectsFactory := StoreTestObjectsFactory new.
+	
+	time := GregorianDateTime now.
+	
+	emptySalesBook := OrderedCollection new.
+	
+	userAPI := UserAPI withUserManager: self clock: self catalog: testObjectsFactory defaultCatalog salesBook: emptySalesBook merchantProcessor: self.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797422!
+test14cartCheckoutRegistersSales
+	|cartID total|
+ 
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	total := userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self assert: emptySalesBook size = 1.
+	self assert: emptySalesBook first total = total.
+	
+	"acá podrían venir muchos tests medio redudantes de la lógica de cashier, no sería TDD sino testing, decidimos no agregarlos ya que nos parece que no es lo importante del ejercicio"
+! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797363!
+test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween
+	|cartID itemsList |
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 20).
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	time := time next: (TimeUnits minute with: 20).
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: itemsList size equals: 2.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797670!
+test19ListPurchasesOnlyListSalesOfQueringClient
+	|total purchases |
+	
+	self makePurchaseForUser: anotherValidUser withPassword: anotherValidUserPassword andBuy: 2 of: testObjectsFactory itemSoldByTheStore .
+	
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797204!
+test02CartIsCreatedForValidUserAndIsEmpty
+	| cartID |
+
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI isValidCartID: cartID).! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797632!
+test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect
+	|total purchases |
+ 
+	total := self makePurchaseForUser: validUser withPassword: validUserPassword andBuy: 1 of: testObjectsFactory itemSoldByTheStore .
+	
+	purchases := userAPI listPurchasesOf: validUser withPassword: validUserPassword.
+	
+	self assert: purchases itemsPurchased = 1.
+	self assert: (purchases occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 1.
+	self assert: purchases total = total.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797346!
+test10canNotAddItemsToCartAfter30Mins
+	| cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 31).
+	
+	self should: [userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797311!
+test08ListCartReflectsAddedItems
+	|cartID itemsList |
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	userAPI addToCart: cartID book: testObjectsFactory anotherItemSoldByTheStore quantity: 1.
+	
+	itemsList := userAPI listCart: cartID.
+	self assert: (itemsList occurrencesOf: testObjectsFactory itemSoldByTheStore) equals: 2.
+	self assert: (itemsList occurrencesOf: testObjectsFactory anotherItemSoldByTheStore) equals: 1.
+	self assert: itemsList size equals: 3.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797336!
+test09newCartHasLastAccesedTimeRightNow
+	|cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	self assert: (userAPI lastUsedTime: cartID) equals: self currentTime.! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797444!
+test15afterCheckOutCartIDIsInvalid
+	|cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+			
+	self should: [userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCartIDErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:15:59' prior: 50797595!
+makePurchaseForUser: aUser withPassword: aPassword andBuy: aQuantity of: anItem  
+	|cartID |
+	cartID := userAPI createCartOf: aUser withPassword: aPassword.
+	userAPI addToCart: cartID book: anItem quantity: aQuantity.
+	^ userAPI checkoutCart: cartID withCreditCard: testObjectsFactory notExpiredCreditCard.
+	! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:16:00' prior: 50797192!
+test01CreateCartFailsWithUnknownUser
+
+	self should: [userAPI createCartOf: invalidUser withPassword: invalidUserPassword.]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI invalidCredentialsErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:16:00' prior: 50797386!
+test12canNotListCartAfter30Mins
+	|cartID|
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	time := time next: (TimeUnits minute with: 31).
+	
+	self should: [userAPI listCart: cartID]
+	 raise: Error - MessageNotUnderstood 
+	 withExceptionDo: [ :anError | 
+			self assert: anError messageText = UserAPI expiredCartErrorMessage].! !
+!UserAPITest methodsFor: 'as yet unclassified' stamp: 'fz 11/14/2019 20:16:00' prior: 50797225!
+test04CreatedCartCanAddItems
+	| cartID |
+	
+	cartID := userAPI createCartOf: validUser withPassword: validUserPassword.
+	
+	userAPI addToCart: cartID book: testObjectsFactory itemSoldByTheStore quantity: 1.
+	
+	self assert: (userAPI itemsOf: testObjectsFactory itemSoldByTheStore inCartID: cartID) equals: 1.! !
+
+!testRun: #UserAPITest #test01CreateCartFailsWithUnknownUser stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test02CartIsCreatedForValidUserAndIsEmpty stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test03CreateCartFailsWithWrongPassword stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test04CreatedCartCanAddItems stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test05CanNotAddItemsToInvalidCartID stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test06AddingItemsWithMultipleCartsBehavesCorrectly stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test07ListCartOfNewCartIsEmpty stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test08ListCartReflectsAddedItems stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test09newCartHasLastAccesedTimeRightNow stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test10canNotAddItemsToCartAfter30Mins stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test11canAddItemsToCartIfItWasCreated30MinsAgoButWasUsedInBetween stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test12canNotListCartAfter30Mins stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test13CanNotLIstInvalidCartID stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test14cartCheckoutRegistersSales stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test15afterCheckOutCartIDIsInvalid stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test16cannotCheckoutAfter30Minutes stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test17ListPurchasesFailsWithInvalidCredentials stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test18ListPurchasesOfAValidClientWithOnlyOneSaleIsCorrect stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test19ListPurchasesOnlyListSalesOfQueringClient stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test20cartCheckoutTicketHasDetailedPricesOfBooks stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+!testRun: #UserAPITest #test21ListPurchasesOfAValidClientWithMultipleSalesIsCorrect stamp: 'fz 11/14/2019 20:16:04'!
+PASSED!
+
+----SNAPSHOT----(14 November 2019 20:16:11) CuisUniversity-3938.image priorSource: 14880569!
