@@ -12707,3 +12707,2163 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(14 November 2019 20:16:11) CuisUniversity-3938.image priorSource: 14880569!
+
+----QUIT----(14 November 2019 21:29:29) CuisUniversity-3938.image priorSource: 14928643!
+
+----STARTUP---- (21 November 2019 17:23:30) as /home/akima/Documents/ing_II/repo/cuis/CuisUniversity-3938.image!
+
+
+!classRemoval: #UserAPI stamp: 'fz 11/21/2019 19:11:08'!
+Object subclass: #UserAPI
+	instanceVariableNames: 'userManager catalog currentID clock salesBook merchantProcessor sessions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Ticket stamp: 'fz 11/21/2019 19:11:09'!
+Object subclass: #Ticket
+	instanceVariableNames: 'total itemsPrice client itemsQuantity'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #StoreTestObjectsFactory stamp: 'fz 11/21/2019 19:11:09'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Session stamp: 'fz 11/21/2019 19:11:10'!
+Object subclass: #Session
+	instanceVariableNames: 'user cart lastUsedTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #PurchaseSummary stamp: 'fz 11/21/2019 19:11:10'!
+Object subclass: #PurchaseSummary
+	instanceVariableNames: 'client sales'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CreditCard stamp: 'fz 11/21/2019 19:11:11'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cashier stamp: 'fz 11/21/2019 19:11:11'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #Cart stamp: 'fz 11/21/2019 19:11:12'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #UserAPITest stamp: 'fz 11/21/2019 19:11:12'!
+TestCase subclass: #UserAPITest
+	instanceVariableNames: 'testObjectsFactory debitBehavior usersLog validUser validUserPassword validUserButWrongPassword invalidUser invalidUserPassword time anotherValidUser anotherValidUserPassword emptySalesBook userAPI'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CashierTest stamp: 'fz 11/21/2019 19:11:13'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #CartTest stamp: 'fz 11/21/2019 19:11:13'!
+TestCase subclass: #CartTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/25-TusLibros/4/TusLibros.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/25-TusLibros/4/StringServer.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/System/Collections-CompactArrays.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/Features/Compression.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/Features/Sound.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/Features/Cryptography-DigitalSignatures.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/Features/Identities-UUID.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/System/Network-Kernel.pck.st----!
+
+----End fileIn of /home/akima/Documents/ing_II/repo/cuis/Packages/Features/WebClient.pck.st----!
+
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port stringGenius hiList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'StringServer'!
+
+!classDefinition: #TusLibrosServerController category: #StringServer stamp: 'fz 11/21/2019 19:17:36'!
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port stringGenius hiList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'StringServer'!
+
+TusLibrosServerController class
+	instanceVariableNames: ''!
+
+!classDefinition: 'TusLibrosServerController class' category: #StringServer stamp: 'fz 11/21/2019 19:17:36'!
+TusLibrosServerController class
+	instanceVariableNames: ''!
+!TusLibrosServerController methodsFor: 'enabling services' stamp: 'fz 11/21/2019 19:17:36'!
+destroy
+	
+	webServer ifNotNil:[webServer destroy].! !
+!TusLibrosServerController methodsFor: 'enabling services' stamp: 'fz 11/21/2019 19:17:36'!
+startListening
+	
+	webServer startListener.
+
+	^ 'Listening on port: ', self port asString.
+	! !
+!TusLibrosServerController methodsFor: 'enabling services' stamp: 'fz 11/21/2019 19:17:36'!
+stopListening
+	
+	webServer stopListener.
+	
+	^'Stopped listening from port: ', self port asString! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:17:36'!
+initializeWith: aPortNumber
+
+	hiList := self hiList.
+	
+	stringGenius := StringGenius new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := stringGenius substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := stringGenius firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := stringGenius vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := stringGenius toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:17:36'!
+port
+	"Use a random port to minimise chances of concurrently running test suites clashing."
+	"^ port
+		ifNil: [port := (10000 to: 50000) atRandom]"
+	
+	^port ifNil: [port:=8080].
+	
+	! !
+!TusLibrosServerController methodsFor: 'private' stamp: 'fz 11/21/2019 19:17:36'!
+hiList
+	
+	^OrderedCollection with: 'Hi!!' with: 'Hodor!!' with: 'I am Groot!!' with: 'My name is Homer Simp... Doh!!' with: 'I am inevitable...' with: 'Because Im Baaaatman!!'.
+	
+	! !
+!TusLibrosServerController methodsFor: 'private' stamp: 'fz 11/21/2019 19:17:36'!
+sayRandomHi
+	
+	^hiList at: (hiList size atRandom).
+	! !
+!TusLibrosServerController class methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:17:36'!
+listeningOn: aPortNumber
+
+	^self new initializeWith: aPortNumber.! !
+
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port stringGenius hiList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerController category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:17:58'!
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port stringGenius hiList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!methodRemoval: TusLibrosServerController #sayRandomHi stamp: 'fz 11/21/2019 19:18:19'!
+sayRandomHi
+	
+	^hiList at: (hiList size atRandom).
+	!
+
+!methodRemoval: TusLibrosServerController #hiList stamp: 'fz 11/21/2019 19:18:21'!
+hiList
+	
+	^OrderedCollection with: 'Hi!!' with: 'Hodor!!' with: 'I am Groot!!' with: 'My name is Homer Simp... Doh!!' with: 'I am inevitable...' with: 'Because Im Baaaatman!!'.
+	
+	!
+
+!classDefinition: #TusLibrosServerController category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:18:47'!
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port tusLibrosAPI hiList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerController methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:18:47' prior: 50838250!
+initializeWith: aPortNumber
+
+	hiList := self hiList.
+	
+	tusLibrosAPI := StringGenius new.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:21:19' prior: 50838404!
+initializeWith: aPortNumber
+
+	hiList := self hiList.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:22:07'!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	hiList := self hiList.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerController class methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:22:07' prior: 50838361!
+listeningOn: aPortNumber
+
+	^self new initializeWith: aPortNumber withAPI: ASD.! !
+
+!methodRemoval: TusLibrosServerController #initializeWith: stamp: 'fz 11/21/2019 19:22:07'!
+initializeWith: aPortNumber
+
+	hiList := self hiList.
+	
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+!
+!TusLibrosServerController class methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:22:35'!
+listeningOn: aPortNumber withAPI: aTusLibrosAPI 
+
+	^self new initializeWith: aPortNumber withAPI: ASD.! !
+
+!methodRemoval: TusLibrosServerController class #listeningOn: stamp: 'fz 11/21/2019 19:22:35'!
+listeningOn: aPortNumber
+
+	^self new initializeWith: aPortNumber withAPI: ASD.!
+!TusLibrosServerController class methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:22:39' prior: 50838758!
+listeningOn: aPortNumber withAPI: aTusLibrosAPI 
+
+	^self new initializeWith: aPortNumber withAPI: aTusLibrosAPI.! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:22:54' prior: 50838578!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	hiList := self hiList.
+	
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:23:00' prior: 50838778!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: (self sayRandomHi asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port tusLibrosAPI'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerController category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:23:06'!
+Object subclass: #TusLibrosServerController
+	instanceVariableNames: 'webServer port tusLibrosAPI'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:26:25' prior: 50838867!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/sayHi' action:[:request |	
+		
+		"request send200Response: (self sayRandomHi)"
+		request send200Response: ('iego' asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+|server|
+
+server := StringServerController listeningOn: 8000.
+
+server startListening !
+
+|server|
+
+server := StringServerController listeningOn: 8000.
+
+server startListening !
+
+StringServerController listeningOn: 8000.!
+
+self startListening !
+
+self startListening !
+
+self stopListening !
+
+self stopListening !
+
+----SNAPSHOT----(21 November 2019 19:31:36) CuisUniversity-3938.image priorSource: 14928737!
+
+StringServerController allInstances!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 19:38:51' prior: 50838969!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerTest category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:39:35'!
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerControllerTest methodsFor: 'nil' stamp: 'fz 11/21/2019 19:40:05'!
+test01createCartXXX
+	! !
+
+!classDefinition: #TusLibrosServerControllerTest category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:40:33'!
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerTest category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:40:35'!
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: 'testObjectsFactory clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerTest category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:40:38'!
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerControllerTest methodsFor: 'nil' stamp: 'fz 11/21/2019 19:40:31'!
+setUp
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: self createSalesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerTest methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:41:50' prior: 50839177!
+test01createCartXXX
+	|server|
+	
+	server := TusLibrosServerController listeningOn: 8080 withAPI: 2.
+	! !
+!TusLibrosServerControllerTest methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:42:00' prior: 50839223!
+test01createCartXXX
+	|server|
+	
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	! !
+!TusLibrosServerControllerTest methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:42:21' prior: 50839230!
+test01createCartXXX
+	|server|
+	
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	server startListening.
+	
+	
+	! !
+!TusLibrosServerControllerTest methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:42:44' prior: 50839238!
+test01createCartXXX
+	|server|
+	
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	server startListening.
+	
+	! !
+
+!classRemoval: #TusLibrosServerControllerTest stamp: 'fz 11/21/2019 19:46:05'!
+TestCase subclass: #TusLibrosServerControllerTest
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:52:26'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:52:33'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: 'testObjectsFactory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:52:34'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: 'testObjectsFactory clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 19:52:34'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: 'testObjectsFactory clock systemFacade'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerControllerXXX methodsFor: 'nil' stamp: 'fz 11/21/2019 19:52:32'!
+initialize
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: self createSalesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:54:43'!
+getNewServerListeningOn: aPortNumber
+	^ TusLibrosServerController listeningOn: aPortNumber withAPI: systemFacade.
+	! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:59:04'!
+validUsersAndPasswords
+	^Dictionary new
+		at: 'pepe' put: '1234';
+		yourself! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 19:59:49' prior: 50839303!
+initialize
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: OrderedCollection new
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:00:16' prior: 50839332!
+initialize
+	| salesBook |
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:00:47' prior: 50839348!
+initialize
+
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: 1
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 20:00:56'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: 'testObjectsFactory clock systemFacade salesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:00:54' prior: 50839365!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self merchantProcessor
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:01:04' prior: 50839390!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: testObjectsFactory defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:01:16'!
+debit: anAmount from: aCreditCard! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:02:18'!
+defaultCatalog
+
+	^ Dictionary new
+		at: 'harry popoter' put: 23445;
+		at: 'sarlanga' put: 1123;
+		yourself ! !
+!TusLibrosServerControllerXXX methodsFor: 'as yet unclassified' stamp: 'fz 11/21/2019 20:02:24' prior: 50839406!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: self defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'initialize' stamp: 'fz 11/21/2019 20:03:29' prior: 50839433!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: self defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: clock! !
+!TusLibrosServerControllerXXX methodsFor: 'initialize' stamp: 'fz 11/21/2019 20:03:40' prior: 50839448!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: self defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: Clock new.! !
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:05:22'!
+newServerListeningOn: aPortNumber
+	^ TusLibrosServerController listeningOn: aPortNumber withAPI: systemFacade.
+	! !
+
+!methodRemoval: TusLibrosServerControllerXXX #getNewServerListeningOn: stamp: 'fz 11/21/2019 20:05:22'!
+getNewServerListeningOn: aPortNumber
+	^ TusLibrosServerController listeningOn: aPortNumber withAPI: systemFacade.
+	!
+
+!classDefinition: #TusLibrosServerControllerXXX category: #'TusLibros-Server' stamp: 'fz 11/21/2019 20:05:31'!
+Object subclass: #TusLibrosServerControllerXXX
+	instanceVariableNames: 'testObjectsFactory clock systemFacade salesBook server'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Server'!
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:05:30' prior: 50839478!
+newServerListeningOn: aPortNumber
+	server := TusLibrosServerController listeningOn: aPortNumber withAPI: systemFacade.
+	! !
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:05:38' prior: 50839502!
+newServerListeningOn: aPortNumber
+	server := TusLibrosServerController listeningOn: aPortNumber withAPI: systemFacade.
+	
+	server startListening.
+	! !
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:06:00'!
+stopServer
+	server stopListening.
+	server destroy.
+	! !
+
+TusLibrosServerControllerXXX new.!
+
+self newServerListeningOn: 8080!
+
+self stopServer !
+!TusLibrosServerControllerXXX methodsFor: 'initialize' stamp: 'fz 11/21/2019 20:13:39' prior: 50839463!
+initialize
+	salesBook := OrderedCollection new.
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	clock := ManualClock now: testObjectsFactory today.
+	
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: self defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: clock.! !
+
+TusLibrosServerControllerXXX new!
+
+ a TusLibrosServerControllerXXX !
+
+TusLibrosServerControllerXXX new!
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:14:28' prior: 50839509!
+newServerListeningOn: aPortNumber
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	
+	server startListening.
+	! !
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:14:37'!
+startServer
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	
+	server startListening.
+	! !
+
+	TusLibrosServerControllerXXX new!
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:14:57' prior: 50839551!
+startServer
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	
+	server startListening.! !
+
+self startServer !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:15:34' prior: 50839070!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/substrings' action:[:request | |substringsAsJson sentence substrings |
+		
+		[sentence := (request fields at:'sentence').
+		substrings := tusLibrosAPI substrings: sentence.
+		substringsAsJson:= WebUtils jsonEncode: (substrings).
+		"request send200Response: (substringsAsJson)"
+		request send200Response: (substringsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+self stopServer !
+
+self startServer !
+!TusLibrosSystemFacade methodsFor: 'nil' stamp: 'fz 11/21/2019 20:26:27'!
+catalog
+	^catalog copy! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:27:23' prior: 50839568!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+self startServer !
+
+self stopServer !
+
+self startServer !
+
+self startServer !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:28:52' prior: 50839668!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: ('asd') ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+self stopServer.
+self startServer !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:29:31' prior: 50839759!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+!TusLibrosServerControllerXXX methodsFor: 'initialize' stamp: 'fz 11/21/2019 20:30:39'!
+restartAPI
+	systemFacade := TusLibrosSystemFacade
+		authenticatingWith: self validUsersAndPasswords
+		acceptingItemsOf: self defaultCatalog
+		registeringOn: salesBook
+		debitingThrought: self 
+		measuringTimeWith: clock.! !
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:31:08' prior: 50839560!
+startServer
+	self restartAPI.
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	
+	server startListening.! !
+
+self stopServer.
+self startServer !
+
+	TusLibrosServerControllerXXX new!
+!TusLibrosServerControllerXXX methodsFor: 'server' stamp: 'fz 11/21/2019 20:31:42' prior: 50839947!
+startServer
+	self restartAPI.
+	server := TusLibrosServerController listeningOn: 8080 withAPI: systemFacade.
+	
+	server startListening.! !
+
+self startServer!
+
+----SNAPSHOT----(21 November 2019 20:32:39) CuisUniversity-3938.image priorSource: 16237260!
+
+----SNAPSHOT----(21 November 2019 20:32:49) CuisUniversity-3938.image priorSource: 16266043!
+
+self startServer!
+
+self stopServer.
+self startServer!
+
+self stopServer.
+self startServer!
+
+----SNAPSHOT----(21 November 2019 20:34:07) CuisUniversity-3938.image priorSource: 16266137!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:34:52' prior: 50839848!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/firstLetter' action:[:request | |letterAsJson word letter |
+		
+		[word := (request fields at:'word').
+		letter := tusLibrosAPI firstLetter: word.
+		letterAsJson:= WebUtils jsonEncode: (letter asString).
+		"request send200Response: (letterAsJson)"
+		request send200Response: (letterAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/vowels' action:[:request | |vowelsAsJson word vowels |
+		
+		[word := (request fields at:'word').
+		vowels := tusLibrosAPI vowels: word.
+		vowelsAsJson:= WebUtils jsonEncode: (vowels).
+		"request send200Response: (vowelsAsJson)"
+		request send200Response: (vowelsAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/toUppercase' action:[:request | |upperCasedWordAsJson word upperCasedWord |
+		
+		[word := (request fields at:'word').
+		upperCasedWord := tusLibrosAPI toUppercase: word.
+		upperCasedWordAsJson:= WebUtils jsonEncode: (upperCasedWord).
+		"request send200Response: (upperCasedWordAsJson)"
+		request send200Response: (upperCasedWordAsJson asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+! !
+
+self stopServer.
+self startServer!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:41:43' prior: 50839977!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID').
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity').
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+
+self stopServer.
+self startServer!
+
+self stopServer.
+self startServer!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:45:25' prior: 50840067!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |cartID|
+		
+		[cartID := (request fields at:'cartID').
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID').
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity').
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+
+self stopServer.
+self startServer!
+
+self stopServer.
+self startServer!
+
+systemFacade !
+
+self listCartIdentifiedAs: 1!
+
+self listCartIdentifiedAs: 2!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:48:50' prior: 50840125!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |cartID|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID').
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity').
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+
+self stopServer.
+self startServer!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:50:00' prior: 50840198!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |cartID|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity') asNumber.
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+
+self stopServer.
+self startServer!
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:51:37' prior: 50840268!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |cartID|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity') asNumber.
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity') asNumber.
+		
+		tusLibrosAPI regressionTestFrom: quantity using: book stats: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+!TusLibrosServerController methodsFor: 'initialization' stamp: 'fz 11/21/2019 20:52:30' prior: 50840339!
+initializeWith: aPortNumber withAPI: aTusLibrosAPI 
+
+	tusLibrosAPI := aTusLibrosAPI.
+	port:= aPortNumber.
+	
+	webServer := WebServer new listenOn: aPortNumber.
+	
+	webServer addService: '/createCart' action:[:request | |user password cartID|
+		[user := (request fields at:'user').
+		password := (request fields at:'password').
+		
+		cartID := tusLibrosAPI createCartFor: user authenticatedWith: password.
+		
+		request send200Response: (cartID asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]
+		].
+	
+	webServer addService: '/catalog' action:[:request | |catalog|
+		
+		[catalog := tusLibrosAPI catalog.
+		request send200Response: (catalog asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/listCart' action:[:request | |cartID|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/addToCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity') asNumber.
+		
+		tusLibrosAPI add: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	
+	webServer addService: '/removeFromCart' action:[:request | |cartID book quantity|
+		
+		[cartID := (request fields at:'cartID') asNumber.
+		 book := (request fields at:'book').
+		quantity := (request fields at:'quantity') asNumber.
+		
+		tusLibrosAPI remove: quantity of: book toCartIdentifiedAs: cartID.	
+		
+		request send200Response: ((tusLibrosAPI listCartIdentifiedAs: cartID) asString asUtf8) 
+				 contentType: 'application/json; charset=utf-8' do: [:resp | 
+					resp headerAt: 'Access-Control-Allow-Origin' put: '*'.]
+		 ] 
+		on: Error 
+		do: [ :anError |
+			request send404Response: (anError messageText) ]].
+	! !
+
+----SNAPSHOT----(21 November 2019 20:53:01) CuisUniversity-3938.image priorSource: 16266322!
+!TusLibrosSystemFacadeTest methodsFor: 'tests - add to cart ' stamp: 'fz 11/21/2019 20:55:05'!
+test20CanRemoveItemsFromACreatedCartWithThatItem
+
+	| cartId |
+
+	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+
+	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
+	self assert: ((systemFacade listCartIdentifiedAs: cartId) occurrencesOf: self validBook) equals: 1
+		! !
+!TusLibrosSystemFacadeTest methodsFor: 'tests - remove from cart' stamp: 'fz 11/21/2019 20:57:12' prior: 50840520!
+test20CanRemoveItemsFromACreatedCartWithThatItem
+
+	| cartId |
+
+	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+
+	systemFacade add: 2 of: StoreTestObjectsFactory toCartIdentifiedAs: cartId.
+
+	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
+	self assert: ((systemFacade listCartIdentifiedAs: cartId) occurrencesOf: self validBook) equals: 1
+		! !
+!TusLibrosSystemFacadeTest methodsFor: 'tests - remove from cart' stamp: 'fz 11/21/2019 20:57:33' prior: 50840535!
+test20CanRemoveItemsFromACreatedCartWithThatItem
+
+	| cartId |
+
+	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
+
+	systemFacade add: 2 of: StoreTestObjectsFactory itemSellByTheStore toCartIdentifiedAs: cartId.
+
+	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
+	self assert: ((systemFacade listCartIdentifiedAs: cartId) occurrencesOf: self validBook) equals: 1
+		! !
+
+self stopServer.!
+
+----SNAPSHOT----(21 November 2019 21:00:57) CuisUniversity-3938.image priorSource: 16283683!
+
+----QUIT----(21 November 2019 21:01:01) CuisUniversity-3938.image priorSource: 16285378!
