@@ -15136,3 +15136,9 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(2 December 2019 18:11:19) CuisUniversity-3938.image priorSource: 16285472!
+!TusLibrosServerControllerBuilder commentStamp: '<historical>' prior: 0!
+Esta clase termino quedando porque "simula" la api para el server controller, en una situación real se le pasaría algo posta!
+
+----SNAPSHOT----(2 December 2019 18:13:11) CuisUniversity-3938.image priorSource: 16296180!
+
+----QUIT----(2 December 2019 18:19:55) CuisUniversity-3938.image priorSource: 16296477!
